@@ -1918,7 +1918,6 @@ subTypes: Database
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
 ---
 kind: CONTAINER
 platform: duckdb
@@ -1937,7 +1936,6 @@ subTypes: Schema
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_patient,PROD)"
 kind: DATASET
@@ -2026,7 +2024,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_patient_adresse,PROD)"
 kind: DATASET
@@ -2110,7 +2108,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_donnees_pmsi,PROD)"
 kind: DATASET
@@ -2198,7 +2196,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_diagnostics,PROD)"
 kind: DATASET
@@ -2271,7 +2269,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_actes,PROD)"
 kind: DATASET
@@ -2349,7 +2347,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_biologie,PROD)"
 kind: DATASET
@@ -2450,7 +2448,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "63073b282083f5bd1a437525b906d72c"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_dossier_soins,PROD)"
 kind: DATASET
@@ -2541,7 +2539,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_prescription,PROD)"
 kind: DATASET
@@ -2622,7 +2620,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_posologie,PROD)"
 kind: DATASET
@@ -2693,7 +2691,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_administration,PROD)"
 kind: DATASET
@@ -2779,7 +2777,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_style_vie,PROD)"
 kind: DATASET
@@ -2850,7 +2848,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 ---
 kind: CONTAINER
 platform: duckdb
@@ -2869,7 +2867,6 @@ subTypes: Schema
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_staging_stg_ehr__patient,PROD)"
 kind: DATASET
@@ -2942,7 +2939,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -3126,7 +3123,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -3307,7 +3304,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -3497,7 +3494,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -3656,7 +3653,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -3847,7 +3844,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "63073b282083f5bd1a437525b906d72c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -4061,7 +4058,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -4225,7 +4222,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -4403,7 +4400,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -4572,7 +4569,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -4718,7 +4715,6 @@ subTypes: Schema
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
 kind: DATASET
@@ -4834,7 +4830,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -5130,7 +5126,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -5349,7 +5345,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -5551,7 +5547,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -5757,7 +5753,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "63073b282083f5bd1a437525b906d72c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -5967,7 +5963,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "63073b282083f5bd1a437525b906d72c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -6147,7 +6143,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -6408,7 +6404,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -6559,7 +6555,6 @@ subTypes: Database
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:dbt,transform_layer_fhir_condition,PROD)"
 kind: DATASET
@@ -6651,7 +6646,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -6842,7 +6837,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -7031,7 +7026,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -7235,7 +7230,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -7457,7 +7452,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "63073b282083f5bd1a437525b906d72c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -7720,7 +7715,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "63073b282083f5bd1a437525b906d72c"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:dbt,transform_layer_fhir_patient,PROD)"
 kind: DATASET
@@ -7845,7 +7840,7 @@ externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.htm
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -8124,7 +8119,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -8282,7 +8277,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -8462,7 +8457,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -8676,7 +8671,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "63073b282083f5bd1a437525b906d72c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -8889,7 +8884,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -9057,7 +9052,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -9246,7 +9241,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "25fdababcd8169cae1dc99e7b638670c"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -9409,7 +9404,7 @@ externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.htm
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -9591,7 +9586,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -9756,7 +9751,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -9919,7 +9914,7 @@ subTypes:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: soin
+domains: "729e20fbb85377b8640209b041418e51"
 upstreamLineage:
   upstreams:
     - dataset:

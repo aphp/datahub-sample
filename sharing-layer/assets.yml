@@ -1011,6 +1011,7 @@ tags:
 - fhir:Patient
 - ndjson
 glossaryTerms: fhir:Patient
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
 name: sharing_layer_Encounter.ndjson
@@ -1274,6 +1275,7 @@ tags:
   - fhir:Encounter
   - ndjson
 glossaryTerms: fhir:Encounter
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 ---
 kind: DATASET
 name: sharing_layer_Condition.ndjson
@@ -1596,6 +1598,7 @@ tags:
   - fhir:Condition
   - ndjson
 glossaryTerms: fhir:Condition
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
 kind: DATASET
 name: sharing_layer_MedicationAdministration.ndjson
@@ -1880,6 +1883,7 @@ tags:
   - fhir:MedicationAdministration
   - ndjson
 glossaryTerms: fhir:MedicationAdministration
+domains: "729e20fbb85377b8640209b041418e51"
 ---
 kind: DATASET
 name: sharing_layer_MedicationRequest.ndjson
@@ -2147,6 +2151,7 @@ tags:
   - fhir:MedicationRequest
   - ndjson
 glossaryTerms: fhir:MedicationRequest
+domains: "729e20fbb85377b8640209b041418e51"
 ---
 kind: DATASET
 name: sharing_layer_Observation.ndjson
@@ -2540,6 +2545,7 @@ tags:
   - fhir:Observation
   - ndjson
 glossaryTerms: fhir:Observation
+domains: "63073b282083f5bd1a437525b906d72c"
 ---
 kind: DATASET
 name: sharing_layer_Procedure.ndjson
@@ -2725,9 +2731,8 @@ tags:
   - fhir:Procedure
   - ndjson
 glossaryTerms: fhir:Procedure
-
+domains: "25fdababcd8169cae1dc99e7b638670c"
 ---
-
 kind: CONTAINER
 platform: postgres
 instance: postgres
@@ -2739,7 +2744,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html
 subTypes: Database
 tags:
   - "omop"
-domains: eds
 ---
 kind: CONTAINER
 platform: postgres
@@ -2757,7 +2761,6 @@ name: public
 description: "TODO"
 tags:
   - "omop"
-domains: eds
 ---
 kind: DATASET
 name: omop_public_person
@@ -2846,7 +2849,7 @@ tags:
   - omop
   - omop:Person
 glossaryTerms: omop:Person
-domains: eds
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
 name: omop_public_visit_occurrence
@@ -2998,7 +3001,7 @@ tags:
   - omop
   - omop:VisitOccurrence
 glossaryTerms: omop:VisitOccurrence
-domains: eds
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 ---
 kind: DATASET
 name: omop_public_location
@@ -3073,7 +3076,7 @@ tags:
   - omop
   - omop:Location
 glossaryTerms: omop:Location
-domains: eds
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
 name: omop_public_death
@@ -3135,7 +3138,7 @@ tags:
   - omop
   - omop:Death
 glossaryTerms: omop:Death
-domains: eds
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
 name: omop_public_visit_detail
@@ -3306,7 +3309,7 @@ tags:
   - omop
   - omop:VisitDetail
 glossaryTerms: omop:VisitDetail
-domains: eds
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 ---
 kind: DATASET
 name: omop_public_condition_occurrence
@@ -3436,7 +3439,7 @@ tags:
   - omop
   - omop:ConditionOccurrence
 glossaryTerms: omop:ConditionOccurrence
-domains: eds
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
 kind: DATASET
 name: omop_public_drug_exposure
@@ -3601,7 +3604,7 @@ tags:
   - omop
   - omop:DrugExposure
 glossaryTerms: omop:DrugExposure
-domains: eds
+domains: "729e20fbb85377b8640209b041418e51"
 ---
 kind: DATASET
 name: omop_public_procedure_occurrence
@@ -3722,7 +3725,7 @@ tags:
   - omop
   - omop:ProcedureOccurrence
 glossaryTerms: omop:ProcedureOccurrence
-domains: eds
+domains: "25fdababcd8169cae1dc99e7b638670c"
 ---
 kind: DATASET
 name: omop_public_measurement
@@ -3895,7 +3898,7 @@ tags:
   - omop
   - omop:Measurement
 glossaryTerms: omop:Measurement
-domains: eds
+domains: "63073b282083f5bd1a437525b906d72c"
 ---
 kind: DATASET
 name: omop_public_death_cause
@@ -3975,7 +3978,7 @@ tags:
   - omop:Death
   - omop:local-extension
 glossaryTerms: omop:Death
-domains: eds
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
 name: omop_public_observation
@@ -4099,7 +4102,7 @@ tags:
   - omop
   - omop:Observation
 glossaryTerms: omop:Observation
-domains: eds
+domains: "63073b282083f5bd1a437525b906d72c"
 ---
 kind: DATA_FLOW
 orchestrator: pathling
