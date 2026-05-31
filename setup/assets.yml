@@ -1,0 +1,715 @@
+﻿kind: DATA_PLATFORM
+name: fhir
+displayName: HL7 FHIR
+type: OTHERS
+logoUrl: https://interop.aphp.fr/assets/ico/icon-fhir-57.png
+datasetNameDelimiter: "."
+---
+kind: DATA_PLATFORM
+name: pathling
+displayName: Pathling
+type: OTHERS
+logoUrl: https://interop.aphp.fr/assets/images/pathling-logo.png
+datasetNameDelimiter: "."
+---
+kind: DATA_PLATFORM
+name: duckdb
+displayName: DuckDB
+type: RELATIONAL_DB
+logoUrl: https://interop.aphp.fr/assets/images/duckdb-logo.png
+datasetNameDelimiter: "."
+---
+kind: TAG
+name: healthCategory:EHR
+description: Catégorie de données de santé (healthdcat:healthCategory)
+---
+kind: TAG
+name: healthCategory:claims
+description: Catégorie de données de santé (healthdcat:healthCategory)
+---
+kind: TAG
+name: healthCategory:genomics
+description: Catégorie de données de santé (healthdcat:healthCategory)
+---
+kind: TAG
+name: healthCategory:imaging
+description: Catégorie de données de santé (healthdcat:healthCategory)
+---
+kind: TAG
+name: healthCategory:registry
+description: Catégorie de données de santé (healthdcat:healthCategory)
+---
+kind: TAG
+name: healthCategory:survey
+description: Catégorie de données de santé (healthdcat:healthCategory)
+---
+kind: TAG
+name: "personalData:pseudonymized"
+description: Données personnelles (healthdcat:hasPersonalData)
+---
+kind: TAG
+name: "personalData:anonymized"
+description: Données personnelles (healthdcat:hasPersonalData)
+---
+kind: TAG
+name: "personalData:identified"
+description: Données personnelles (healthdcat:hasPersonalData)
+---
+kind: TAG
+name: "populationCoverage:general"
+description: "Couverture populationnelle générale (healthdcat:hasGeneralPopulationCoverage)"
+---
+kind: TAG
+name: "populationCoverage:targeted"
+description: "Couverture populationnelle générale (healthdcat:hasGeneralPopulationCoverage)"
+---
+kind: TAG
+name: "accessRights:PUBLIC"
+description: "Droits d'accès DCAT (dct:accessRights — EDP vocabulary)"
+---
+kind: TAG
+name: "accessRights:RESTRICTED"
+description: "Droits d'accès DCAT (dct:accessRights — EDP vocabulary)"
+---
+kind: TAG
+name: "accessRights:NON_PUBLIC"
+description: "Droits d'accès DCAT (dct:accessRights — EDP vocabulary)"
+---
+kind: TAG
+name: "aphp:access"
+description: "Périmètre projet Acces"
+---
+kind: TAG
+name: "aphp:overview"
+description: "?"
+---
+kind: GLOSSARY_NODE
+id: fhir:Resource
+name: HL7 FHIR Resource
+definition: "TODO"
+---
+kind: GLOSSARY_TERM
+id: fhir:Patient
+name: HL7 FHIR Patient
+definition: "TODO"
+parentNode: fhir:Resource
+---
+kind: GLOSSARY_TERM
+id: fhir:Encounter
+name: HL7 FHIR Encounter
+definition: "TODO"
+parentNode: fhir:Resource
+---
+kind: GLOSSARY_TERM
+id: fhir:Condition
+name: HL7 FHIR Condition
+definition: "TODO"
+parentNode: fhir:Resource
+---
+kind: GLOSSARY_TERM
+id: fhir:MedicationAdministration
+name: HL7 FHIR MedicationAdministration
+definition: "TODO"
+parentNode: fhir:Resource
+---
+kind: GLOSSARY_TERM
+id: fhir:MedicationRequest
+name: HL7 FHIR MedicationRequest
+definition: "TODO"
+parentNode: fhir:Resource
+---
+kind: GLOSSARY_TERM
+id: fhir:Observation
+name: HL7 FHIR Observation
+definition: "TODO"
+parentNode: fhir:Resource
+---
+kind: GLOSSARY_TERM
+id: fhir:Procedure
+name: HL7 FHIR Procedure
+definition: "TODO"
+parentNode: fhir:Resource
+---
+kind: GLOSSARY_NODE
+id: omop:Concept
+name: OMOP CDM Concept
+definition: "TODO"
+---
+kind: GLOSSARY_TERM
+id: omop:Person
+name: OMOP CDM Person
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:VisitOccurrence
+name: OMOP CDM VisitOccurrence
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:Location
+name: OMOP CDM Location
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:Death
+name: OMOP CDM Death
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:VisitDetail
+name: OMOP CDM VisitDetail
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:ConditionOccurrence
+name: OMOP CDM ConditionOccurrence
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:DrugExposure
+name: OMOP CDM DrugExposure
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:ProcedureOccurrence
+name: OMOP CDM ProcedureOccurrence
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:Measurement
+name: OMOP CDM Measurement
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_TERM
+id: omop:Observation
+name: OMOP CDM Observation
+definition: "TODO"
+parentNode: omop:Concept
+---
+kind: GLOSSARY_NODE
+id: aphp:healthcare
+name: Vocabulaire des métiers de la santé
+definition: "Vocabulaire des métiers de la santé"
+---
+kind: GLOSSARY_TERM
+id: aphp:biologie
+name: Biologie
+definition: "TODO"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: aphp:medico-administrative
+name: Données médico-administratives
+definition: "TODO"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: aphp:imagerie
+name: Imagerie
+definition: "TODO"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: aphp:document-medicaux
+name: Document médicaux
+definition: "TODO"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: aphp:maternite
+name: Maternité
+definition: "TODO"
+parentNode: aphp:healthcare
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.legalBasis"
+displayName: "Base légale (RGPD)"
+description: >
+  dpv:hasLegalBasis — base légale justifiant le traitement.
+  Valeurs issues du vocabulaire DPV EU-GDPR :
+  https://w3id.org/dpv/legal/eu/gdpr
+cardinality: MULTIPLE
+valueType: "string"
+allowedValues:
+  # Art. 6 — données ordinaires
+  - value: "eu-gdpr:A6-1-a"
+    description: "Art. 6(1)(a) — Consentement"
+  - value: "eu-gdpr:A6-1-b"
+    description: "Art. 6(1)(b) — Exécution d'un contrat"
+  - value: "eu-gdpr:A6-1-c"
+    description: "Art. 6(1)(c) — Obligation légale"
+  - value: "eu-gdpr:A6-1-d"
+    description: "Art. 6(1)(d) — Sauvegarde des intérêts vitaux"
+  - value: "eu-gdpr:A6-1-e"
+    description: "Art. 6(1)(e) — Mission d'intérêt public / autorité publique"
+  - value: "eu-gdpr:A6-1-f"
+    description: "Art. 6(1)(f) — Intérêts légitimes"
+  # Art. 9 — données de santé (catégories particulières)
+  - value: "eu-gdpr:A9-2-a"
+    description: "Art. 9(2)(a) — Consentement explicite"
+  - value: "eu-gdpr:A9-2-b"
+    description: "Art. 9(2)(b) — Droit du travail / protection sociale"
+  - value: "eu-gdpr:A9-2-c"
+    description: "Art. 9(2)(c) — Sauvegarde des intérêts vitaux"
+  - value: "eu-gdpr:A9-2-h"
+    description: "Art. 9(2)(h) — Médecine préventive / soins de santé"
+  - value: "eu-gdpr:A9-2-i"
+    description: "Art. 9(2)(i) — Intérêt public en santé publique"
+  - value: "eu-gdpr:A9-2-j"
+    description: "Art. 9(2)(j) — Recherche scientifique / statistiques"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.dataController"
+displayName: "Responsable de traitement"
+description: "healthdcat:dataController — URI ou nom de l'entité (ex: AP-HP)"
+cardinality: MULTIPLE
+valueType: "string"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.dataProcessor"
+displayName: "Sous-traitant"
+description: "healthdcat:dataProcessor"
+cardinality: MULTIPLE
+valueType: "string"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.numberOfRecords"
+displayName: "Nombre d'enregistrements"
+description: "healthdcat:numberOfRecords"
+cardinality: SINGLE
+valueType: "number"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.numberOfUniqueIndividuals"
+displayName: "Nombre d'individus uniques"
+description: "healthdcat:numberOfUniqueIndividuals"
+cardinality: SINGLE
+valueType: "number"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.minTypicalAge"
+displayName: "Âge minimal typique (années)"
+description: "healthdcat:minTypicalAge"
+cardinality: SINGLE
+valueType: "number"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.maxTypicalAge"
+displayName: "Âge maximal typique (années)"
+description: "healthdcat:maxTypicalAge"
+cardinality: SINGLE
+valueType: "number"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.retentionPeriod"
+displayName: "Durée de conservation"
+description: >
+  healthdcat:retentionPeriod — durée ISO 8601 (ex: P10Y) ou description
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.temporalCoverageStart"
+displayName: "Début de couverture temporelle"
+description: "dct:temporal / schema:startDate"
+cardinality: SINGLE
+valueType: "date"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.temporalCoverageEnd"
+displayName: "Fin de couverture temporelle"
+description: "dct:temporal / schema:endDate"
+cardinality: SINGLE
+valueType: "date"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.spatialCoverage"
+displayName: "Couverture géographique"
+description: "dct:spatial — URI GeoNames ou label (ex: FR-75)"
+cardinality: MULTIPLE
+valueType: "string"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.referenceSpecification"
+displayName: "Standard de référence"
+description: >
+  healthdcat:referenceSpecification — standard du modèle de données.
+cardinality: MULTIPLE
+valueType: "string"
+allowedValues:
+  - value: "HL7-FHIR-R4"
+  - value: "OMOP-CDM-5.4"
+  - value: "HL7v2"
+  - value: "OSIRIS"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.coding"
+displayName: "Systèmes de codage utilisés"
+description: >
+  healthdcat:coding — terminologies utilisées dans le dataset.
+cardinality: MULTIPLE
+valueType: "string"
+allowedValues:
+  - value: "SNOMED-CT"
+  - value: "LOINC"
+  - value: "ICD-10"
+  - value: "ICD-11"
+  - value: "ATC"
+  - value: "CIP13"
+  - value: "UCD"
+  - value: "CCAM"
+  - value: "NFS"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.license"
+displayName: "Licence"
+description: "dct:license — URI de la licence (ex: https://creativecommons.org/licenses/by/4.0/)"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.publishingFrequency"
+displayName: "Fréquence de mise à jour"
+description: "dcat:accrualPeriodicity — valeurs EU Publications Office"
+cardinality: SINGLE
+valueType: "string"
+allowedValues:
+  - value: "DAILY"
+  - value: "WEEKLY"
+  - value: "MONTHLY"
+  - value: "QUARTERLY"
+  - value: "ANNUAL"
+  - value: "IRREGULAR"
+  - value: "NEVER"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.followUp"
+displayName: "Durée de suivi longitudinal"
+description: "healthdcat:followUp — durée ISO 8601 ou description du suivi"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.availability"
+displayName: "Disponibilité des données"
+description: "Indique l'état de disponibilité des données de l'EDS"
+valueType: "string"
+cardinality: MULTIPLE
+allowedValues:
+  - value: "Disponibles"
+  - value: "Non disponibles"
+  - value: "Partiellement disponibles"
+  - value: "À venir"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  showAsAssetBadge: false
+  isHidden: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.availability-by-usage"
+displayName: "Disponibilité par usage"
+description: "Permet de sélectionner la disponibilité par usage"
+valueType: "string"
+cardinality: MULTIPLE
+allowedValues:
+  - value: "cohort360"
+    description: "L'usage Cohort360"
+  - value: "pilote"
+    description: "L'usage Pilote"
+  - value: "datalab"
+    description: "L'usage Datalab"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  showAsAssetBadge: false
+  isHidden: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.availability-panorama-filter"
+displayName: "Disponibilités"
+description: "Filtre des disponibilités"
+valueType: "string"
+cardinality: MULTIPLE
+allowedValues:
+  - value: "Disponibles"
+  - value: "Non disponibles"
+  - value: "Partiellement disponibles"
+  - value: "À venir"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  showAsAssetBadge: false
+  isHidden: false
+entityTypes: [glossaryNode]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.data-format"
+displayName: "Format des données"
+description: "Indique les formats des ensembles de données dans Panorama EDS"
+valueType: "string"
+cardinality: MULTIPLE
+allowedValues:
+  - value: "Données structurées"
+  - value: "Données textuelles et données structurées"
+  - value: "Données d'imagerie et données structurées"
+  - value: "Textes et données structurées"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  showAsAssetBadge: false
+  isHidden: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.data-source"
+displayName: "Source des données"
+description: "Indique les sources des ensembles de données dans Panorama EDS"
+valueType: "string"
+cardinality: "MULTIPLE"
+allowedValues:
+  - value: "ORBIS®"
+  - value: "AREM"
+  - value: "PACS"
+  - value: "PHEDRA"
+  - value: "GLIMS"
+  - value: "INSEE"
+  - value: "Hub d'intégration"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  isHidden: false
+  showAsAssetBadge: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.description"
+displayName: "Description"
+valueType: "string"
+cardinality: "SINGLE"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  isHidden: false
+  showAsAssetBadge: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.note-cohort360"
+displayName: "Note - Cohort360"
+valueType: "rich_text"
+cardinality: "SINGLE"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  showAsAssetBadge: false
+  isHidden: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.note-pilote"
+displayName: "Note - Pilote"
+valueType: "rich_text"
+cardinality: "SINGLE"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  isHidden: false
+  showAsAssetBadge: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.note-datalab"
+displayName: "Note - Datalab"
+valueType: "rich_text"
+cardinality: "SINGLE"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  isHidden: false
+  showAsAssetBadge: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.dataProduct"
+displayName: "Data Product Associé"
+description: ""
+valueType: "urn"
+cardinality: "SINGLE"
+typeQualifier:
+  - "urn:li:entityType:datahub.dataProduct"
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  isHidden: false
+  showAsAssetBadge: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.database"
+displayName: "database"
+description: "database"
+valueType: "string"
+cardinality: "SINGLE"
+settings:
+  showInAssetSummary: false
+  showInSearchFilters: false
+  showInColumnsTable: false
+  isHidden: false
+  showAsAssetBadge: false
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.habilitation"
+displayName: "Habilitation d'accès"
+description: "Habilitation d'un élément du Dashboard"
+
+valueType: "string"
+cardinality: SINGLE
+
+entityTypes: [dataProduct]
+
+allowedValues:
+  - value: "Ensemble des utilisateurs"
+  - value: "Restreint aux équipes de soin"
+
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  showAsAssetBadge: false
+  isHidden: false
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.level"
+displayName: "Niveau de détail"
+description: "Niveau de détail le plus fin disponible dans le tableau de bord Pilote"
+
+valueType: "string"
+cardinality: SINGLE
+
+entityTypes: [dataProduct]
+
+allowedValues:
+  - value: "Hôpital"
+  - value: "Service"
+  - value: "GH"
+  - value: "UF"
+  - value: "AP-HP"
+  - value: "Laboratoire"
+  - value: "Salle"
+
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  showAsAssetBadge: false
+  isHidden: false
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.panorama.link_pilote"
+displayName: "Lien vers Wiki Pilote"
+
+valueType: "string"
+cardinality: SINGLE
+
+entityTypes: [dataProduct]
+
+settings:
+  showInAssetSummary: true
+  showInSearchFilters: false
+  showInColumnsTable: false
+  showAsAssetBadge: false
+  isHidden: false
+---
+kind: DOMAIN
+id: "3667192a0a19c51419efe99aa865c1ba"
+name: "Identité patient"
+description: "INS, patient, identité, rapprochement"
+---
+kind: DOMAIN
+id: "9306fe49bb1f70f491a712ff19b8d972"
+name: "Parcours patient"
+description: "séjours, mouvements, venues"
+---
+kind: DOMAIN
+id: "25fdababcd8169cae1dc99e7b638670c"
+name: Activité de soins
+description: "actes, prescriptions, observations"
+---
+kind: DOMAIN
+id: "37a2b9df65252b1c399ee52bd97149f2"
+name: "Imagerie"
+description: "examens, comptes rendus, DICOM"
+---
+kind: DOMAIN
+id: "63073b282083f5bd1a437525b906d72c"
+name: Biologie
+description: analyses, résultats
+---
+kind: DOMAIN
+id: "729e20fbb85377b8640209b041418e51"
+name: "Médicament"
+description: prescriptions, administrations
+---
+kind: DOMAIN
+id: "e70708ca5e4c2ccac36075fcf280ecdf"
+name: Ressources humaines
+description: professionnels, affectations
+---
+kind: DOMAIN
+id: "d3376216b28d970eea0eb4b1c53cf351"
+name: Facturation / PMSI
+description: codage, GHM, recettes
+---
+kind: DOMAIN
+id: "5c76e0e1dc5c8de5d70b47a66de9e675"
+name: Recherche clinique
+description: cohortes, consentements
+---
+kind: DOMAIN
+id: "c8eda4574cd1f980d8a5d1a2e72148b4"
+name: "Interopérabilité"
+description: flux HL7, FHIR, mappings
+---
+kind: DOMAIN
+id: "2f1be2995c249c1e6db9a15c7692e8b7"
+name: eds
+description: Domaine régit par le référentiel EDS

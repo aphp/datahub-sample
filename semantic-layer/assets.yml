@@ -1,0 +1,1775 @@
+#urn: urn:li:container:64c0641373acf6981d18db550d91b40a
+kind: CONTAINER
+platform: postgres
+database: semantic_layer
+env: PROD
+name: Semantic layer
+#description: C'est la Base de prod FHIR (AP-HP)
+subTypes: Database
+tags:
+  - fhir
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: urn:li:container:203b83fdf3c56c8b33cf7275fbce94f1
+kind: CONTAINER
+platform: postgres
+database: semantic_layer
+schema: public
+env: PROD
+name: public
+#description: C'est le schema public (FHIR)
+parentContainer:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  env: PROD
+subTypes: Schema
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+
+---
+
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer.public.fhir_patient,PROD)"
+kind: DATASET
+name: semantic_layer_public_fhir_patient
+platform: postgres
+env: PROD
+description: "Ressource FHIR Patient (profil DMPatient) — Profil Patient du socle commun des EDS. Données démographiques et administratives sur un individu recevant des soins, incluant les identifiants INS-NIR et NSS, la géolocalisation d'adresse et les extensions françaises (source du décès, code géographique PMSI)."
+container:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      description: Identifiant unique de la ressource FHIR Patient (clé primaire)
+      nativeDataType: VARCHAR(64)
+      partOfKey: true
+    - fieldPath: last_updated
+      type: date
+      description: Date et heure de dernière mise à jour de la ressource
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: active
+      type: boolean
+      description: Indique si le dossier patient est en cours d'utilisation active
+      nativeDataType: BOOLEAN
+      partOfKey: false
+    - fieldPath: identifiers
+      type: record
+      description: Tableau d'objets Identifier — identifiants métier du patient (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: nss_identifier
+      type: string
+      description: NSS — Numéro de Sécurité Sociale (13 à 15 chiffres, format ^[0-9]{13,15}$)
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: ins_nir_identifier
+      type: string
+      description: INS-NIR — Identifiant national de santé obtenu depuis le téléservice INSi (15 chiffres, format ^[0-9]{15}$)
+      nativeDataType: VARCHAR(15)
+      partOfKey: false
+    - fieldPath: names
+      type: record
+      description: Noms associés au patient — tableau d'objets HumanName FHIR (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: full_names
+      type: string
+      description: Représentation structurée du nom du patient, sérialisée en texte
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: gender
+      type: string
+      description: Sexe administratif — male | female | other | unknown
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: birth_date
+      type: date
+      description: Date de naissance de l'individu (>= 1900-01-01)
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: deceased_x
+      type: record
+      description: Indique si l'individu est décédé (booléen ou dateTime) — FHIR deceased[x]
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: deceased_date_time
+      type: date
+      description: Date et heure du décès (>= birth_date)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: deceased_extension_death_source
+      type: string
+      description: Source de l'information de décès — insee | cepidc | sih
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: marital_status
+      type: string
+      description: Statut marital (civil) du patient — PACS | A | D | I | L | M | C | P | T | U | S | W | UNK
+      nativeDataType: VARCHAR(4)
+      partOfKey: false
+    - fieldPath: address
+      type: record
+      description: Adresses physiques de l'individu (domicile, travail, temporaire, etc.) — FHIR Address (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: address_extension_geolocation_latitude
+      type: number
+      description: Latitude pour la géolocalisation de l'adresse du patient (entre -90 et 90)
+      nativeDataType: FLOAT
+      partOfKey: false
+    - fieldPath: address_extension_geolocation_longitude
+      type: number
+      description: Longitude pour la géolocalisation de l'adresse du patient (entre -180 et 180)
+      nativeDataType: FLOAT
+      partOfKey: false
+    - fieldPath: address_extension_census_tract
+      type: string
+      description: Code et libellé IRIS de la zone de recensement (extension ISO 21090 ADXP census tract)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: address_period_start
+      type: date
+      description: Date de début de validité de l'adresse pour le suivi de collecte de données
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: address_extension_pmsi_code_geo
+      type: record
+      description: Extension code géographique PMSI pour la localisation de l'établissement de santé français
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: address_extension_pmsi_code_geo_code
+      type: string
+      description: Valeur du code géographique PMSI à des fins administratives (2 à 5 chiffres, format ^[0-9]{2,5}$)
+      nativeDataType: VARCHAR(5)
+      partOfKey: false
+    - fieldPath: telecoms
+      type: record
+      description: Coordonnées de l'individu (téléphone, email, fax, etc.) — FHIR telecom ContactPoint (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: contacts
+      type: record
+      description: Contacts d'urgence et tuteurs du patient — FHIR contact BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: communications
+      type: record
+      description: Langues dans lesquelles le patient peut communiquer — FHIR communication BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: preferred_communication_languages
+      type: string
+      description: Langues de communication préférées (liste sérialisée)
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: multiple_birth_x
+      type: record
+      description: Indique si le patient fait partie d'une naissance multiple (booléen ou entier) — FHIR multipleBirth[x]
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: multiple_birth_integer
+      type: number
+      description: Rang gémellaire pour les naissances multiples (1 à 10)
+      nativeDataType: INTEGER
+      partOfKey: false
+    - fieldPath: general_practitioners
+      type: record
+      description: Médecin(s) traitant(s) désignés par le patient — FHIR generalPractitioner Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: managing_organization
+      type: record
+      description: Organisation responsable du dossier patient — FHIR managingOrganization Reference (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: links
+      type: record
+      description: Lien vers une autre ressource Patient concernant la même personne réelle — utilisé pour la déduplication d'identité
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: meta
+      type: record
+      description: Métadonnées de la ressource FHIR (version, lastUpdated, profil, labels de sécurité) — FHIR Meta
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: implicit_rules
+      type: string
+      description: Ensemble de règles sous lesquelles ce contenu a été créé — FHIR implicitRules (0..1)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: resource_language
+      type: string
+      description: Langue du contenu de la ressource — FHIR language (0..1)
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: text_div
+      type: string
+      description: Résumé textuel de la ressource pour l'interprétation humaine — FHIR Narrative text
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: contained
+      type: record
+      description: Ressources intégrées sans identité indépendante — FHIR contained (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: extensions
+      type: record
+      description: Contenu supplémentaire défini par les implémentations — FHIR extension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: modifier_extensions
+      type: record
+      description: Extensions qui ne peuvent pas être ignorées — FHIR modifierExtension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir.resource_type: "Patient"
+  fhir.version: "4.0.1"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir
+  - fhir:Patient
+glossaryTerms:
+  - fhir:Patient
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer.public.fhir_encounter,PROD)"
+kind: DATASET
+name: semantic_layer_public_fhir_encounter
+platform: postgres
+env: PROD
+description: "Ressource FHIR Encounter (profil DMEncounter) — Interaction entre un patient et des prestataires de soins de santé. Couvre les séjours hospitaliers (MCO, SSR, PSY), les consultations et les passages aux urgences, avec codage de la source d'admission et du mode de sortie PMSI."
+container:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      description: Identifiant unique de la ressource FHIR Encounter (clé primaire)
+      nativeDataType: VARCHAR(64)
+      partOfKey: true
+    - fieldPath: last_updated
+      type: date
+      description: Date et heure de dernière mise à jour de la ressource
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: status
+      type: string
+      description: État courant de l'encounter — planned | arrived | triaged | in-progress | onleave | finished | cancelled | entered-in-error | unknown (élément modificateur)
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: status_history
+      type: record
+      description: Historique des statuts de l'encounter dans le temps — FHIR statusHistory (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: class
+      type: record
+      description: Classification de la rencontre patient (hospitalisation, ambulatoire, urgences) — FHIR class Coding (1..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: class_display
+      type: string
+      description: Libellé textuel de la classe d'encounter pour faciliter les requêtes
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: class_history
+      type: record
+      description: Historique des classes de l'encounter dans le temps — FHIR classHistory (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: types
+      type: record
+      description: Type spécifique de l'encounter (consultation, chirurgie ambulatoire, etc.) — FHIR type CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: service_type
+      type: record
+      description: Catégorie générale du service fourni — FHIR serviceType CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: priority
+      type: record
+      description: Urgence de l'encounter — FHIR priority CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: identifiers
+      type: record
+      description: Identifiants métier de cet encounter — FHIR identifier (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: subject
+      type: record
+      description: Patient présent à l'encounter — FHIR subject Reference(Patient|Group) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: subject_patient_id
+      type: string
+      description: Référence obligatoire vers fhir_patient — règle métier imposée (NOT NULL, FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: episodes_of_care
+      type: record
+      description: Épisode(s) de soins auquel cet encounter est rattaché — FHIR episodeOfCare Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: based_on_s
+      type: record
+      description: Rendez-vous ou demande de service à l'origine de cet encounter — FHIR basedOn Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: participants
+      type: record
+      description: Liste des personnes impliquées dans l'encounter — FHIR participant BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: appointments
+      type: record
+      description: Rendez-vous ayant planifié cet encounter — FHIR appointment Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: period_start
+      type: date
+      description: Date et heure de début de l'encounter — FHIR period.start
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: period_end
+      type: date
+      description: Date et heure de fin de l'encounter — FHIR period.end (>= period_start)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: length
+      type: record
+      description: Durée de l'encounter (hors congés) — FHIR length Duration
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: length_number_of_day
+      type: number
+      description: Durée du séjour en nombre de jours pour les rapports (>= 0)
+      nativeDataType: INTEGER
+      partOfKey: false
+    - fieldPath: reason_codes
+      type: record
+      description: Motif codé de l'encounter — FHIR reasonCode CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reason_references
+      type: record
+      description: Motif de l'encounter (référence vers d'autres ressources) — FHIR reasonReference Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: diagnoses
+      type: record
+      description: Liste des diagnostics pertinents pour l'encounter — FHIR diagnosis BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: account
+      type: record
+      description: Compte(s) associé(s) à l'encounter — FHIR account Reference(Account) (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: hospitalization
+      type: record
+      description: Détails de l'hospitalisation — FHIR hospitalization BackboneElement (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: admit_source_text
+      type: string
+      description: "Mode d'entrée PMSI — Mutation | Transfert définitif | Transfert provisoire | Domicile | Naissance | Patient entré décédé pour prélèvement d'organes"
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: discharge_disposition_text
+      type: string
+      description: "Mode de sortie PMSI — Mutation | Transfert définitif | Transfert provisoire | Domicile | Décès"
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: locations
+      type: record
+      description: Liste des lieux où le patient se trouvait pendant l'encounter — FHIR location BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: service_provider
+      type: record
+      description: Organisation prestataire de services — FHIR serviceProvider Reference(Organization) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: service_provider_organization_display
+      type: string
+      description: Libellé textuel de l'organisation prestataire pour faciliter les requêtes
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: part_of
+      type: record
+      description: Encounter parent dont celui-ci fait partie — FHIR partOf Reference(Encounter) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: meta
+      type: record
+      description: Métadonnées de la ressource FHIR — FHIR Meta
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: implicit_rules
+      type: string
+      description: Ensemble de règles sous lesquelles ce contenu a été créé — FHIR implicitRules (0..1)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: resource_language
+      type: string
+      description: Langue du contenu de la ressource — FHIR language (0..1)
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: text_div
+      type: string
+      description: Résumé textuel de la ressource pour l'interprétation humaine — FHIR Narrative text
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: contained
+      type: record
+      description: Ressources intégrées sans identité indépendante — FHIR contained (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: extensions
+      type: record
+      description: Contenu supplémentaire défini par les implémentations — FHIR extension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: modifier_extensions
+      type: record
+      description: Extensions qui ne peuvent pas être ignorées — FHIR modifierExtension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir.resource_type: "Encounter"
+  fhir.version: 4.0.1
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir
+  - fhir:Encounter
+glossaryTerms:
+  - fhir:Encounter
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,fhir_condition,PROD)"
+kind: DATASET
+name: semantic_layer_public_fhir_condition
+platform: postgres
+env: PROD
+description: "Ressource FHIR Condition (profil DMCondition) — Condition clinique, problème, diagnostic ou autre concept clinique préoccupant. Utilisé pour les diagnostics PMSI codés en CIM-10, les diagnostics principaux (DP), reliés (DR) et associés (DAS)."
+container:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      description: Identifiant unique de la ressource FHIR Condition (clé primaire)
+      nativeDataType: VARCHAR(64)
+      partOfKey: true
+    - fieldPath: last_updated
+      type: date
+      description: Date et heure de dernière mise à jour de la ressource
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: clinical_status
+      type: record
+      description: Statut clinique de la condition — active | recurrence | relapse | inactive | remission | resolved (élément modificateur)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: clinical_status_text
+      type: string
+      description: Libellé textuel du statut clinique pour faciliter les requêtes
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: verification_status
+      type: record
+      description: Statut de vérification — unconfirmed | provisional | differential | confirmed | refuted | entered-in-error (élément modificateur)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: verification_status_text
+      type: string
+      description: Libellé textuel du statut de vérification
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: categories
+      type: record
+      description: Catégorie assignée à la condition (problem-list-item, encounter-diagnosis) — FHIR category CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: categories_text
+      type: string
+      description: Libellé textuel des catégories, notamment dans le contexte du codage PMSI
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: severity
+      type: record
+      description: Évaluation subjective de la sévérité (mild, moderate, severe) — FHIR severity CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: code
+      type: record
+      description: Identification de la condition, du problème ou du diagnostic en CIM-10 — FHIR code CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: code_text
+      type: string
+      description: Libellé textuel du code de condition (CIM-10)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: body_sites
+      type: record
+      description: Localisation anatomique où la condition se manifeste — FHIR bodySite CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: identifiers
+      type: record
+      description: Identifiants métier de cette condition — FHIR identifier (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: subject
+      type: record
+      description: Patient ou groupe concerné par la condition — FHIR subject Reference(Patient|Group) (1..1) NOT NULL
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: subject_patient_id
+      type: string
+      description: Référence obligatoire vers fhir_patient (NOT NULL, FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: encounter
+      type: record
+      description: Encounter lors duquel la condition a été identifiée — FHIR encounter Reference(Encounter) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: encounter_id
+      type: string
+      description: Référence vers fhir_encounter où la condition a été identifiée (FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: onset_x
+      type: record
+      description: Date, période ou âge estimé(e) ou réel(le) de début de la condition — FHIR onset[x] (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: abatement_x
+      type: record
+      description: Date estimée ou réelle de résolution ou rémission de la condition — FHIR abatement[x] (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: recorded_date
+      type: date
+      description: Date de premier enregistrement de la condition dans le système (<= date courante)
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: recorder
+      type: record
+      description: Personne ayant enregistré la condition — FHIR recorder Reference (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: asserter
+      type: record
+      description: Personne ayant formulé la condition — FHIR asserter Reference (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: stages
+      type: record
+      description: Stade/grade de la condition — FHIR stage BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: evidences
+      type: record
+      description: Preuves à l'appui de la condition — FHIR evidence BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: notes
+      type: record
+      description: Informations complémentaires sur la condition — FHIR note Annotation (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: meta
+      type: record
+      description: Métadonnées de la ressource FHIR — FHIR Meta
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: implicit_rules
+      type: string
+      description: Ensemble de règles sous lesquelles ce contenu a été créé — FHIR implicitRules (0..1)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: resource_language
+      type: string
+      description: Langue du contenu de la ressource — FHIR language (0..1)
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: text_div
+      type: string
+      description: Résumé textuel de la ressource pour l'interprétation humaine — FHIR Narrative text
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: contained
+      type: record
+      description: Ressources intégrées sans identité indépendante — FHIR contained (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: extensions
+      type: record
+      description: Contenu supplémentaire défini par les implémentations — FHIR extension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: modifier_extensions
+      type: record
+      description: Extensions qui ne peuvent pas être ignorées — FHIR modifierExtension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir.resource_type: "Condition"
+  fhir.version: "4.0.1"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir
+  - fhir:Condition
+glossaryTerms:
+  - fhir:Condition
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer.public.fhir_procedure,PROD)
+kind: DATASET
+name: semantic_layer_public_fhir_procedure
+platform: postgres
+env: PROD
+description: "Ressource FHIR Procedure (profil DMProcedure) — Action réalisée ou en cours de réalisation sur un patient. Couvre les actes médicaux, chirurgicaux et paramédicaux codés en CCAM, avec date de réalisation issue des données PMSI."
+container:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      description: Identifiant unique de la ressource FHIR Procedure (clé primaire)
+      nativeDataType: VARCHAR(64)
+      partOfKey: true
+    - fieldPath: last_updated
+      type: date
+      description: Date et heure de dernière mise à jour de la ressource
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: instantiates_canonical_s
+      type: record
+      description: Protocole ou définition FHIR instancié(e) par cette procédure (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: instantiates_uri_s
+      type: record
+      description: URI du protocole externe instancié par cette procédure (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: status
+      type: string
+      description: État de la procédure — preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: status_reason
+      type: record
+      description: Raison de l'état courant — FHIR statusReason CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: category
+      type: record
+      description: Catégorie de la procédure — FHIR category CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: code
+      type: record
+      description: Procédure spécifique réalisée — FHIR code CodeableConcept (codage CCAM ou autre classification standard)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: code_text
+      type: string
+      description: Libellé textuel du code acte (CCAM)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: identifiers
+      type: record
+      description: Identifiants métier de cette procédure — FHIR identifier (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: based_on_s
+      type: record
+      description: Plan de soins ou demande de service à l'origine de cette procédure — FHIR basedOn Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: part_of_s
+      type: record
+      description: Procédure, observation ou administration de médicament dont celle-ci fait partie — FHIR partOf Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: subject
+      type: record
+      description: Patient sur lequel la procédure a été réalisée — FHIR subject Reference(Patient) (1..1) NOT NULL
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: subject_patient_id
+      type: string
+      description: Référence obligatoire vers fhir_patient (NOT NULL, FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: encounter
+      type: record
+      description: Encounter lors duquel la procédure a été réalisée — FHIR encounter Reference(Encounter) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: encounter_id
+      type: string
+      description: Référence vers fhir_encounter lors duquel la procédure a été réalisée (FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: performed_x
+      type: record
+      description: Date, période ou âge de réalisation de la procédure — FHIR performed[x] (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: performed_date_time
+      type: date
+      description: Date de réalisation de l'acte, issue des données PMSI (plus précise que la date de recueil)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: recorder
+      type: record
+      description: Personne ayant enregistré la procédure — FHIR recorder Reference (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: asserter
+      type: record
+      description: Personne ayant affirmé la procédure — FHIR asserter Reference (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: performers
+      type: record
+      description: Personne(s) ayant réalisé la procédure — FHIR performer BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: performer_actor_practitioner_text
+      type: string
+      description: Libellé textuel du praticien réalisateur pour faciliter les requêtes
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: location
+      type: record
+      description: Lieu où la procédure a été réalisée — FHIR location Reference(Location) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reason_codes
+      type: record
+      description: Raison codée pour laquelle la procédure a été réalisée — FHIR reasonCode CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reason_references
+      type: record
+      description: Justification de la procédure (référence vers d'autres ressources) — FHIR reasonReference Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: body_sites
+      type: record
+      description: Site anatomique sur lequel la procédure a été réalisée — FHIR bodySite CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: outcome
+      type: record
+      description: Résultat de la procédure — FHIR outcome CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reports
+      type: record
+      description: Rapports formels de la procédure — FHIR report Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: complications
+      type: record
+      description: Complications survenues lors de la procédure — FHIR complication CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: complication_details
+      type: record
+      description: Détails des complications (référence vers Condition) — FHIR complicationDetail Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: follow_up_s
+      type: record
+      description: Instructions de suivi post-procédure — FHIR followUp CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: notes
+      type: record
+      description: Informations complémentaires sur la procédure — FHIR note Annotation (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: focal_devices
+      type: record
+      description: Dispositifs médicaux implantés ou manipulés lors de la procédure — FHIR focalDevice BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: used_references
+      type: record
+      description: Dispositifs, médicaments ou substances utilisés lors de la procédure — FHIR usedReference Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: used_codes
+      type: record
+      description: Codes des items utilisés lors de la procédure — FHIR usedCode CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: meta
+      type: record
+      description: Métadonnées de la ressource FHIR — FHIR Meta
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: implicit_rules
+      type: string
+      description: Ensemble de règles sous lesquelles ce contenu a été créé — FHIR implicitRules (0..1)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: resource_language
+      type: string
+      description: Langue du contenu de la ressource — FHIR language (0..1)
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: text_div
+      type: string
+      description: Résumé textuel de la ressource pour l'interprétation humaine — FHIR Narrative text
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: contained
+      type: record
+      description: Ressources intégrées sans identité indépendante — FHIR contained (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: extensions
+      type: record
+      description: Contenu supplémentaire défini par les implémentations — FHIR extension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: modifier_extensions
+      type: record
+      description: Extensions qui ne peuvent pas être ignorées — FHIR modifierExtension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir.resource_type: "Procedure"
+  fhir.version: "4.0.1"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir
+  - fhir:Procedure
+glossaryTerms:
+  - fhir:Procedure
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer.public.fhir_observation,PROD)"
+kind: DATASET
+name: semantic_layer_public_fhir_observation
+platform: postgres
+env: PROD
+description: "Ressource FHIR Observation — Mesures et assertions simples réalisées sur un patient. Table générique pour l'ensemble des profils DM d'observation : résultats de biologie (LOINC), constantes vitales (poids, taille, pression artérielle) et observations de mode de vie (tabac, alcool)."
+container:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      description: Identifiant unique de la ressource FHIR Observation (clé primaire)
+      nativeDataType: VARCHAR(64)
+      partOfKey: true
+    - fieldPath: last_updated
+      type: date
+      description: Date et heure de dernière mise à jour de la ressource
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: status
+      type: string
+      description: Statut de la valeur résultat — registered | preliminary | final | amended | corrected | cancelled | entered-in-error | unknown (élément modificateur)
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: categories
+      type: record
+      description: Classification du type d'observation (laboratory, vital-signs, imaging, etc.) — FHIR category CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: categories_text
+      type: string
+      description: Libellé textuel des catégories d'observation
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: code
+      type: record
+      description: Ce qui a été observé, codé en LOINC — FHIR code CodeableConcept (1..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: code_text
+      type: string
+      description: Libellé textuel du code d'observation (nom de l'examen ou de la mesure)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: identifiers
+      type: record
+      description: Identifiants métier de cette observation — FHIR identifier (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: based_on_s
+      type: record
+      description: Prescription ou demande à l'origine de cette observation — FHIR basedOn Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: part_of_s
+      type: record
+      description: Acte ou examen dont cette observation fait partie — FHIR partOf Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: subject
+      type: record
+      description: Patient, dispositif ou autre sujet de l'observation — FHIR subject Reference (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: subject_patient_id
+      type: string
+      description: Référence vers fhir_patient (FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: encounter
+      type: record
+      description: Encounter lors duquel cette observation a été réalisée — FHIR encounter Reference(Encounter) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: encounter_id
+      type: string
+      description: Référence vers fhir_encounter lors duquel l'observation a été réalisée (FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: focus_s
+      type: record
+      description: Focus de l'observation quand le sujet n'est pas le patient lui-même — FHIR focus Reference(Any) (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: effective_x
+      type: record
+      description: Moment ou période cliniquement pertinent(e) pour l'observation — FHIR effective[x] (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: effective_date_time
+      type: date
+      description: "Date et heure cliniquement pertinente pour l'observation (pour l'âge RSA : date de début du séjour)"
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: issued
+      type: date
+      description: Date et heure de mise à disposition du résultat (>= effective_date_time)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: performers
+      type: record
+      description: Personne ou organisation responsable de l'observation — FHIR performer Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: performer_organization_text
+      type: string
+      description: Libellé textuel de l'organisation réalisatrice (notamment pour les laboratoires de biologie)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: value_x
+      type: record
+      description: Résultat de l'observation (tous types FHIR) — FHIR value[x] (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: value_quantity_value
+      type: number
+      description: Valeur numérique du résultat — FHIR value[x] as Quantity.value (>= 0)
+      nativeDataType: FLOAT
+      partOfKey: false
+    - fieldPath: value_quantity_unit
+      type: string
+      description: Unité de mesure du résultat — FHIR value[x] as Quantity.unit
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: data_absent_reason
+      type: record
+      description: Raison de l'absence de valeur — FHIR dataAbsentReason CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: interpretations
+      type: record
+      description: Interprétation de la valeur (H, L, N, etc.) — FHIR interpretation CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: notes
+      type: record
+      description: Commentaires sur l'observation — FHIR note Annotation (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: body_site
+      type: record
+      description: Site anatomique de l'observation — FHIR bodySite CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: method
+      type: record
+      description: Méthode utilisée pour l'observation — FHIR method CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: specimen
+      type: record
+      description: Échantillon biologique ayant servi à l'observation — FHIR specimen Reference(Specimen) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: device
+      type: record
+      description: Dispositif ayant réalisé l'observation — FHIR device Reference(Device|DeviceMetric) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reference_ranges
+      type: record
+      description: Valeurs de référence pour l'interprétation — FHIR referenceRange BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reference_ranges_value
+      type: string
+      description: Valeurs des plages de référence sérialisées en texte
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: has_members
+      type: record
+      description: Observations membres composant cette observation groupée — FHIR hasMember Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: derived_from_s
+      type: record
+      description: Ressources dont cette observation est dérivée — FHIR derivedFrom Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: components
+      type: record
+      description: Résultats composants pour les observations multi-composants (ex. pression artérielle) — FHIR component BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: meta
+      type: record
+      description: Métadonnées de la ressource FHIR — FHIR Meta
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: implicit_rules
+      type: string
+      description: Ensemble de règles sous lesquelles ce contenu a été créé — FHIR implicitRules (0..1)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: resource_language
+      type: string
+      description: Langue du contenu de la ressource — FHIR language (0..1)
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: text_div
+      type: string
+      description: Résumé textuel de la ressource pour l'interprétation humaine — FHIR Narrative text
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: contained
+      type: record
+      description: Ressources intégrées sans identité indépendante — FHIR contained (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: extensions
+      type: record
+      description: Contenu supplémentaire défini par les implémentations — FHIR extension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: modifier_extensions
+      type: record
+      description: Extensions qui ne peuvent pas être ignorées — FHIR modifierExtension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir.resource_type: "Observation"
+  fhir.version: "4.0.1"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir
+  - fhir:Observation
+glossaryTerms:
+  - fhir:Observation
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer.public.fhir_observation_component,PROD)"
+kind: DATASET
+name: semantic_layer_public_fhir_observation_component
+platform: postgres
+env: PROD
+description: "Composants d'une ressource FHIR Observation — Résultats partiels pour les observations multi-composants (ex. systolique/diastolique pour la pression artérielle). Table satellite de fhir_observation avec clé technique non FHIR."
+container:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      description: Clé technique non FHIR — identifiant unique du composant (clé primaire)
+      nativeDataType: VARCHAR(64)
+      partOfKey: true
+    - fieldPath: observation_id
+      type: string
+      description: Clé étrangère vers fhir_observation (FK, ON DELETE CASCADE)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: code
+      type: record
+      description: Ce qui a été observé pour ce composant, codé en LOINC — FHIR component.code CodeableConcept
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: code_text
+      type: string
+      description: Libellé textuel du code du composant
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: value_x
+      type: record
+      description: Résultat du composant (tous types FHIR) — FHIR component.value[x]
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: value_quantity_value
+      type: number
+      description: Valeur numérique du composant — FHIR component.value[x] as Quantity.value (>= 0)
+      nativeDataType: FLOAT
+      partOfKey: false
+    - fieldPath: value_quantity_unit
+      type: string
+      description: Unité de mesure du composant — FHIR component.value[x] as Quantity.unit
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: data_absent_reason
+      type: record
+      description: Raison de l'absence de valeur pour ce composant — FHIR component.dataAbsentReason CodeableConcept
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: interpretations
+      type: record
+      description: Interprétation de la valeur du composant — FHIR component.interpretation CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reference_ranges
+      type: record
+      description: Valeurs de référence du composant — FHIR component.referenceRange BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reference_ranges_value
+      type: string
+      description: Valeurs des plages de référence du composant sérialisées en texte
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir.version: 4.0.1
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir
+glossaryTerms:
+  - fhir:Observation
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer.public.fhir_medication_request,PROD)"
+kind: DATASET
+name: semantic_layer_public_fhir_medication_request
+platform: postgres
+env: PROD
+description: "Ressource FHIR MedicationRequest (profil DMMedicationRequest) — Prescription médicamenteuse. Ordre ou demande portant à la fois sur la fourniture du médicament et sur les instructions d'administration. Contient posologie, voie d'administration et période de prescription."
+container:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      description: Identifiant unique de la ressource FHIR MedicationRequest (clé primaire)
+      nativeDataType: VARCHAR(64)
+      partOfKey: true
+    - fieldPath: last_updated
+      type: date
+      description: Date et heure de dernière mise à jour de la ressource
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: status
+      type: string
+      description: État courant de la prescription (NOT NULL) — active | on-hold | cancelled | completed | entered-in-error | stopped | draft | unknown (élément modificateur)
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: status_reason
+      type: record
+      description: Raison de l'état courant — FHIR statusReason CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: intent
+      type: string
+      description: Nature de la demande (NOT NULL) — proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option (élément modificateur)
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: categories
+      type: record
+      description: Type d'usage du médicament (inpatient, outpatient, community, discharge) — FHIR category CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: priority
+      type: string
+      description: Urgence de la prescription — routine | urgent | asap | stat
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: do_not_perform
+      type: boolean
+      description: Vrai si la demande interdit l'action — FHIR doNotPerform (0..1) (élément modificateur)
+      nativeDataType: BOOLEAN
+      partOfKey: false
+    - fieldPath: identifiers
+      type: record
+      description: Identifiants métier de cette prescription — FHIR identifier (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: based_on_s
+      type: record
+      description: Plan de soins ou recommandation à l'origine de cette prescription — FHIR basedOn Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reported_x
+      type: record
+      description: Indication si la prescription est une déclaration secondaire — FHIR reported[x]
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: group_identifier
+      type: record
+      description: Identifiant du groupe de prescriptions liées — FHIR groupIdentifier Identifier (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: course_of_therapy_type
+      type: record
+      description: Description du schéma thérapeutique global — FHIR courseOfTherapyType CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: insurances
+      type: record
+      description: Informations d'assurance pour la couverture de la prescription — FHIR insurance Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: notes
+      type: record
+      description: Informations complémentaires sur la prescription — FHIR note Annotation (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: medication_x
+      type: record
+      description: "Médicament prescrit — FHIR medication[x] (1..1) : CodeableConcept ou Reference(Medication)"
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: medication_text
+      type: string
+      description: Libellé textuel du médicament prescrit pour faciliter les requêtes
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: subject_patient_id
+      type: string
+      description: Référence obligatoire vers fhir_patient (NOT NULL, FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: encounter_id
+      type: string
+      description: Référence vers fhir_encounter lors duquel la prescription a été rédigée (FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: supporting_informations
+      type: record
+      description: Informations à l'appui de la prescription — FHIR supportingInformation Reference(Any) (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: authored_on
+      type: date
+      description: Date et heure de rédaction initiale de la prescription
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: requester
+      type: record
+      description: Prescripteur — FHIR requester Reference(Practitioner|...) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: requester_practitioner_display
+      type: string
+      description: Libellé textuel du prescripteur pour faciliter les requêtes
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: performer
+      type: record
+      description: Exécutant prévu — FHIR performer Reference (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: performer_type
+      type: record
+      description: Type d'exécutant prévu — FHIR performerType CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: recorder
+      type: record
+      description: Personne ayant saisi la prescription — FHIR recorder Reference(Practitioner|PractitionerRole) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reason_codes
+      type: record
+      description: Raison ou indication de la prescription — FHIR reasonCode CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reason_references
+      type: record
+      description: Justification de la prescription (Condition ou Observation) — FHIR reasonReference Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: instantiates_canonical_s
+      type: record
+      description: Protocole FHIR instancié par cette prescription — canonical(ActivityDefinition|PlanDefinition) (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: instantiates_uri_s
+      type: record
+      description: URI du protocole externe instancié par cette prescription (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: dosage_instructions
+      type: record
+      description: Instructions posologiques — FHIR dosageInstruction Dosage (0..*). Une seule occurrence attendue dans l'extraction PMSI.
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: dosage_instruction_route_text
+      type: string
+      description: Voie d'administration (libellé textuel)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: dosage_instruction_dose_quantity_value
+      type: number
+      description: Valeur de la dose prescrite (> 0)
+      nativeDataType: FLOAT
+      partOfKey: false
+    - fieldPath: dosage_instruction_dose_quantity_unit
+      type: string
+      description: Unité de la dose prescrite
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: dosage_instruction_timing_bounds_period_start
+      type: date
+      description: Date de début de la période de prescription
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: dosage_instruction_timing_bounds_period_end
+      type: date
+      description: Date de fin de la période de prescription (>= period_start)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: dispense_request
+      type: record
+      description: Instructions de délivrance pharmaceutique — FHIR dispenseRequest BackboneElement (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: substitution
+      type: record
+      description: Règles de substitution du médicament — FHIR substitution BackboneElement (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: prior_prescription
+      type: record
+      description: Prescription antérieure remplacée — FHIR priorPrescription Reference(MedicationRequest) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: detected_issues
+      type: record
+      description: Problèmes cliniques détectés lors de la prescription — FHIR detectedIssue Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: event_history
+      type: record
+      description: Historique des actions clés de la prescription — FHIR eventHistory Reference(Provenance) (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: meta
+      type: record
+      description: Métadonnées de la ressource FHIR — FHIR Meta
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: implicit_rules
+      type: string
+      description: Ensemble de règles sous lesquelles ce contenu a été créé — FHIR implicitRules (0..1)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: resource_language
+      type: string
+      description: Langue du contenu de la ressource — FHIR language (0..1)
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: text_div
+      type: string
+      description: Résumé textuel de la ressource pour l'interprétation humaine — FHIR Narrative text
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: contained
+      type: record
+      description: Ressources intégrées sans identité indépendante — FHIR contained (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: extensions
+      type: record
+      description: Contenu supplémentaire défini par les implémentations — FHIR extension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: modifier_extensions
+      type: record
+      description: Extensions qui ne peuvent pas être ignorées — FHIR modifierExtension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir.resource_type: "MedicationRequest"
+  fhir.version: "4.0.1"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir
+  - fhir:MedicationRequest
+glossaryTerms:
+  - fhir:MedicationRequest
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer.public.fhir_medication_administration,PROD)"
+kind: DATASET
+name: semantic_layer_public_fhir_medication_administration
+platform: postgres
+env: PROD
+description: "Ressource FHIR MedicationAdministration (profil DMMedicationAdministration) — Enregistrement de l'administration effective d'un médicament à un patient. Tracé à partir des données de dispensation ou d'administration hospitalière, avec lien vers la prescription d'origine."
+container:
+  platform: postgres
+  instance: postgres
+  database: semantic_layer
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      description: Identifiant unique de la ressource FHIR MedicationAdministration (clé primaire)
+      nativeDataType: VARCHAR(64)
+      partOfKey: true
+    - fieldPath: last_updated
+      type: date
+      description: Date et heure de dernière mise à jour de la ressource
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: status
+      type: string
+      description: État de l'administration (NOT NULL) — in-progress | not-done | on-hold | completed | entered-in-error | stopped | unknown
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: status_reasons
+      type: record
+      description: Raison(s) de l'état courant — FHIR statusReason CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: category
+      type: record
+      description: Catégorie de l'administration — FHIR category CodeableConcept (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: identifiers
+      type: record
+      description: Identifiants métier de cette administration — FHIR identifier (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: instantiates_s
+      type: record
+      description: URI du protocole instancié par cette administration — FHIR instantiates uri (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: part_of_s
+      type: record
+      description: Procédure ou autre administration dont celle-ci fait partie — FHIR partOf Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: medication_x
+      type: record
+      description: "Médicament administré — FHIR medication[x] (1..1) : CodeableConcept ou Reference(Medication)"
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: medication_text
+      type: string
+      description: Libellé textuel du médicament administré pour faciliter les requêtes
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: subject_patient_id
+      type: string
+      description: Référence obligatoire vers fhir_patient (NOT NULL, FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: context
+      type: record
+      description: Encounter ou épisode de soins dans lequel l'administration a eu lieu — FHIR context Reference (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: context_encounter_id
+      type: string
+      description: Référence vers fhir_encounter lors duquel l'administration a eu lieu (FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: supporting_informations
+      type: record
+      description: Informations supplémentaires à l'appui de l'administration — FHIR supportingInformation Reference(Any) (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: effective_x
+      type: record
+      description: Moment ou période de l'administration — FHIR effective[x] (1..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: effective_date_time
+      type: date
+      description: Date et heure effective de l'administration du médicament
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: performers
+      type: record
+      description: Personne(s) ayant réalisé l'administration — FHIR performer BackboneElement (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reason_codes
+      type: record
+      description: Raison codée de l'administration — FHIR reasonCode CodeableConcept (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: reason_references
+      type: record
+      description: Justification de l'administration (Condition, Observation, etc.) — FHIR reasonReference Reference (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: request
+      type: record
+      description: Prescription à l'origine de cette administration — FHIR request Reference(MedicationRequest) (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: request_medication_request_id
+      type: string
+      description: Référence vers fhir_medication_request à l'origine de cette administration (FK)
+      nativeDataType: VARCHAR(64)
+      partOfKey: false
+    - fieldPath: devices
+      type: record
+      description: Dispositifs utilisés lors de l'administration — FHIR device Reference(Device) (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: notes
+      type: record
+      description: Informations complémentaires sur l'administration — FHIR note Annotation (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: dosage
+      type: record
+      description: Détails de la dose administrée — FHIR dosage BackboneElement (0..1)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: dosage_route_text
+      type: string
+      description: Voie d'administration effective (libellé textuel)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: dosage_dose_value
+      type: number
+      description: Valeur de la dose administrée (> 0)
+      nativeDataType: FLOAT
+      partOfKey: false
+    - fieldPath: dosage_dose_unit
+      type: string
+      description: Unité de la dose administrée
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: event_history
+      type: record
+      description: Historique des actions clés de l'administration — FHIR eventHistory Reference(Provenance) (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: meta
+      type: record
+      description: Métadonnées de la ressource FHIR — FHIR Meta
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: implicit_rules
+      type: string
+      description: Ensemble de règles sous lesquelles ce contenu a été créé — FHIR implicitRules (0..1)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: resource_language
+      type: string
+      description: Langue du contenu de la ressource — FHIR language (0..1)
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: text_div
+      type: string
+      description: Résumé textuel de la ressource pour l'interprétation humaine — FHIR Narrative text
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: contained
+      type: record
+      description: Ressources intégrées sans identité indépendante — FHIR contained (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: extensions
+      type: record
+      description: Contenu supplémentaire défini par les implémentations — FHIR extension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: modifier_extensions
+      type: record
+      description: Extensions qui ne peuvent pas être ignorées — FHIR modifierExtension (0..*)
+      nativeDataType: JSONB
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir.resource_type: "MedicationAdministration"
+  fhir.version: "4.0.1"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir
+  - fhir:MedicationAdministration
+glossaryTerms:
+  - fhir:MedicationAdministration
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin

@@ -1,0 +1,6383 @@
+kind: DATA_FLOW
+orchestrator: airflow
+flowId: "postgres_semantic_layer_to_s3_sharing_layer"
+cluster: "PROD"
+name: "Semantic layer to Sharing layer"
+description: >
+  Pipeline Airflow de transformation des données cliniques de l'EHR
+  vers le raw layer.
+project: "semanticlayer2sharinglayer"
+externalUrl: "https://gitlab.example.org/eds/ehr_to_fhir_semantic_layer"
+domains: eds
+#subTypes: "DBT"
+owners:
+  - owner: "eds-data-engineering"
+    type: "TECHNICAL_OWNER"
+  - owner: "eds-interoperability"
+    type: "BUSINESS_OWNER"
+---
+kind: DATA_JOB
+jobId: "semantic_layer_fhir_patient_to_sharing_layer"
+dataFlow:
+  orchestrator: airflow
+  flowId: "postgres_semantic_layer_to_s3_sharing_layer"
+  cluster: "PROD"
+name: "PostgreSQL semantic_layer fhir_patient → S3 sharing_layer Patient.ndjson"
+description: >
+  Export de la table semantic_layer_public.fhir_patient (PostgreSQL) vers
+  le fichier sharing_layer_Patient.ndjson (S3) au format NDJSON FHIR R4.
+  Aucune transformation métier : toutes les colonnes sont recopiées à
+  l'identique (IDENTITY). Alimente la sharing layer avec les ressources
+  FHIR Patient sérialisées pour exposition et partage externe.
+type: "RawCopy"
+
+inputDatasets:
+  - platform: postgres
+    name: semantic_layer_public_fhir_patient
+    env: PROD
+
+outputDatasets:
+  - platform: s3
+    name: sharing_layer_Patient.ndjson
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_patient
+      env: PROD
+      fieldPath: fhir_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_patient
+      env: PROD
+      fieldPath: gender
+    downstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: gender
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_patient
+      env: PROD
+      fieldPath: birth_date
+    downstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: birthDate
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_patient
+      env: PROD
+      fieldPath: deceased_date_time
+    downstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: deceased
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_patient
+      env: PROD
+      fieldPath: address_latitude
+    downstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: address.extension[geolocation].extension[latitude].valueDecimal
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_patient
+      env: PROD
+      fieldPath: address_longitude
+    downstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: address.extension[geolocation].extension[longitude].valueDecimal
+    operation: "IDENTITY"
+    confidence: 1.0
+---
+kind: DATA_JOB
+jobId: "semantic_layer_fhir_encounter_to_sharing_layer"
+dataFlow:
+  orchestrator: airflow
+  flowId: "postgres_semantic_layer_to_s3_sharing_layer"
+  cluster: "PROD"
+name: "PostgreSQL semantic_layer fhir_encounter → S3 sharing_layer Encounter.ndjson"
+description: >
+  Export de la table semantic_layer_public.fhir_encounter (PostgreSQL) vers
+  le fichier sharing_layer_Encounter.ndjson (S3) au format NDJSON FHIR R4.
+  Aucune transformation métier : toutes les colonnes sont recopiées à
+  l'identique (IDENTITY). Alimente la sharing layer avec les ressources
+  FHIR Encounter sérialisées pour exposition et partage externe.
+type: "RawCopy"
+
+inputDatasets:
+  - platform: postgres
+    name: semantic_layer_public_fhir_encounter
+    env: PROD
+
+outputDatasets:
+  - platform: s3
+    name: sharing_layer_Encounter.ndjson
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_encounter
+      env: PROD
+      fieldPath: fhir_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_encounter
+      env: PROD
+      fieldPath: subject_patient_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_encounter
+      env: PROD
+      fieldPath: period_start
+    downstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: period.start
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_encounter
+      env: PROD
+      fieldPath: period_end
+    downstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: period.end
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_encounter
+      env: PROD
+      fieldPath: class_display
+    downstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: class.display
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_encounter
+      env: PROD
+      fieldPath: admit_source_text
+    downstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.admitSource.coding.display
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_encounter
+      env: PROD
+      fieldPath: discharge_disposition_text
+    downstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.dischargeDisposition.coding.display
+    operation: "IDENTITY"
+    confidence: 1.0
+---
+kind: DATA_JOB
+jobId: "semantic_layer_fhir_condition_to_sharing_layer"
+dataFlow:
+  orchestrator: airflow
+  flowId: "postgres_semantic_layer_to_s3_sharing_layer"
+  cluster: "PROD"
+name: "PostgreSQL semantic_layer fhir_condition → S3 sharing_layer Condition.ndjson"
+description: >
+  Export de la table semantic_layer_public.fhir_condition (PostgreSQL) vers
+  le fichier sharing_layer_Condition.ndjson (S3) au format NDJSON FHIR R4.
+  Aucune transformation métier : toutes les colonnes sont recopiées à
+  l'identique (IDENTITY). Alimente la sharing layer avec les ressources
+  FHIR Condition sérialisées pour exposition et partage externe.
+  Les codes CIM-10 exclus par filtre ViewDefinition (Z87.2, Z37.0, Z88.0)
+  sont filtrés en amont dans la semantic layer.
+type: "RawCopy"
+
+inputDatasets:
+  - platform: postgres
+    name: semantic_layer_public_fhir_condition
+    env: PROD
+
+outputDatasets:
+  - platform: s3
+    name: sharing_layer_Condition.ndjson
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_condition
+      env: PROD
+      fieldPath: fhir_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_condition
+      env: PROD
+      fieldPath: subject_patient_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_condition
+      env: PROD
+      fieldPath: encounter_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_condition
+      env: PROD
+      fieldPath: recorded_date
+    downstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: recordedDate
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_condition
+      env: PROD
+      fieldPath: code_cim10
+    downstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.code
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_condition
+      env: PROD
+      fieldPath: code_text
+    downstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.text
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_condition
+      env: PROD
+      fieldPath: categories_text
+    downstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: category.text
+    operation: "IDENTITY"
+    confidence: 1.0
+---
+kind: DATA_JOB
+jobId: "semantic_layer_fhir_medication_administration_to_sharing_layer"
+dataFlow:
+  orchestrator: airflow
+  flowId: "postgres_semantic_layer_to_s3_sharing_layer"
+  cluster: "PROD"
+name: "PostgreSQL semantic_layer fhir_medication_administration → S3 sharing_layer MedicationAdministration.ndjson"
+description: >
+  Export de la table semantic_layer_public.fhir_medication_administration (PostgreSQL) vers
+  le fichier sharing_layer_MedicationAdministration.ndjson (S3) au format NDJSON FHIR R4.
+  Aucune transformation métier : toutes les colonnes sont recopiées à
+  l'identique (IDENTITY). Alimente la sharing layer avec les ressources
+  FHIR MedicationAdministration sérialisées pour exposition et partage externe.
+type: "RawCopy"
+
+inputDatasets:
+  - platform: postgres
+    name: semantic_layer_public_fhir_medication_administration
+    env: PROD
+
+outputDatasets:
+  - platform: s3
+    name: sharing_layer_MedicationAdministration.ndjson
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: fhir_id
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: subject_patient_id
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: context_encounter_id
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: effective_date_time
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: effective.start
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: medication_text
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: medication.text
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: dosage_route_text
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: dosage.route.text
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: dosage_dose_value
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: dosage.dose.value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: dosage_dose_unit
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: dosage.dose.unit
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_administration
+      env: PROD
+      fieldPath: request_medication_request_id
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: request.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+---
+kind: DATA_JOB
+jobId: "semantic_layer_fhir_medication_request_to_sharing_layer"
+dataFlow:
+  orchestrator: airflow
+  flowId: "postgres_semantic_layer_to_s3_sharing_layer"
+  cluster: "PROD"
+name: "PostgreSQL semantic_layer fhir_medication_request → S3 sharing_layer MedicationRequest.ndjson"
+description: >
+  Export de la table semantic_layer_public.fhir_medication_request (PostgreSQL) vers
+  le fichier sharing_layer_MedicationRequest.ndjson (S3) au format NDJSON FHIR R4.
+  Aucune transformation métier : toutes les colonnes sont recopiées à
+  l'identique (IDENTITY). Alimente la sharing layer avec les ressources
+  FHIR MedicationRequest sérialisées pour exposition et partage externe.
+type: "RawCopy"
+
+inputDatasets:
+  - platform: postgres
+    name: semantic_layer_public_fhir_medication_request
+    env: PROD
+
+outputDatasets:
+  - platform: s3
+    name: sharing_layer_MedicationRequest.ndjson
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_request
+      env: PROD
+      fieldPath: fhir_id
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_request
+      env: PROD
+      fieldPath: subject_patient_id
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_request
+      env: PROD
+      fieldPath: encounter_id
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_request
+      env: PROD
+      fieldPath: medication_text
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: medication.text
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_request
+      env: PROD
+      fieldPath: dosage_instruction_route_text
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: dosageInstruction.route.text
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_request
+      env: PROD
+      fieldPath: dosage_instruction_timing_bounds_period_start
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: dosageInstruction.timing.repeat.bounds.ofType(Period).start
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_medication_request
+      env: PROD
+      fieldPath: dosage_instruction_timing_bounds_period_end
+    downstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: dosageInstruction.timing.repeat.bounds.ofType(Period).end
+    operation: "IDENTITY"
+    confidence: 1.0
+---
+kind: DATA_JOB
+jobId: "semantic_layer_fhir_observation_to_sharing_layer"
+dataFlow:
+  orchestrator: airflow
+  flowId: "postgres_semantic_layer_to_s3_sharing_layer"
+  cluster: "PROD"
+name: "PostgreSQL semantic_layer fhir_observation → S3 sharing_layer Observation.ndjson"
+description: >
+  Export de la table semantic_layer_public.fhir_observation (PostgreSQL) vers
+  le fichier sharing_layer_Observation.ndjson (S3) au format NDJSON FHIR R4.
+  Aucune transformation métier : toutes les colonnes sont recopiées à
+  l'identique (IDENTITY). Alimente la sharing layer avec les ressources
+  FHIR Observation sérialisées, incluant les composants issus de
+  fhir_observation_component (mesures multi-composants type tension artérielle).
+type: "RawCopy"
+
+inputDatasets:
+  - platform: postgres
+    name: semantic_layer_public_fhir_observation
+    env: PROD
+  - platform: postgres
+    name: semantic_layer_public_fhir_observation_component
+    env: PROD
+
+outputDatasets:
+  - platform: s3
+    name: sharing_layer_Observation.ndjson
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation
+      env: PROD
+      fieldPath: fhir_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation
+      env: PROD
+      fieldPath: subject_patient_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation
+      env: PROD
+      fieldPath: encounter_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation
+      env: PROD
+      fieldPath: effective_date_time
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: effectiveDateTime
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation
+      env: PROD
+      fieldPath: code_loinc
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: code.coding.code
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation
+      env: PROD
+      fieldPath: code_text
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: code.text
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation
+      env: PROD
+      fieldPath: value_quantity_value
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: valueQuantity.value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation
+      env: PROD
+      fieldPath: value_quantity_unit
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: valueQuantity.unit
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation_component
+      env: PROD
+      fieldPath: code_loinc
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.code.coding.code
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation_component
+      env: PROD
+      fieldPath: code_text
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.code.text
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation_component
+      env: PROD
+      fieldPath: value_quantity_value
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.valueQuantity.value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_observation_component
+      env: PROD
+      fieldPath: value_quantity_unit
+    downstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.valueQuantity.unit
+    operation: "IDENTITY"
+    confidence: 1.0
+---
+kind: DATA_JOB
+jobId: "semantic_layer_fhir_procedure_to_sharing_layer"
+dataFlow:
+  orchestrator: airflow
+  flowId: "postgres_semantic_layer_to_s3_sharing_layer"
+  cluster: "PROD"
+name: "PostgreSQL semantic_layer fhir_procedure → S3 sharing_layer Procedure.ndjson"
+description: >
+  Export de la table semantic_layer_public.fhir_procedure (PostgreSQL) vers
+  le fichier sharing_layer_Procedure.ndjson (S3) au format NDJSON FHIR R4.
+  Aucune transformation métier : toutes les colonnes sont recopiées à
+  l'identique (IDENTITY). Alimente la sharing layer avec les ressources
+  FHIR Procedure sérialisées pour exposition et partage externe.
+type: "RawCopy"
+
+inputDatasets:
+  - platform: postgres
+    name: semantic_layer_public_fhir_procedure
+    env: PROD
+
+outputDatasets:
+  - platform: s3
+    name: sharing_layer_Procedure.ndjson
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_procedure
+      env: PROD
+      fieldPath: fhir_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_procedure
+      env: PROD
+      fieldPath: subject_patient_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_procedure
+      env: PROD
+      fieldPath: encounter_id
+    downstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_procedure
+      env: PROD
+      fieldPath: performed_date_time
+    downstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: performed.ofType(dateTime)
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_procedure
+      env: PROD
+      fieldPath: code_ccam
+    downstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: code.coding.code
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_procedure
+      env: PROD
+      fieldPath: code_text
+    downstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: code.text
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: postgres
+      name: semantic_layer_public_fhir_procedure
+      env: PROD
+      fieldPath: performer_actor_practitioner_text
+    downstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: performer.actor.display
+    operation: "IDENTITY"
+    confidence: 1.0
+---
+kind: CONTAINER
+platform: s3
+instance: s3
+database: sharing_layer
+env: PROD
+name: minio
+properties:
+  format: "NDJSON"
+  export_type: "bulk-data"
+  fhir.version: 4.0.1
+#externalUrl: https://interop.aphp.fr/ig/fhir/tls/CapabilityStatement/tls-document-server
+subTypes: S3_BUCKET
+tags:
+  - "fhir"
+  - "ndjson"
+  - "bulk-export"
+---
+kind: DATASET
+name: sharing_layer_Patient.ndjson
+platform: s3
+env: PROD
+displayName: Patient
+description: Ressources FHIR Patient
+container:
+  platform: s3
+  instance: s3
+  database: sharing_layer
+  env: PROD
+schema:
+  fields:
+  - fieldPath: id
+    type: string
+    nullable: true
+    description: Logical id of this artifact
+    nativeDataType: http://hl7.org/fhirpath/System.String
+    partOfKey: true
+  - fieldPath: gender
+    type: string
+    nullable: true
+    description: >
+        Sexe administratif du patient. Valeurs FHIR : male | female | other | unknown.
+    nativeDataType: http://hl7.org/fhirpath/System.String
+
+  - fieldPath: birthDate
+    type: date
+    nullable: true
+    description: >
+            Date de naissance du patient au format FHIR (YYYY, YYYY-MM, ou YYYY-MM-DD).
+    nativeDataType: http://hl7.org/fhirpath/System.Date
+
+  - fieldPath: deceased
+    type: date
+    nullable: true
+    description: >
+      Date et heure de décès du patient, présente uniquement si le patient
+      est décédé et que la date est connue. Polymorphisme FHIR :
+      Patient.deceased[x] peut être boolean ou dateTime —
+      seul le type dateTime est exploité ici.
+      Sert de filtre d'existence (deceased.ofType(dateTime).exists())
+      pour la table OMOP Death.
+    nativeDataType: http://hl7.org/fhirpath/System.DateTime
+
+  - fieldPath: address.extension[geolocation].extension[latitude].valueDecimal
+    type: number
+    nullable: true
+    description: >
+      Latitude GPS extraite de l'extension FHIR standard geolocation,
+      sous-extension latitude, sur le premier élément de Patient.address.
+      URL : http://hl7.org/fhir/StructureDefinition/geolocation.
+    nativeDataType: http://hl7.org/fhirpath/System.Decimal
+
+  - fieldPath: address.extension[geolocation].extension[longitude].valueDecimal
+    type: number
+    nullable: true
+    description: >
+      Longitude GPS extraite de l'extension FHIR standard geolocation,
+      sous-extension longitude, sur le premier élément de Patient.address.
+      URL : http://hl7.org/fhir/StructureDefinition/geolocation.
+    nativeDataType: http://hl7.org/fhirpath/System.Decimal
+
+properties:
+  fhir.resource_type: "Patient"
+  fhir.version: 4.0.1
+  format: "NDJSON"
+  partitioning: "none"
+externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Patient
+subTypes: NDJSON_File
+tags:
+- fhir
+- fhir:Patient
+- ndjson
+glossaryTerms: fhir:Patient
+---
+kind: DATASET
+name: sharing_layer_Encounter.ndjson
+platform: s3
+env: PROD
+displayName: Encounter
+description: Ressources FHIR Encounter (séjours / venues)
+container:
+  platform: s3
+  instance: s3
+  database: sharing_layer
+  env: PROD
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: Identifiant logique de la ressource Encounter (FHIR logical id).
+      nativeDataType: http://hl7.org/fhirpath/System.String
+      partOfKey: true
+
+    - fieldPath: subject
+      type: record
+      nullable: true
+      description: Who/what is the subject of the document
+      nativeDataType: Reference
+
+    - fieldPath: subject.reference
+      type: string
+      nullable: true
+      description: "Literal reference, Relative, internal or absolute URL"
+      nativeDataType: string
+
+    - fieldPath: subject.type
+      type: string
+      nullable: true
+      description: Type the reference refers to (e.g. "Patient")
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier
+      type: record
+      nullable: true
+      description: "Logical reference, when literal reference is not known"
+      nativeDataType: Identifier
+
+    - fieldPath: subject.identifier.use
+      type: enum
+      nullable: true
+      description: usual | official | temp | secondary | old (If known)
+      nativeDataType: code
+
+    - fieldPath: subject.identifier.type
+      type: enum
+      nullable: true
+      description: Description of identifier
+      nativeDataType: CodeableConcept
+
+    - fieldPath: subject.identifier.type.coding
+      type: array
+      nullable: true
+      description: Code defined by a terminology system
+      nativeDataType: Coding
+
+    - fieldPath: subject.identifier.type.coding.system
+      type: string
+      nullable: true
+      description: Identity of the terminology system
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier.type.coding.version
+      type: string
+      nullable: true
+      description: Version of the system - if relevant
+      nativeDataType: string
+
+    - fieldPath: subject.identifier.type.coding.code
+      type: enum
+      nullable: true
+      description: Symbol in syntax defined by the system
+      nativeDataType: code
+
+    - fieldPath: subject.identifier.type.coding.display
+      type: string
+      nullable: true
+      description: Representation defined by the system
+      nativeDataType: string
+
+    - fieldPath: subject.identifier.type.coding.userSelected
+      type: boolean
+      nullable: true
+      description: If this coding was chosen directly by the user
+      nativeDataType: boolean
+
+    - fieldPath: subject.identifier.type.text
+      type: string
+      nullable: true
+      description: Plain text representation of the concept
+      nativeDataType: string
+
+    - fieldPath: subject.identifier.system
+      type: string
+      nullable: true
+      description: The namespace for the identifier value
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier.value
+      type: string
+      nullable: true
+      description: The value that is unique
+      nativeDataType: string
+
+    - fieldPath: subject.identifier.period
+      type: record
+      nullable: true
+      description: Time period when id is/was valid for use
+      nativeDataType: Period
+
+    - fieldPath: subject.identifier.period.start
+      type: date
+      nullable: true
+      description: Starting time with inclusive boundary
+      nativeDataType: dateTime
+
+    - fieldPath: subject.identifier.period.end
+      type: date
+      nullable: true
+      description: "End time with inclusive boundary, if not ongoing"
+      nativeDataType: dateTime
+
+    - fieldPath: subject.identifier.assigner
+      type: record
+      nullable: true
+      description: Organization that issued id (may be just text)
+      nativeDataType: Reference
+
+    - fieldPath: subject.display
+      type: string
+      nullable: true
+      description: Text alternative for the resource
+      nativeDataType: string
+
+    - fieldPath: period
+      type: record
+      nullable: true
+      description:
+      nativeDataType: Period
+
+    - fieldPath: period.start
+      type: date
+      nullable: true
+      description: >
+        Date et heure de début de la visite.
+        Correspond à Encounter.period.start de type dateTime.
+      nativeDataType: http://hl7.org/fhirpath/System.DateTime
+
+    - fieldPath: period.end
+      type: date
+      nullable: true
+      description: >
+        Date et heure de fin de la visite.
+        Correspond à Encounter.period.end de type dateTime.
+      nativeDataType: http://hl7.org/fhirpath/System.DateTime
+
+    - fieldPath: class
+      type: record
+      nullable: true
+      description: >
+        .
+      nativeDataType: Coding
+
+    - fieldPath: class.code
+      type: string
+      nullable: true
+      description: >
+        Code de la classe de visite (Coding.code).
+        Valeurs attendues : IMP (inpatient), AMB (ambulatoire), EMER (urgences).
+        Système : http://terminology.hl7.org/CodeSystem/v3-ActCode.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+
+    - fieldPath: class.display
+      type: string
+      nullable: true
+      description: >
+        Libellé affiché de la classe de visite (Coding.display).
+      nativeDataType: http://hl7.org/fhirpath/System.String
+
+    - fieldPath: class.system
+      type: string
+      nullable: true
+      description: >
+        URI du système de codage de la classe de visite (Coding.system).
+      nativeDataType: http://hl7.org/fhirpath/System.String
+
+    - fieldPath: hospitalization
+      type: record
+      nullable: true
+      description: Details about the admission to a healthcare service.
+      nativeDataType: BackboneElement
+
+    - fieldPath: hospitalization.admitSource
+      type: record
+      nullable: true
+      description: From where patient was admitted (physician referral, transfer).
+      nativeDataType: CodeableConcept
+
+    - fieldPath: hospitalization.admitSource.coding
+      type: record
+      nullable: true
+      description: From where patient was admitted (physician referral, transfer).
+      nativeDataType: Coding
+
+    - fieldPath: hospitalization.admitSource.coding.code
+      type: string
+      nullable: true
+      description: >
+        Code de la provenance à l'admission (premier élément du tableau coding).
+        Valeurs attendues : emd (urgences), gp (médecin généraliste), other.
+        Correspond à Encounter.hospitalization.admitSource.coding[0].code.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+
+    - fieldPath: hospitalization.admitSource.coding.display
+      type: string
+      nullable: true
+      description: >
+        Libellé de la provenance à l'admission (premier élément du tableau coding).
+        Correspond à Encounter.hospitalization.admitSource.coding[0].display.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+
+    - fieldPath: hospitalization.dischargeDisposition
+      type: record
+      nullable: true
+      description: Category or kind of location after discharge.
+      nativeDataType: CodeableConcept
+
+    - fieldPath: hospitalization.dischargeDisposition.coding.code
+      type: string
+      nullable: true
+      description: >
+        Code de la destination à la sortie (premier élément du tableau coding).
+        Valeurs attendues : home (domicile), exp (décès).
+        Correspond à Encounter.hospitalization.dischargeDisposition.coding[0].code.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+
+    - fieldPath: hospitalization.dischargeDisposition.coding.display
+      type: string
+      nullable: true
+      description: >
+        Libellé de la destination à la sortie (premier élément du tableau coding).
+        Correspond à Encounter.hospitalization.dischargeDisposition.coding[0].display.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+
+externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Encounter
+subTypes: NDJSON_File
+properties:
+  fhir.resource_type: "Encounter"
+  fhir.version: 4.0.1
+  format: "NDJSON"
+  partitioning: "none"
+tags:
+  - fhir
+  - fhir:Encounter
+  - ndjson
+glossaryTerms: fhir:Encounter
+---
+kind: DATASET
+name: sharing_layer_Condition.ndjson
+platform: s3
+env: PROD
+displayName: Condition
+description: >
+  Ressources FHIR Condition issues de l'export bulk FHIR AP-HP.
+  Contient les diagnostics CIM-10 avec statut PMSI (DP/DA).
+  Utilisées comme source pour la transformation OMOP Condition Occurrence.
+container:
+  platform: s3
+  instance: s3
+  database: sharing_layer
+  env: PROD
+schema:
+  fields:
+
+    # ── Identifiant ─────────────────────────────────────────────────────────
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: Identifiant logique de la ressource Condition (FHIR logical id).
+      nativeDataType: http://hl7.org/fhirpath/System.String
+      partOfKey: true
+
+    # ── subject : Reference(Patient) ────────────────────────────────────────
+    - fieldPath: subject
+      type: record
+      nullable: false
+      description: Patient concerné par la condition.
+      nativeDataType: Reference
+
+    - fieldPath: subject.reference
+      type: string
+      nullable: true
+      description: Référence littérale au Patient (ex. "Patient/123").
+      nativeDataType: string
+
+    - fieldPath: subject.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Patient").
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: subject.identifier.use
+      type: enum
+      nullable: true
+      description: usual | official | temp | secondary | old
+      nativeDataType: code
+
+    - fieldPath: subject.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: subject.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── encounter : Reference(Encounter) ────────────────────────────────────
+    - fieldPath: encounter
+      type: record
+      nullable: true
+      description: Encounter dans lequel la condition a été enregistrée.
+      nativeDataType: Reference
+
+    - fieldPath: encounter.reference
+      type: string
+      nullable: true
+      description: Référence littérale à l'Encounter (ex. "Encounter/456").
+      nativeDataType: string
+
+    - fieldPath: encounter.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Encounter").
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: encounter.identifier.use
+      type: enum
+      nullable: true
+      description: usual | official | temp | secondary | old (If known)
+      nativeDataType: code
+
+    - fieldPath: encounter.identifier.type
+      type: enum
+      nullable: true
+      description: Description of identifier
+      nativeDataType: CodeableConcept
+
+    - fieldPath: encounter.identifier.type.coding
+      type: array
+      nullable: true
+      description: Code defined by a terminology system
+      nativeDataType: Coding
+
+    - fieldPath: encounter.identifier.type.coding.system
+      type: string
+      nullable: true
+      description: Identity of the terminology system
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier.type.coding.version
+      type: string
+      nullable: true
+      description: Version of the system - if relevant
+      nativeDataType: string
+
+    - fieldPath: encounter.identifier.type.coding.code
+      type: enum
+      nullable: true
+      description: Symbol in syntax defined by the system
+      nativeDataType: code
+
+    - fieldPath: encounter.identifier.type.coding.display
+      type: string
+      nullable: true
+      description: Representation defined by the system
+      nativeDataType: string
+
+    - fieldPath: encounter.identifier.type.coding.userSelected
+      type: boolean
+      nullable: true
+      description: If this coding was chosen directly by the user
+      nativeDataType: boolean
+
+    - fieldPath: encounter.identifier.type.text
+      type: string
+      nullable: true
+      description: Plain text representation of the concept
+      nativeDataType: string
+
+    - fieldPath: encounter.identifier.system
+      type: string
+      nullable: true
+      description: The namespace for the identifier value
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier.value
+      type: string
+      nullable: true
+      description: The value that is unique
+      nativeDataType: string
+
+    - fieldPath: encounter.identifier.period
+      type: record
+      nullable: true
+      description: Time period when id is/was valid for use
+      nativeDataType: Period
+
+    - fieldPath: encounter.identifier.period.start
+      type: date
+      nullable: true
+      description: Starting time with inclusive boundary
+      nativeDataType: dateTime
+
+    - fieldPath: encounter.identifier.period.end
+      type: date
+      nullable: true
+      description: End time with inclusive boundary, if not ongoing
+      nativeDataType: dateTime
+
+    - fieldPath: encounter.identifier.assigner
+      type: record
+      nullable: true
+      description: Organization that issued id (may be just text)
+      nativeDataType: Reference
+
+    - fieldPath: encounter.display
+      type: string
+      nullable: true
+      description: Text alternative for the resource
+      nativeDataType: string
+
+    # ── recordedDate ─────────────────────────────────────────────────────────
+    - fieldPath: recordedDate
+      type: date
+      nullable: true
+      description: Date d'enregistrement de la condition.
+      nativeDataType: dateTime
+
+    # ── code : CodeableConcept ───────────────────────────────────────────────
+    - fieldPath: code
+      type: record
+      nullable: true
+      description: >
+        Code identifiant la condition (diagnostic CIM-10).
+        Valeurs exclues par filtre ViewDefinition : Z87.2, Z37.0, Z88.0.
+      nativeDataType: CodeableConcept
+
+    - fieldPath: code.coding
+      type: array
+      nullable: true
+      description: Code défini par un système de terminologie.
+      nativeDataType: Coding
+
+    - fieldPath: code.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie (ex. CIM-10).
+      nativeDataType: uri
+
+    - fieldPath: code.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: code.coding.code
+      type: enum
+      nullable: true
+      description: >
+        Code de la condition dans le système de terminologie.
+        Valeurs exclues : Z87.2, Z37.0, Z88.0 (filtre where).
+      nativeDataType: code
+
+    - fieldPath: code.coding.display
+      type: string
+      nullable: true
+      description: Libellé du code tel que défini par le système de terminologie.
+      nativeDataType: string
+
+    - fieldPath: code.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: code.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre du code de condition.
+      nativeDataType: string
+
+    # ── category : CodeableConcept[] ─────────────────────────────────────────
+    - fieldPath: category
+      type: array
+      nullable: true
+      description: >
+        Catégorie de la condition. Utilisée pour le statut diagnostique PMSI
+        (DP = diagnostic principal, DA = diagnostic associé).
+      nativeDataType: CodeableConcept
+
+    - fieldPath: category.coding
+      type: array
+      nullable: true
+      description: Code du statut diagnostique défini par un système de terminologie.
+      nativeDataType: Coding
+
+    - fieldPath: category.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie du statut diagnostique.
+      nativeDataType: uri
+
+    - fieldPath: category.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: category.coding.code
+      type: enum
+      nullable: true
+      description: >
+        Code du statut diagnostique PMSI.
+        Valeurs attendues : DP (diagnostic principal), DA (diagnostic associé).
+      nativeDataType: code
+
+    - fieldPath: category.coding.display
+      type: string
+      nullable: true
+      description: Libellé du statut diagnostique PMSI.
+      nativeDataType: string
+
+    - fieldPath: category.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: category.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre de la catégorie.
+      nativeDataType: string
+
+properties:
+  fhir.resource_type: "Condition"
+  fhir.version: "4.0.1"
+  format: "NDJSON"
+  partitioning: "none"
+
+externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Condition
+subTypes: NDJSON_File
+tags:
+  - fhir
+  - fhir:Condition
+  - ndjson
+glossaryTerms: fhir:Condition
+---
+kind: DATASET
+name: sharing_layer_MedicationAdministration.ndjson
+platform: s3
+env: PROD
+displayName: MedicationAdministration
+description: >
+  Ressources FHIR MedicationAdministration issues de l'export bulk FHIR AP-HP.
+  Contient les administrations médicamenteuses intra-hospitalières avec
+  dosage, voie d'administration et période d'effectivité.
+  Utilisées comme source pour la transformation OMOP Drug Exposure.
+container:
+  platform: s3
+  instance: s3
+  database: sharing_layer
+  env: PROD
+schema:
+  fields:
+
+    # ── Identifiant ──────────────────────────────────────────────────────────
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: Identifiant logique de la ressource MedicationAdministration.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+      partOfKey: true
+
+    # ── subject : Reference(Patient) ────────────────────────────────────────
+    - fieldPath: subject
+      type: record
+      nullable: false
+      description: Patient ayant reçu le médicament.
+      nativeDataType: Reference
+
+    - fieldPath: subject.reference
+      type: string
+      nullable: true
+      description: Référence littérale au Patient (ex. "Patient/123").
+      nativeDataType: string
+
+    - fieldPath: subject.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Patient").
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: subject.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: subject.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── encounter : Reference(Encounter) ────────────────────────────────────
+    - fieldPath: encounter
+      type: record
+      nullable: true
+      description: Encounter dans lequel l'administration a eu lieu.
+      nativeDataType: Reference
+
+    - fieldPath: encounter.reference
+      type: string
+      nullable: true
+      description: Référence littérale à l'Encounter (ex. "Encounter/456").
+      nativeDataType: string
+
+    - fieldPath: encounter.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Encounter").
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: encounter.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: encounter.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── effective[Period] ────────────────────────────────────────────────────
+    - fieldPath: effective
+      type: record
+      nullable: true
+      description: >
+        Période d'effectivité de l'administration (polymorphisme effective[x]).
+        Seul le type Period est exploité dans cette ViewDefinition.
+      nativeDataType: Period
+
+    - fieldPath: effective.start
+      type: date
+      nullable: true
+      description: Date et heure de début de l'administration.
+      nativeDataType: dateTime
+
+    - fieldPath: effective.end
+      type: date
+      nullable: true
+      description: Date et heure de fin de l'administration.
+      nativeDataType: dateTime
+
+    # ── medication[CodeableConcept] ──────────────────────────────────────────
+    - fieldPath: medication
+      type: record
+      nullable: true
+      description: >
+        Médicament administré sous forme de concept codé
+        (polymorphisme medication[x]). Seul le type CodeableConcept
+        est exploité dans cette ViewDefinition.
+      nativeDataType: CodeableConcept
+
+    - fieldPath: medication.coding
+      type: array
+      nullable: true
+      description: Coding du médicament défini par un système de terminologie.
+      nativeDataType: Coding
+
+    - fieldPath: medication.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie du médicament.
+      nativeDataType: uri
+
+    - fieldPath: medication.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: medication.coding.code
+      type: enum
+      nullable: true
+      description: Code du médicament dans le système de terminologie.
+      nativeDataType: code
+
+    - fieldPath: medication.coding.display
+      type: string
+      nullable: true
+      description: Libellé du médicament tel que défini par le système de terminologie.
+      nativeDataType: string
+
+    - fieldPath: medication.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: medication.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre du médicament.
+      nativeDataType: string
+
+    # ── dosage ───────────────────────────────────────────────────────────────
+    - fieldPath: dosage
+      type: record
+      nullable: true
+      description: "Détails de l'administration : voie, dose."
+      nativeDataType: MedicationAdministration.Dosage
+
+    - fieldPath: dosage.route
+      type: record
+      nullable: true
+      description: Voie d'administration du médicament.
+      nativeDataType: CodeableConcept
+
+    - fieldPath: dosage.route.coding
+      type: array
+      nullable: true
+      description: Coding de la voie d'administration.
+      nativeDataType: Coding
+
+    - fieldPath: dosage.route.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de la voie d'administration.
+      nativeDataType: uri
+
+    - fieldPath: dosage.route.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: dosage.route.coding.code
+      type: enum
+      nullable: true
+      description: Code de la voie d'administration.
+      nativeDataType: code
+
+    - fieldPath: dosage.route.coding.display
+      type: string
+      nullable: true
+      description: Libellé de la voie d'administration.
+      nativeDataType: string
+
+    - fieldPath: dosage.route.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: dosage.route.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre de la voie d'administration.
+      nativeDataType: string
+
+    - fieldPath: dosage.dose
+      type: record
+      nullable: true
+      description: Quantité de médicament administrée (type SimpleQuantity).
+      nativeDataType: Quantity
+
+    - fieldPath: dosage.dose.value
+      type: number
+      nullable: true
+      description: Valeur numérique de la dose administrée.
+      nativeDataType: decimal
+
+    - fieldPath: dosage.dose.unit
+      type: string
+      nullable: true
+      description: Unité de la dose (représentation textuelle).
+      nativeDataType: string
+
+    - fieldPath: dosage.dose.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de l'unité (ex. UCUM).
+      nativeDataType: uri
+
+    - fieldPath: dosage.dose.code
+      type: enum
+      nullable: true
+      description: Code de l'unité dans le système de terminologie.
+      nativeDataType: code
+
+properties:
+  fhir.resource_type: "MedicationAdministration"
+  fhir.version: "4.0.1"
+  format: "NDJSON"
+  partitioning: "none"
+
+externalUrl: http://hl7.org/fhir/R4/StructureDefinition/MedicationAdministration
+subTypes: NDJSON_File
+tags:
+  - fhir
+  - fhir:MedicationAdministration
+  - ndjson
+glossaryTerms: fhir:MedicationAdministration
+---
+kind: DATASET
+name: sharing_layer_MedicationRequest.ndjson
+platform: s3
+env: PROD
+displayName: MedicationRequest
+description: >
+  Ressources FHIR MedicationRequest issues de l'export bulk FHIR AP-HP.
+  Contient les prescriptions médicamenteuses avec instructions de dosage
+  et période de validité. Utilisées comme source pour la transformation
+  OMOP Drug Exposure (drug_type_concept_id = 38000177).
+container:
+  platform: s3
+  instance: s3
+  database: sharing_layer
+  env: PROD
+schema:
+  fields:
+
+    # ── Identifiant ──────────────────────────────────────────────────────────
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: Identifiant logique de la ressource MedicationRequest.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+      partOfKey: true
+
+    # ── subject : Reference(Patient) ────────────────────────────────────────
+    - fieldPath: subject
+      type: record
+      nullable: false
+      description: Patient pour lequel le médicament est prescrit.
+      nativeDataType: Reference
+
+    - fieldPath: subject.reference
+      type: string
+      nullable: true
+      description: Référence littérale au Patient (ex. "Patient/123").
+      nativeDataType: string
+
+    - fieldPath: subject.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Patient").
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: subject.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: subject.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── encounter : Reference(Encounter) ────────────────────────────────────
+    - fieldPath: encounter
+      type: record
+      nullable: true
+      description: Encounter dans lequel la prescription a été émise.
+      nativeDataType: Reference
+
+    - fieldPath: encounter.reference
+      type: string
+      nullable: true
+      description: Référence littérale à l'Encounter (ex. "Encounter/456").
+      nativeDataType: string
+
+    - fieldPath: encounter.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Encounter").
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: encounter.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: encounter.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── medication[CodeableConcept] ──────────────────────────────────────────
+    - fieldPath: medication
+      type: record
+      nullable: true
+      description: >
+        Médicament prescrit sous forme de concept codé
+        (polymorphisme medication[x]). Seul le type CodeableConcept
+        est exploité dans cette ViewDefinition.
+      nativeDataType: CodeableConcept
+
+    - fieldPath: medication.coding
+      type: array
+      nullable: true
+      description: Coding du médicament défini par un système de terminologie.
+      nativeDataType: Coding
+
+    - fieldPath: medication.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie du médicament.
+      nativeDataType: uri
+
+    - fieldPath: medication.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: medication.coding.code
+      type: enum
+      nullable: true
+      description: Code du médicament dans le système de terminologie.
+      nativeDataType: code
+
+    - fieldPath: medication.coding.display
+      type: string
+      nullable: true
+      description: Libellé du médicament tel que défini par le système de terminologie.
+      nativeDataType: string
+
+    - fieldPath: medication.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: medication.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre du médicament.
+      nativeDataType: string
+
+    # ── dosageInstruction ────────────────────────────────────────────────────
+    - fieldPath: dosageInstruction
+      type: array
+      nullable: true
+      description: >
+        Instructions de dosage de la prescription. Seul le premier élément
+        est exploité dans cette ViewDefinition (dosageInstruction.first()).
+      nativeDataType: Dosage
+
+    - fieldPath: dosageInstruction.timing
+      type: record
+      nullable: true
+      description: Calendrier d'administration du médicament.
+      nativeDataType: Timing
+
+    - fieldPath: dosageInstruction.timing.repeat
+      type: record
+      nullable: true
+      description: Règles de répétition du calendrier d'administration.
+      nativeDataType: Timing.Repeat
+
+    - fieldPath: dosageInstruction.timing.repeat.bounds.ofType(Period)
+      type: record
+      nullable: true
+      description: >
+        Période de validité des instructions de dosage
+        (polymorphisme bounds[x]). Seul le type Period est exploité.
+      nativeDataType: Period
+
+    - fieldPath: dosageInstruction.timing.repeat.bounds.ofType(Period).start
+      type: date
+      nullable: true
+      description: Date et heure de début de la période de prescription.
+      nativeDataType: dateTime
+
+    - fieldPath: dosageInstruction.timing.repeat.bounds.ofType(Period).end
+      type: date
+      nullable: true
+      description: Date et heure de fin de la période de prescription.
+      nativeDataType: dateTime
+
+    - fieldPath: dosageInstruction.route
+      type: record
+      nullable: true
+      description: Voie d'administration prescrite.
+      nativeDataType: CodeableConcept
+
+    - fieldPath: dosageInstruction.route.coding
+      type: array
+      nullable: true
+      description: Coding de la voie d'administration.
+      nativeDataType: Coding
+
+    - fieldPath: dosageInstruction.route.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de la voie d'administration.
+      nativeDataType: uri
+
+    - fieldPath: dosageInstruction.route.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: dosageInstruction.route.coding.code
+      type: enum
+      nullable: true
+      description: Code de la voie d'administration.
+      nativeDataType: code
+
+    - fieldPath: dosageInstruction.route.coding.display
+      type: string
+      nullable: true
+      description: Libellé de la voie d'administration.
+      nativeDataType: string
+
+    - fieldPath: dosageInstruction.route.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: dosageInstruction.route.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre de la voie d'administration.
+      nativeDataType: string
+
+properties:
+  fhir.resource_type: "MedicationRequest"
+  fhir.version: "4.0.1"
+  format: "NDJSON"
+  partitioning: "none"
+
+externalUrl: http://hl7.org/fhir/R4/StructureDefinition/MedicationRequest
+subTypes: NDJSON_File
+tags:
+  - fhir
+  - fhir:MedicationRequest
+  - ndjson
+glossaryTerms: fhir:MedicationRequest
+---
+kind: DATASET
+name: sharing_layer_Observation.ndjson
+platform: s3
+env: PROD
+displayName: Observation
+description: >
+  Ressources FHIR Observation issues de l'export bulk FHIR AP-HP.
+  Couvre les mesures cliniques à composants (ex. tension artérielle
+  avec composants systolique et diastolique).
+  Filtre actif : component.exists().
+  Utilisées comme source pour la transformation OMOP Measurement.
+container:
+  platform: s3
+  instance: s3
+  database: sharing_layer
+  env: PROD
+schema:
+  fields:
+
+    # ── Identifiant ──────────────────────────────────────────────────────────
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: Identifiant logique de la ressource Observation.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+      partOfKey: true
+
+    # ── subject : Reference(Patient) ────────────────────────────────────────
+    - fieldPath: subject
+      type: record
+      nullable: false
+      description: Patient concerné par l'observation.
+      nativeDataType: Reference
+
+    - fieldPath: subject.reference
+      type: string
+      nullable: true
+      description: Référence littérale au Patient (ex. "Patient/123").
+      nativeDataType: string
+
+    - fieldPath: subject.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Patient").
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: subject.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: subject.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── encounter : Reference(Encounter) ────────────────────────────────────
+    - fieldPath: encounter
+      type: record
+      nullable: true
+      description: Encounter dans lequel l'observation a été réalisée.
+      nativeDataType: Reference
+
+    - fieldPath: encounter.reference
+      type: string
+      nullable: true
+      description: Référence littérale à l'Encounter (ex. "Encounter/456").
+      nativeDataType: string
+
+    - fieldPath: encounter.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Encounter").
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: encounter.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: encounter.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── effectiveDateTime ────────────────────────────────────────────────────
+    - fieldPath: effectiveDateTime
+      type: date
+      nullable: true
+      description: >
+        Date et heure de l'observation (élément nommé, non polymorphique).
+        Correspond à Observation.effectiveDateTime de type dateTime.
+      nativeDataType: dateTime
+
+        # ── code : CodeableConcept (racine) ──────────────────────────────────────
+    - fieldPath: code
+      type: record
+      nullable: true
+      description: >
+        Code identifiant la mesure au niveau racine de l'Observation.
+        Utilisé par measurement_simple (component.exists().not()).
+      nativeDataType: CodeableConcept
+
+    - fieldPath: code.coding
+      type: array
+      nullable: true
+      description: Coding de la mesure défini par un système de terminologie.
+      nativeDataType: Coding
+
+    - fieldPath: code.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de la mesure.
+      nativeDataType: uri
+
+    - fieldPath: code.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: code.coding.code
+      type: enum
+      nullable: true
+      description: Code de la mesure dans le système de terminologie.
+      nativeDataType: code
+
+    - fieldPath: code.coding.display
+      type: string
+      nullable: true
+      description: Libellé de la mesure tel que défini par le système de terminologie.
+      nativeDataType: string
+
+    - fieldPath: code.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: code.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre du code de la mesure.
+      nativeDataType: string
+
+# ── valueQuantity (racine) ───────────────────────────────────────────────
+    - fieldPath: valueQuantity
+      type: record
+      nullable: true
+      description: >
+        Valeur quantitative de la mesure au niveau racine
+        (polymorphisme value[x], type Quantity).
+        Utilisé par measurement_simple (component.exists().not()).
+      nativeDataType: Quantity
+
+    - fieldPath: valueQuantity.value
+      type: number
+      nullable: true
+      description: Valeur numérique de la mesure.
+      nativeDataType: decimal
+
+    - fieldPath: valueQuantity.unit
+      type: string
+      nullable: true
+      description: Unité de mesure (représentation textuelle).
+      nativeDataType: string
+
+    - fieldPath: valueQuantity.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de l'unité (ex. UCUM).
+      nativeDataType: uri
+
+    - fieldPath: valueQuantity.code
+      type: enum
+      nullable: true
+      description: Code UCUM de l'unité de mesure.
+      nativeDataType: code
+
+    - fieldPath: valueQuantity.comparator
+      type: enum
+      nullable: true
+      description: Comparateur de la valeur (< | <= | >= | >).
+      nativeDataType: code
+
+        # ── referenceRange[] ─────────────────────────────────────────────────────
+    - fieldPath: referenceRange
+      type: array
+      nullable: true
+      description: >
+        Plages de référence de la mesure. Seul le premier élément
+        est exploité (referenceRange.first()).
+      nativeDataType: Observation.ReferenceRange
+
+    - fieldPath: referenceRange.low
+      type: record
+      nullable: true
+      description: Borne basse de la plage de référence (type SimpleQuantity).
+      nativeDataType: Quantity
+
+    - fieldPath: referenceRange.low.value
+      type: number
+      nullable: true
+      description: Valeur numérique de la borne basse.
+      nativeDataType: decimal
+
+    - fieldPath: referenceRange.low.unit
+      type: string
+      nullable: true
+      description: Unité de la borne basse (représentation textuelle).
+      nativeDataType: string
+
+    - fieldPath: referenceRange.low.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de l'unité.
+      nativeDataType: uri
+
+    - fieldPath: referenceRange.low.code
+      type: enum
+      nullable: true
+      description: Code UCUM de l'unité de la borne basse.
+      nativeDataType: code
+
+    - fieldPath: referenceRange.high
+      type: record
+      nullable: true
+      description: Borne haute de la plage de référence (type SimpleQuantity).
+      nativeDataType: Quantity
+
+    - fieldPath: referenceRange.high.value
+      type: number
+      nullable: true
+      description: Valeur numérique de la borne haute.
+      nativeDataType: decimal
+
+    - fieldPath: referenceRange.high.unit
+      type: string
+      nullable: true
+      description: Unité de la borne haute (représentation textuelle).
+      nativeDataType: string
+
+    - fieldPath: referenceRange.high.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de l'unité.
+      nativeDataType: uri
+
+    - fieldPath: referenceRange.high.code
+      type: enum
+      nullable: true
+      description: Code UCUM de l'unité de la borne haute.
+      nativeDataType: code
+
+    # ── component[] ──────────────────────────────────────────────────────────
+    - fieldPath: component
+      type: array
+      nullable: true
+      description: >
+        Composants de l'observation (ex. systolique et diastolique
+        pour une tension artérielle). Chaque composant génère une ligne
+        OMOP via le forEach de la ViewDefinition.
+        Filtre actif : component.exists().
+      nativeDataType: Observation.Component
+
+    - fieldPath: component.code
+      type: record
+      nullable: true
+      description: Code identifiant le composant de mesure.
+      nativeDataType: CodeableConcept
+
+    - fieldPath: component.code.coding
+      type: array
+      nullable: true
+      description: Coding du composant défini par un système de terminologie.
+      nativeDataType: Coding
+
+    - fieldPath: component.code.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie du composant.
+      nativeDataType: uri
+
+    - fieldPath: component.code.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: component.code.coding.code
+      type: enum
+      nullable: true
+      description: Code du composant dans le système de terminologie.
+      nativeDataType: code
+
+    - fieldPath: component.code.coding.display
+      type: string
+      nullable: true
+      description: Libellé du composant tel que défini par le système de terminologie.
+      nativeDataType: string
+
+    - fieldPath: component.code.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: component.code.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre du code du composant.
+      nativeDataType: string
+
+    - fieldPath: component.valueQuantity
+      type: record
+      nullable: true
+      description: >
+        Valeur quantitative du composant (polymorphisme value[x]).
+        Seul le type Quantity est exploité (where($this is Quantity)).
+      nativeDataType: Quantity
+
+    - fieldPath: component.valueQuantity.value
+      type: number
+      nullable: true
+      description: Valeur numérique de la mesure du composant.
+      nativeDataType: decimal
+
+    - fieldPath: component.valueQuantity.unit
+      type: string
+      nullable: true
+      description: Unité de mesure (représentation textuelle).
+      nativeDataType: string
+
+    - fieldPath: component.valueQuantity.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de l'unité (ex. UCUM).
+      nativeDataType: uri
+
+    - fieldPath: component.valueQuantity.code
+      type: enum
+      nullable: true
+      description: Code UCUM de l'unité de mesure.
+      nativeDataType: code
+
+    - fieldPath: component.valueQuantity.comparator
+      type: enum
+      nullable: true
+      description: Comparateur de la valeur (< | <= | >= | >).
+      nativeDataType: code
+
+properties:
+  fhir.resource_type: "Observation"
+  fhir.version: "4.0.1"
+  format: "NDJSON"
+  partitioning: "none"
+
+externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Observation
+subTypes: NDJSON_File
+tags:
+  - fhir
+  - fhir:Observation
+  - ndjson
+glossaryTerms: fhir:Observation
+---
+kind: DATASET
+name: sharing_layer_Procedure.ndjson
+platform: s3
+env: PROD
+displayName: Procedure
+description: >
+  Ressources FHIR Procedure issues de l'export bulk FHIR AP-HP.
+  Contient les actes médicaux et chirurgicaux avec code, date
+  et référence au séjour. Utilisées comme source pour la
+  transformation OMOP Procedure Occurrence.
+container:
+  platform: s3
+  instance: s3
+  database: sharing_layer
+  env: PROD
+schema:
+  fields:
+
+    # ── Identifiant ──────────────────────────────────────────────────────────
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: Identifiant logique de la ressource Procedure.
+      nativeDataType: http://hl7.org/fhirpath/System.String
+      partOfKey: true
+
+    # ── subject : Reference(Patient) ────────────────────────────────────────
+    - fieldPath: subject
+      type: record
+      nullable: false
+      description: Patient concerné par la procédure.
+      nativeDataType: Reference
+
+    - fieldPath: subject.reference
+      type: string
+      nullable: true
+      description: Référence littérale au Patient (ex. "Patient/123").
+      nativeDataType: string
+
+    - fieldPath: subject.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Patient").
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: subject.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: subject.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: subject.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── encounter : Reference(Encounter) ────────────────────────────────────
+    - fieldPath: encounter
+      type: record
+      nullable: true
+      description: Encounter dans lequel la procédure a été réalisée.
+      nativeDataType: Reference
+
+    - fieldPath: encounter.reference
+      type: string
+      nullable: true
+      description: Référence littérale à l'Encounter (ex. "Encounter/456").
+      nativeDataType: string
+
+    - fieldPath: encounter.type
+      type: string
+      nullable: true
+      description: Type de la ressource référencée (ex. "Encounter").
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier
+      type: record
+      nullable: true
+      description: Référence logique si la référence littérale n'est pas connue.
+      nativeDataType: Identifier
+
+    - fieldPath: encounter.identifier.system
+      type: string
+      nullable: true
+      description: Namespace de la valeur de l'identifiant.
+      nativeDataType: uri
+
+    - fieldPath: encounter.identifier.value
+      type: string
+      nullable: true
+      description: Valeur unique de l'identifiant.
+      nativeDataType: string
+
+    - fieldPath: encounter.display
+      type: string
+      nullable: true
+      description: Texte alternatif pour la ressource référencée.
+      nativeDataType: string
+
+    # ── performed[dateTime] ──────────────────────────────────────────────────
+    - fieldPath: performed.ofType(dateTime)
+      type: date
+      nullable: true
+      description: >
+        Date et heure de réalisation de la procédure
+        (polymorphisme performed[x]). Seul le type dateTime
+        est exploité dans cette ViewDefinition.
+      nativeDataType: dateTime
+
+    # ── code : CodeableConcept ───────────────────────────────────────────────
+    - fieldPath: code
+      type: record
+      nullable: true
+      description: Code identifiant la procédure réalisée.
+      nativeDataType: CodeableConcept
+
+    - fieldPath: code.coding
+      type: array
+      nullable: true
+      description: Code défini par un système de terminologie.
+      nativeDataType: Coding
+
+    - fieldPath: code.coding.system
+      type: string
+      nullable: true
+      description: URI du système de terminologie de la procédure.
+      nativeDataType: uri
+
+    - fieldPath: code.coding.version
+      type: string
+      nullable: true
+      description: Version du système de terminologie, si pertinente.
+      nativeDataType: string
+
+    - fieldPath: code.coding.code
+      type: enum
+      nullable: true
+      description: Code de la procédure dans le système de terminologie.
+      nativeDataType: code
+
+    - fieldPath: code.coding.display
+      type: string
+      nullable: true
+      description: Libellé de la procédure tel que défini par le système de terminologie.
+      nativeDataType: string
+
+    - fieldPath: code.coding.userSelected
+      type: boolean
+      nullable: true
+      description: Vrai si ce coding a été sélectionné directement par l'utilisateur.
+      nativeDataType: boolean
+
+    - fieldPath: code.text
+      type: string
+      nullable: true
+      description: Représentation textuelle libre du code de procédure.
+      nativeDataType: string
+
+properties:
+  fhir.resource_type: "Procedure"
+  fhir.version: "4.0.1"
+  format: "NDJSON"
+  partitioning: "none"
+
+externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Procedure
+subTypes: NDJSON_File
+tags:
+  - fhir
+  - fhir:Procedure
+  - ndjson
+glossaryTerms: fhir:Procedure
+
+---
+
+kind: CONTAINER
+platform: postgres
+instance: postgres
+database: omop
+env: PROD
+name: OMOP CDM
+#description: "TODO"
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html
+subTypes: Database
+tags:
+  - "omop"
+domains: eds
+---
+kind: CONTAINER
+platform: postgres
+instance: postgres
+database: omop
+schema: public
+env: PROD
+parentContainer:
+  platform: postgres
+  instance: postgres
+  database: omop
+  env: PROD
+subTypes: Schema
+name: public
+description: "TODO"
+tags:
+  - "omop"
+domains: eds
+---
+kind: DATASET
+name: omop_public_person
+platform: postgres
+env: PROD
+displayName: Person
+description: >
+  Table OMOP CDM Person générée par transformation ViewDefinition
+  à partir des ressources FHIR Patient. Contient les données
+  démographiques de base : identité, sexe, date de naissance.
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique de la personne dans OMOP CDM.
+        Dérivé du FHIR Patient.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: gender_concept_id
+      type: number
+      nullable: true
+      description: >
+        Concept OMOP représentant le sexe. 8532 = female, 8507 = male.
+        Calculé par expression FHIRPath conditionnelle depuis Patient.gender.
+      nativeDataType: integer
+
+    - fieldPath: birth_date
+      type: date
+      nullable: true
+      description: >
+        Date de naissance complète, dérivée de Patient.birthDate.
+      nativeDataType: date
+
+    - fieldPath: year_of_birth
+      type: number
+      nullable: true
+      description: Année de naissance, extraite de Patient.birthDate.
+      nativeDataType: integer
+
+    - fieldPath: month_of_birth
+      type: number
+      nullable: true
+      description: Mois de naissance, extrait de Patient.birthDate.
+      nativeDataType: integer
+
+    - fieldPath: day_of_birth
+      type: number
+      nullable: true
+      description: Jour de naissance, extrait de Patient.birthDate.
+      nativeDataType: integer
+
+    - fieldPath: location_id
+      type: string
+      nullable: true
+      description: >
+        Référence à la localisation géographique du patient.
+        Dérivé provisoirement de Patient.id (confidence 0.5) —
+        à affiner par jointure sur une table d'adresse.
+      nativeDataType: varchar
+
+    - fieldPath: gender_source_value
+      type: string
+      nullable: true
+      description: >
+        Valeur source brute du sexe issue de Patient.gender
+        (male | female | other | unknown).
+      nativeDataType: varchar
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Person"
+  omop.table: "person"
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#PERSON
+subTypes: Table
+tags:
+  - omop
+  - omop:Person
+glossaryTerms: omop:Person
+domains: eds
+---
+kind: DATASET
+name: omop_public_visit_occurrence
+platform: postgres
+env: PROD
+displayName: Visit Occurrence
+description: >
+  Table OMOP CDM Visit Occurrence générée par transformation ViewDefinition
+  à partir des ressources FHIR Encounter. Contient les séjours et venues
+  avec mapping conditionnel des concepts de type de visite, d'admission
+  et de sortie vers les concepts OMOP.
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: visit_occurrence_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique de la visite dans OMOP CDM.
+        Dérivé du FHIR Encounter.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la personne concernée par la visite.
+        Dérivé de Encounter.subject.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_start_date
+      type: date
+      nullable: true
+      description: >
+        Date de début de la visite, dérivée de Encounter.period.start.
+      nativeDataType: date
+
+    - fieldPath: visit_end_date
+      type: date
+      nullable: true
+      description: >
+        Date de fin de la visite, dérivée de Encounter.period.end.
+      nativeDataType: date
+
+    - fieldPath: visit_concept_id
+      type: number
+      nullable: true
+      description: >
+        Concept OMOP représentant le type de visite.
+        9201 = inpatient (IMP), 9202 = outpatient (AMB), 9203 = emergency (EMER).
+        Calculé par expression FHIRPath conditionnelle depuis Encounter.class.code.
+      nativeDataType: integer
+
+    - fieldPath: visit_source_value
+      type: string
+      nullable: true
+      description: >
+        Valeur source brute du type de visite issue de Encounter.class.display.
+      nativeDataType: varchar
+
+    - fieldPath: visit_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source brut du type de visite issu de Encounter.class.code
+        (IMP | AMB | EMER).
+      nativeDataType: varchar
+
+    - fieldPath: visit_coding_source_system
+      type: string
+      nullable: true
+      description: >
+        Système de codage source du type de visite, issu de Encounter.class.system.
+      nativeDataType: varchar
+
+    - fieldPath: visit_type_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP représentant l'origine de l'enregistrement de la visite.
+        Valeur constante 44818518 ("Visit derived from EHR record") —
+        aucun champ source FHIR.
+      nativeDataType: integer
+
+    - fieldPath: admitted_from_concept_id
+      type: number
+      nullable: true
+      description: >
+        Concept OMOP représentant la provenance à l'admission.
+        8870 = urgences (emd), 8782 = médecin généraliste (gp), 8844 = autre (other).
+        Calculé par expression FHIRPath depuis Encounter.hospitalization.admitSource.
+      nativeDataType: integer
+
+    - fieldPath: admitted_from_source_value
+      type: string
+      nullable: true
+      description: >
+        Valeur source brute de la provenance à l'admission,
+        issue de Encounter.hospitalization.admitSource.coding.display.
+      nativeDataType: varchar
+
+    - fieldPath: admitted_from_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source brut de la provenance à l'admission,
+        issu de Encounter.hospitalization.admitSource.coding.code.
+      nativeDataType: varchar
+
+    - fieldPath: discharged_to_concept_id
+      type: number
+      nullable: true
+      description: >
+        Concept OMOP représentant la destination à la sortie.
+        8536 = domicile (home), 4216643 = décès (exp).
+        Calculé par expression FHIRPath depuis Encounter.hospitalization.dischargeDisposition.
+      nativeDataType: integer
+
+    - fieldPath: discharged_to_source_value
+      type: string
+      nullable: true
+      description: >
+        Valeur source brute de la destination à la sortie,
+        issue de Encounter.hospitalization.dischargeDisposition.coding.display.
+      nativeDataType: varchar
+
+    - fieldPath: discharged_to_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source brut de la destination à la sortie,
+        issu de Encounter.hospitalization.dischargeDisposition.coding.code.
+      nativeDataType: varchar
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Visit"
+  omop.table: "visit_occurrence"
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#VISIT_OCCURRENCE
+subTypes: Table
+tags:
+  - omop
+  - omop:VisitOccurrence
+glossaryTerms: omop:VisitOccurrence
+domains: eds
+---
+kind: DATASET
+name: omop_public_location
+platform: postgres
+env: PROD
+displayName: Location
+description: >
+  Table OMOP CDM Location générée par transformation ViewDefinition
+  à partir des ressources FHIR Patient. Contient les données
+  géographiques extraites des extensions d'adresse FHIR :
+  code géographique PMSI et coordonnées GPS.
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: location_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique de la localisation dans OMOP CDM.
+        Dérivé du FHIR Patient.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence au patient associé à cette localisation.
+        Dérivé du FHIR Patient.id. Champ non standard OMOP CDM —
+        dénormalisation pour faciliter la jointure avec la table Person.
+      nativeDataType: varchar
+
+    - fieldPath: zip
+      type: string
+      nullable: true
+      description: >
+        Code géographique PMSI extrait de l'extension AP-HP PmsiCodeGeo
+        (https://aphp.github.io/IG-fhir-dm/StructureDefinition/PmsiCodeGeo)
+        sur Patient.address.first().
+      nativeDataType: varchar
+
+    - fieldPath: latitude
+      type: number
+      nullable: true
+      description: >
+        Latitude GPS extraite de l'extension FHIR geolocation
+        (http://hl7.org/fhir/StructureDefinition/geolocation)
+        sur Patient.address.first().
+      nativeDataType: numeric
+
+    - fieldPath: longitude
+      type: number
+      nullable: true
+      description: >
+        Longitude GPS extraite de l'extension FHIR geolocation
+        (http://hl7.org/fhir/StructureDefinition/geolocation)
+        sur Patient.address.first().
+      nativeDataType: numeric
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Location"
+  omop.table: "location"
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#LOCATION
+subTypes: Table
+tags:
+  - omop
+  - omop:Location
+glossaryTerms: omop:Location
+domains: eds
+---
+kind: DATASET
+name: omop_public_death
+platform: postgres
+env: PROD
+displayName: Death
+description: >
+  Table OMOP CDM Death générée par transformation ViewDefinition
+  à partir des ressources FHIR Patient décédés
+  (filtre : deceased.ofType(dateTime).exists()).
+  Contient la date de décès et le type d'enregistrement.
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la personne décédée dans OMOP CDM.
+        Dérivé du FHIR Patient.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: death_date
+      type: date
+      nullable: false
+      description: >
+        Date de décès (partie date uniquement), dérivée de
+        Patient.deceased[dateTime] par troncature de l'heure.
+      nativeDataType: date
+
+    - fieldPath: death_datetime
+      type: date
+      nullable: true
+      description: >
+        Date et heure de décès, dérivée de Patient.deceased[dateTime].
+      nativeDataType: timestamp
+
+    - fieldPath: death_type_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP représentant l'origine de l'enregistrement du décès.
+        Valeur constante 32817 ("EHR") — aucun champ source FHIR.
+      nativeDataType: integer
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Death"
+  omop.table: "death"
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#DEATH
+subTypes: Table
+tags:
+  - omop
+  - omop:Death
+glossaryTerms: omop:Death
+domains: eds
+---
+kind: DATASET
+name: omop_public_visit_detail
+platform: postgres
+env: PROD
+displayName: Visit Detail
+description: >
+  Table OMOP CDM Visit Detail générée par transformation ViewDefinition
+  à partir des ressources FHIR Encounter. Structure symétrique à
+  visit_occurrence avec décomposition date/datetime sur les périodes
+  de début et de fin de visite.
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: visit_detail_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique du détail de visite dans OMOP CDM.
+        Dérivé du FHIR Encounter.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la personne concernée.
+        Dérivé de Encounter.subject.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_occurrence_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la visite parente dans visit_occurrence.
+        Dérivé de Encounter.id — relation 1:1 dans ce modèle.
+      nativeDataType: varchar
+
+    - fieldPath: visit_detail_start_date
+      type: date
+      nullable: true
+      description: >
+        Date de début de la visite (partie date uniquement),
+        dérivée de Encounter.period.start par troncature de l'heure.
+      nativeDataType: date
+
+    - fieldPath: visit_detail_start_datetime
+      type: date
+      nullable: true
+      description: >
+        Date et heure de début de la visite,
+        dérivée de Encounter.period.start.
+      nativeDataType: timestamp
+
+    - fieldPath: visit_detail_end_date
+      type: date
+      nullable: true
+      description: >
+        Date de fin de la visite (partie date uniquement),
+        dérivée de Encounter.period.end par troncature de l'heure.
+      nativeDataType: date
+
+    - fieldPath: visit_detail_end_datetime
+      type: date
+      nullable: true
+      description: >
+        Date et heure de fin de la visite,
+        dérivée de Encounter.period.end.
+      nativeDataType: timestamp
+
+    - fieldPath: visit_detail_concept_id
+      type: number
+      nullable: true
+      description: >
+        Concept OMOP du type de visite.
+        9201 = inpatient (IMP), 9202 = outpatient (AMB), 9203 = emergency (EMER).
+        Calculé par expression FHIRPath conditionnelle depuis Encounter.class.code.
+      nativeDataType: integer
+
+    - fieldPath: visit_detail_source_value
+      type: string
+      nullable: true
+      description: >
+        Valeur source brute du type de visite, issue de Encounter.class.display.
+      nativeDataType: varchar
+
+    - fieldPath: visit_detail_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source brut du type de visite, issu de Encounter.class.code
+        (IMP | AMB | EMER).
+      nativeDataType: varchar
+
+    - fieldPath: visit_detail_type_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP représentant l'origine de l'enregistrement.
+        Valeur constante 44818518 ("Visit derived from EHR record") —
+        aucun champ source FHIR.
+      nativeDataType: integer
+
+    - fieldPath: admitted_from_concept_id
+      type: number
+      nullable: true
+      description: >
+        Concept OMOP de la provenance à l'admission.
+        8870 = urgences (emd), 8782 = médecin généraliste (gp), 8844 = autre.
+        Calculé depuis Encounter.hospitalization.admitSource.
+      nativeDataType: integer
+
+    - fieldPath: admitted_from_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source de la provenance à l'admission,
+        issu de Encounter.hospitalization.admitSource.coding.display.
+      nativeDataType: varchar
+
+    - fieldPath: admitted_from_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source de la provenance à l'admission,
+        issu de Encounter.hospitalization.admitSource.coding.code.
+      nativeDataType: varchar
+
+    - fieldPath: discharged_to_concept_id
+      type: number
+      nullable: true
+      description: >
+        Concept OMOP de la destination à la sortie.
+        8536 = domicile (home), 4216643 = décès (exp).
+        Calculé depuis Encounter.hospitalization.dischargeDisposition.
+      nativeDataType: integer
+
+    - fieldPath: discharged_to_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source de la destination à la sortie,
+        issu de Encounter.hospitalization.dischargeDisposition.coding.display.
+      nativeDataType: varchar
+
+    - fieldPath: discharged_to_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source de la destination à la sortie,
+        issu de Encounter.hospitalization.dischargeDisposition.coding.code.
+      nativeDataType: varchar
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Visit"
+  omop.table: "visit_detail"
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#VISIT_DETAIL
+subTypes: Table
+tags:
+  - omop
+  - omop:VisitDetail
+glossaryTerms: omop:VisitDetail
+domains: eds
+---
+kind: DATASET
+name: omop_public_condition_occurrence
+platform: postgres
+env: PROD
+displayName: Condition Occurrence
+description: >
+  Table OMOP CDM Condition Occurrence générée par transformation ViewDefinition
+  à partir des ressources FHIR Condition. Exclut les codes Z87.2, Z37.0 et Z88.0.
+  Le condition_concept_id est fixé à 0 (non mappé). Le statut diagnostique
+  PMSI (DP/DA) est mappé vers les concepts OMOP condition_status_concept_id.
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: condition_occurrence_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique de l'occurrence de condition dans OMOP CDM.
+        Dérivé du FHIR Condition.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la personne concernée.
+        Dérivé de Condition.subject.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_occurrence_id
+      type: string
+      nullable: true
+      description: >
+        Référence à la visite parente dans visit_occurrence.
+        Dérivé de Condition.encounter.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_detail_id
+      type: string
+      nullable: true
+      description: >
+        Référence au détail de visite dans visit_detail.
+        Dérivé de Condition.encounter.reference — relation 1:1 dans ce modèle.
+      nativeDataType: varchar
+
+    - fieldPath: condition_start_date
+      type: date
+      nullable: true
+      description: >
+        Date d'enregistrement de la condition,
+        dérivée de Condition.recordedDate.
+      nativeDataType: date
+
+    - fieldPath: condition_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP standard de la condition.
+        Valeur constante 0 — mapping vers vocabulaire OMOP non encore réalisé.
+      nativeDataType: integer
+
+    - fieldPath: condition_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source de la condition,
+        issu de Condition.code.coding.first().display.
+      nativeDataType: varchar
+
+    - fieldPath: condition_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source de la condition (ex. CIM-10),
+        issu de Condition.code.coding.first().code.
+        Exclut Z87.2, Z37.0 et Z88.0 (filtre where).
+      nativeDataType: varchar
+
+    - fieldPath: condition_coding_source_system
+      type: string
+      nullable: true
+      description: >
+        Système de codage source de la condition,
+        issu de Condition.code.coding.first().system.
+      nativeDataType: varchar
+
+    - fieldPath: condition_type_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP représentant l'origine de l'enregistrement.
+        Valeur constante 32817 ("EHR") — aucun champ source FHIR.
+      nativeDataType: integer
+
+    - fieldPath: condition_status_concept_id
+      type: number
+      nullable: true
+      description: >
+        Concept OMOP du statut diagnostique PMSI.
+        4307107 = diagnostic principal (DP), 4230359 = diagnostic associé (DA).
+        Calculé par expression FHIRPath depuis Condition.category.coding.code.
+      nativeDataType: integer
+
+    - fieldPath: condition_status_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source du statut diagnostique,
+        issu de Condition.category.first().coding.first().display.
+      nativeDataType: varchar
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Condition"
+  omop.table: "condition_occurrence"
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#CONDITION_OCCURRENCE
+subTypes: Table
+tags:
+  - omop
+  - omop:ConditionOccurrence
+glossaryTerms: omop:ConditionOccurrence
+domains: eds
+---
+kind: DATASET
+name: omop_public_drug_exposure
+platform: postgres
+env: PROD
+displayName: Drug Exposure
+description: >
+  Table OMOP CDM Drug Exposure alimentée par deux jobs distincts :
+  MedicationAdministration (drug_type_concept_id = 38000180)
+  et MedicationRequest (drug_type_concept_id = 38000177).
+  Le drug_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: drug_exposure_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique de l'exposition médicamenteuse dans OMOP CDM.
+        Dérivé de MedicationAdministration.id ou MedicationRequest.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: Référence à la personne concernée.
+      nativeDataType: varchar
+
+    - fieldPath: visit_occurrence_id
+      type: string
+      nullable: true
+      description: Référence à la visite parente dans visit_occurrence.
+      nativeDataType: varchar
+
+    - fieldPath: visit_detail_id
+      type: string
+      nullable: true
+      description: Référence au détail de visite dans visit_detail.
+      nativeDataType: varchar
+
+    - fieldPath: drug_exposure_start_date
+      type: date
+      nullable: true
+      description: >
+        Date de début d'exposition (partie date uniquement).
+        MedicationAdministration : effective[Period].start.
+        MedicationRequest : dosageInstruction.timing.repeat.bounds[Period].start.
+      nativeDataType: date
+
+    - fieldPath: drug_exposure_start_datetime
+      type: date
+      nullable: true
+      description: >
+        Date et heure de début d'exposition.
+        Peuplé uniquement depuis MedicationAdministration (effective[Period].start).
+        Null pour MedicationRequest.
+      nativeDataType: timestamp
+
+    - fieldPath: drug_exposure_end_date
+      type: date
+      nullable: true
+      description: >
+        Date de fin d'exposition (partie date uniquement).
+        MedicationAdministration : effective[Period].end.
+        MedicationRequest : dosageInstruction.timing.repeat.bounds[Period].end.
+      nativeDataType: date
+
+    - fieldPath: drug_exposure_end_datetime
+      type: date
+      nullable: true
+      description: >
+        Date et heure de fin d'exposition.
+        Peuplé uniquement depuis MedicationAdministration (effective[Period].end).
+        Null pour MedicationRequest.
+      nativeDataType: timestamp
+
+    - fieldPath: drug_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP standard du médicament.
+        Valeur constante 0 — mapping vers vocabulaire OMOP non encore réalisé.
+      nativeDataType: integer
+
+    - fieldPath: drug_source_value
+      type: string
+      nullable: true
+      description: Libellé source du médicament issu de medication[CodeableConcept].coding.first().display.
+      nativeDataType: varchar
+
+    - fieldPath: drug_source_concept_id
+      type: string
+      nullable: true
+      description: Code source du médicament issu de medication[CodeableConcept].coding.first().code.
+      nativeDataType: varchar
+
+    - fieldPath: drug_coding_source_system
+      type: string
+      nullable: true
+      description: Système de codage source issu de medication[CodeableConcept].coding.first().system.
+      nativeDataType: varchar
+
+    - fieldPath: drug_type_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP de l'origine de l'enregistrement.
+        38000180 = "Inpatient administration" (MedicationAdministration).
+        38000177 = "Written prescription" (MedicationRequest).
+      nativeDataType: integer
+
+    - fieldPath: route_source_value
+      type: string
+      nullable: true
+      description: Libellé de la voie d'administration issu de route.coding.first().display.
+      nativeDataType: varchar
+
+    - fieldPath: route_source_concept_id
+      type: string
+      nullable: true
+      description: Code de la voie d'administration issu de route.coding.first().code.
+      nativeDataType: varchar
+
+    - fieldPath: route_coding_source_system
+      type: string
+      nullable: true
+      description: Système de codage de la voie d'administration issu de route.coding.first().system.
+      nativeDataType: varchar
+
+    - fieldPath: quantity
+      type: number
+      nullable: true
+      description: >
+        Quantité administrée issue de dosage.dose.value.
+        Peuplé uniquement depuis MedicationAdministration.
+        Null pour MedicationRequest.
+      nativeDataType: numeric
+
+    - fieldPath: dose_unit_source_value
+      type: string
+      nullable: true
+      description: >
+        Unité de dose issue de dosage.dose.unit.
+        Peuplé uniquement depuis MedicationAdministration.
+        Null pour MedicationRequest.
+      nativeDataType: varchar
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Drug"
+  omop.table: "drug_exposure"
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#DRUG_EXPOSURE
+subTypes: Table
+tags:
+  - omop
+  - omop:DrugExposure
+glossaryTerms: omop:DrugExposure
+domains: eds
+---
+kind: DATASET
+name: omop_public_procedure_occurrence
+platform: postgres
+env: PROD
+displayName: Procedure Occurrence
+description: >
+  Table OMOP CDM Procedure Occurrence générée par transformation ViewDefinition
+  à partir des ressources FHIR Procedure.
+  Le procedure_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+  Le procedure_type_concept_id est la constante 38000275 ("EHR order list entry").
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: procedure_occurrence_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique de l'occurrence de procédure dans OMOP CDM.
+        Dérivé du FHIR Procedure.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la personne concernée.
+        Dérivé de Procedure.subject.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_occurrence_id
+      type: string
+      nullable: true
+      description: >
+        Référence à la visite parente dans visit_occurrence.
+        Dérivé de Procedure.encounter.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_detail_id
+      type: string
+      nullable: true
+      description: >
+        Référence au détail de visite dans visit_detail.
+        Dérivé de Procedure.encounter.reference — relation 1:1 dans ce modèle.
+      nativeDataType: varchar
+
+    - fieldPath: procedure_date
+      type: date
+      nullable: true
+      description: >
+        Date de la procédure (partie date uniquement),
+        dérivée de performed[dateTime] par troncature de l'heure.
+      nativeDataType: date
+
+    - fieldPath: procedure_datetime
+      type: date
+      nullable: true
+      description: >
+        Date et heure de la procédure,
+        dérivée de performed[dateTime].
+      nativeDataType: timestamp
+
+    - fieldPath: procedure_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP standard de la procédure.
+        Valeur constante 0 — mapping vers vocabulaire OMOP non encore réalisé.
+      nativeDataType: integer
+
+    - fieldPath: procedure_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source de la procédure,
+        issu de Procedure.code.coding.first().display.
+      nativeDataType: varchar
+
+    - fieldPath: procedure_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source de la procédure,
+        issu de Procedure.code.coding.first().code.
+      nativeDataType: varchar
+
+    - fieldPath: procedure_coding_source_system
+      type: string
+      nullable: true
+      description: >
+        Système de codage source de la procédure,
+        issu de Procedure.code.coding.first().system.
+      nativeDataType: varchar
+
+    - fieldPath: procedure_type_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP représentant l'origine de l'enregistrement.
+        Valeur constante 38000275 ("EHR order list entry") —
+        aucun champ source FHIR.
+      nativeDataType: integer
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Procedure"
+  omop.table: "procedure_occurrence"
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#PROCEDURE_OCCURRENCE
+subTypes: Table
+tags:
+  - omop
+  - omop:ProcedureOccurrence
+glossaryTerms: omop:ProcedureOccurrence
+domains: eds
+---
+kind: DATASET
+name: omop_public_measurement
+platform: postgres
+env: PROD
+displayName: Measurement
+description: >
+  Table OMOP CDM Measurement alimentée par deux jobs distincts :
+  - measurement_blood_pressure : Observations avec composants (forEach component),
+    measurement_event_id peuplé, range_low/range_high null.
+  - measurement_simple : Observations scalaires (component.exists().not()),
+    valueQuantity et referenceRange au niveau racine, measurement_event_id null.
+  Le measurement_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: measurement_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique de la mesure dans OMOP CDM.
+        Dérivé du FHIR Observation.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la personne concernée.
+        Dérivé de Observation.subject.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_occurrence_id
+      type: string
+      nullable: true
+      description: >
+        Référence à la visite parente dans visit_occurrence.
+        Dérivé de Observation.encounter.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_detail_id
+      type: string
+      nullable: true
+      description: >
+        Référence au détail de visite dans visit_detail.
+        Dérivé de Observation.encounter.reference — relation 1:1 dans ce modèle.
+      nativeDataType: varchar
+
+    - fieldPath: measurement_date
+      type: date
+      nullable: true
+      description: >
+        Date de la mesure (partie date uniquement),
+        dérivée de Observation.effectiveDateTime par troncature de l'heure.
+      nativeDataType: date
+
+    - fieldPath: measurement_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP standard de la mesure.
+        Valeur constante 0 — mapping vers vocabulaire OMOP non encore réalisé.
+      nativeDataType: integer
+
+    - fieldPath: measurement_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source de la mesure.
+        measurement_blood_pressure : component.code.coding.first().display.
+        measurement_simple : code.coding.first().display.
+      nativeDataType: varchar
+
+    - fieldPath: measurement_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source de la mesure.
+        measurement_blood_pressure : component.code.coding.first().code.
+        measurement_simple : code.coding.first().code.
+      nativeDataType: varchar
+
+    - fieldPath: measurement_coding_source_system
+      type: string
+      nullable: true
+      description: >
+        Système de codage source de la mesure.
+        measurement_blood_pressure : component.code.coding.first().system.
+        measurement_simple : code.coding.first().system.
+      nativeDataType: varchar
+
+    - fieldPath: measurement_type_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP représentant l'origine de l'enregistrement.
+        Valeur constante 44818702 ("Lab result") — aucun champ source FHIR.
+      nativeDataType: integer
+
+    - fieldPath: measurement_event_id
+      type: string
+      nullable: true
+      description: >
+        Référence à l'événement source de la mesure.
+        Peuplé uniquement par measurement_blood_pressure (Observation.id).
+        Null pour measurement_simple.
+      nativeDataType: varchar
+
+    - fieldPath: value_as_number
+      type: number
+      nullable: true
+      description: >
+        Valeur numérique de la mesure (where($this is Quantity)).
+        measurement_blood_pressure : component.valueQuantity.value.
+        measurement_simple : valueQuantity.value.
+      nativeDataType: numeric
+
+    - fieldPath: unit_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code UCUM de l'unité de mesure.
+        measurement_blood_pressure : component.valueQuantity.code.
+        measurement_simple : valueQuantity.code.
+      nativeDataType: varchar
+
+    - fieldPath: unit_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source de l'unité de mesure.
+        measurement_blood_pressure : component.valueQuantity.unit.
+        measurement_simple : valueQuantity.unit.
+      nativeDataType: varchar
+
+    - fieldPath: range_low
+      type: number
+      nullable: true
+      description: >
+        Borne basse de la plage de référence,
+        issue de Observation.referenceRange.first().low.value.
+        Peuplé uniquement par measurement_simple.
+        Null pour measurement_blood_pressure.
+      nativeDataType: numeric
+
+    - fieldPath: range_high
+      type: number
+      nullable: true
+      description: >
+        Borne haute de la plage de référence,
+        issue de Observation.referenceRange.first().high.value.
+        Peuplé uniquement par measurement_simple.
+        Null pour measurement_blood_pressure.
+      nativeDataType: numeric
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Measurement"
+  omop.table: "measurement"
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#MEASUREMENT
+subTypes: Table
+tags:
+  - omop
+  - omop:Measurement
+glossaryTerms: omop:Measurement
+domains: eds
+---
+kind: DATASET
+name: omop_public_death_cause
+platform: postgres
+env: PROD
+displayName: Death Cause
+description: >
+  Table OMOP CDM Death Cause générée par transformation ViewDefinition
+  à partir des ressources FHIR Condition de diagnostic principal (DP).
+  Contient la cause du décès pour chaque patient décédé.
+  Le cause_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+  Extension locale au CDM 5.4 standard — la cause de décès n'est pas
+  une table native OMOP mais une dénormalisation AP-HP complémentaire
+  à la table death.
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la personne décédée dans OMOP CDM.
+        Dérivé de Condition.subject.reference.
+        Clé primaire — une cause de décès par personne dans ce modèle.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: cause_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP standard de la cause de décès.
+        Valeur constante 0 — mapping vers vocabulaire OMOP non encore réalisé.
+      nativeDataType: integer
+
+    - fieldPath: cause_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source de la cause de décès,
+        issu de Condition.code.coding.first().display.
+        Filtre : diagnostic principal (category.coding.code = 'DP').
+      nativeDataType: varchar
+
+    - fieldPath: cause_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source de la cause de décès (CIM-10),
+        issu de Condition.code.coding.first().code.
+      nativeDataType: varchar
+
+    - fieldPath: cause_coding_source_system
+      type: string
+      nullable: true
+      description: >
+        Système de codage source de la cause de décès,
+        issu de Condition.code.coding.first().system.
+      nativeDataType: varchar
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Death"
+  omop.table: "death_cause"
+  omop.extension: "local"
+  # Table non native OMOP CDM 5.4 — extension locale AP-HP
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#DEATH
+subTypes: Table
+tags:
+  - omop
+  - omop:Death
+  - omop:local-extension
+glossaryTerms: omop:Death
+domains: eds
+---
+kind: DATASET
+name: omop_public_observation
+platform: postgres
+env: PROD
+displayName: Observation
+description: >
+  Table OMOP CDM Observation générée par transformation ViewDefinition
+  à partir des ressources FHIR Condition portant les codes Z87.2, Z37.0
+  et Z88.0 (antécédents, accouchement, allergie médicamenteuse).
+  Ces codes sont redirigés vers la table Observation plutôt que
+  Condition Occurrence — filtre complémentaire à condition_occurrence.
+  Le observation_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+container:
+  platform: postgres
+  instance: postgres
+  database: omop
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: observation_id
+      type: string
+      nullable: false
+      description: >
+        Identifiant unique de l'observation dans OMOP CDM.
+        Dérivé du FHIR Condition.id.
+      nativeDataType: varchar
+      partOfKey: true
+
+    - fieldPath: person_id
+      type: string
+      nullable: false
+      description: >
+        Référence à la personne concernée.
+        Dérivé de Condition.subject.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_occurrence_id
+      type: string
+      nullable: true
+      description: >
+        Référence à la visite parente dans visit_occurrence.
+        Dérivé de Condition.encounter.reference.
+      nativeDataType: varchar
+
+    - fieldPath: visit_detail_id
+      type: string
+      nullable: true
+      description: >
+        Référence au détail de visite dans visit_detail.
+        Dérivé de Condition.encounter.reference — relation 1:1 dans ce modèle.
+      nativeDataType: varchar
+
+    - fieldPath: observation_date
+      type: date
+      nullable: true
+      description: >
+        Date de l'observation (partie date uniquement),
+        dérivée de Condition.recordedDate par troncature de l'heure.
+      nativeDataType: date
+
+    - fieldPath: observation_datetime
+      type: date
+      nullable: true
+      description: >
+        Date et heure de l'observation,
+        dérivée de Condition.recordedDate.
+      nativeDataType: timestamp
+
+    - fieldPath: observation_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP standard de l'observation.
+        Valeur constante 0 — mapping vers vocabulaire OMOP non encore réalisé.
+      nativeDataType: integer
+
+    - fieldPath: observation_source_value
+      type: string
+      nullable: true
+      description: >
+        Libellé source de l'observation (code Z CIM-10),
+        issu de Condition.code.coding.first().display.
+        Codes retenus : Z87.2, Z37.0, Z88.0.
+      nativeDataType: varchar
+
+    - fieldPath: observation_source_concept_id
+      type: string
+      nullable: true
+      description: >
+        Code source de l'observation (Z87.2 | Z37.0 | Z88.0),
+        issu de Condition.code.coding.first().code.
+      nativeDataType: varchar
+
+    - fieldPath: observation_coding_source_system
+      type: string
+      nullable: true
+      description: >
+        Système de codage source de l'observation,
+        issu de Condition.code.coding.first().system.
+      nativeDataType: varchar
+
+    - fieldPath: observation_type_concept_id
+      type: number
+      nullable: false
+      description: >
+        Concept OMOP représentant l'origine de l'enregistrement.
+        Valeur constante 38000280 ("Observation recorded from EHR") —
+        aucun champ source FHIR.
+      nativeDataType: integer
+
+properties:
+  omop.cdm_version: "5.4"
+  omop.domain: "Observation"
+  omop.table: "observation"
+
+externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#OBSERVATION
+subTypes: Table
+tags:
+  - omop
+  - omop:Observation
+glossaryTerms: omop:Observation
+domains: eds
+---
+kind: DATA_FLOW
+orchestrator: pathling
+flowId: "fhir_semantic_layer_to_omop"
+cluster: "PROD"
+name: "FHIR Semantic Layer to OMOP"
+description: >
+  Pipeline Pathling de transformation des données cliniques FHIR
+  vers le format de livraison OMOP.
+project: "fhir2omop"
+externalUrl: "https://gitlab.example.org/eds/ehr_to_fhir_semantic_layer"
+domains: eds
+#subTypes: "DBT"
+tags:
+  - fhir
+  - omop
+  - sharing-layer
+owners:
+  - owner: "eds-data-engineering"
+    type: "TECHNICAL_OWNER"
+  - owner: "eds-interoperability"
+    type: "BUSINESS_OWNER"
+---
+kind: DATA_JOB
+jobId: "fhir_patient_to_omop_person"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Patient → OMOP Person"
+description: >
+  Transformation des ressources FHIR Patient en table OMOP Person
+  via une ViewDefinition SQL on FHIR. Calcul du gender_concept_id
+  par mapping conditionnel, et décomposition de birthDate en
+  year_of_birth, month_of_birth, day_of_birth.
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Patient.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_person
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_person
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: gender
+    downstream:
+      platform: postgres
+      name: omop_public_person
+      env: PROD
+      fieldPath: gender_concept_id
+    operation: "OMOP_GENDER_CONCEPT_MAPPING"
+    # gender.where($this = 'female').count() * 8532 + gender.where($this = 'male').count() * 8507
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: birthDate
+    downstream:
+      platform: postgres
+      name: omop_public_person
+      env: PROD
+      fieldPath: birth_date
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: birthDate
+    downstream:
+      platform: postgres
+      name: omop_public_person
+      env: PROD
+      fieldPath: year_of_birth
+    operation: "DATE_EXTRACT_YEAR"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: birthDate
+    downstream:
+      platform: postgres
+      name: omop_public_person
+      env: PROD
+      fieldPath: month_of_birth
+    operation: "DATE_EXTRACT_MONTH"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: birthDate
+    downstream:
+      platform: postgres
+      name: omop_public_person
+      env: PROD
+      fieldPath: day_of_birth
+    operation: "DATE_EXTRACT_DAY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_person
+      env: PROD
+      fieldPath: location_id
+    operation: "IDENTITY"
+    confidence: 0.5
+    # Hypothèse : location_id est dérivé du patient.id en l'absence
+    # de jointure explicite sur une table d'adresse dans cette ViewDefinition
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: gender
+    downstream:
+      platform: postgres
+      name: omop_public_person
+      env: PROD
+      fieldPath: gender_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_encounter_to_omop_visit_occurrence"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Encounter → OMOP Visit Occurrence"
+description: >
+  Transformation des ressources FHIR Encounter en table OMOP Visit Occurrence
+  via une ViewDefinition SQL on FHIR. Mapping conditionnel du visit_concept_id
+  depuis class.code (IMP→9201, AMB→9202, EMER→9203), et mapping des modes
+  d'admission et de sortie vers les concepts OMOP admitted_from / discharged_to.
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Encounter.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_visit_occurrence
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: period.start
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: visit_start_date
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: period.end
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: visit_end_date
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: class.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: visit_concept_id
+    operation: "OMOP_VISIT_CONCEPT_MAPPING"
+    # class.code.where($this = 'IMP').count() * 9201
+    # + class.code.where($this = 'AMB').count() * 9202
+    # + class.code.where($this = 'EMER').count() * 9203
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: class.display
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: visit_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: class.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: visit_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: class.system
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: visit_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # visit_type_concept_id : valeur littérale constante 44818518
+  # ("Visit derived from EHR record") — pas de champ source FHIR
+  - downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: visit_type_concept_id
+    operation: "CONSTANT"
+    #constantValue: 44818518
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.admitSource.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: admitted_from_concept_id
+    operation: "OMOP_ADMIT_SOURCE_CONCEPT_MAPPING"
+    # coding.first().code.where($this = 'emd').count() * 8870
+    # + coding.first().code.where($this = 'gp').count() * 8782
+    # + coding.first().code.where($this = 'other').count() * 8844
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.admitSource.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: admitted_from_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.admitSource.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: admitted_from_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.dischargeDisposition.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: discharged_to_concept_id
+    operation: "OMOP_DISCHARGE_CONCEPT_MAPPING"
+    # coding.first().code.where($this = 'home').count() * 8536
+    # + coding.first().code.where($this = 'exp').count() * 4216643
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.dischargeDisposition.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: discharged_to_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.dischargeDisposition.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_occurrence
+      env: PROD
+      fieldPath: discharged_to_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_patient_to_omop_location"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Patient → OMOP Location"
+description: >
+  Transformation des ressources FHIR Patient en table OMOP Location
+  via une ViewDefinition SQL on FHIR. Extraction des extensions d'adresse :
+  coordonnées GPS (geolocation).
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Patient.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_location
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_location
+      env: PROD
+      fieldPath: location_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_location
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: address.extension[geolocation].extension[latitude].valueDecimal
+    downstream:
+      platform: postgres
+      name: omop_public_location
+      env: PROD
+      fieldPath: latitude
+    operation: "FHIR_EXTENSION_EXTRACT"
+    # address.first().extension
+    #   .where(url='http://hl7.org/fhir/StructureDefinition/geolocation').first()
+    #   .extension.where(url='latitude').first().valueDecimal
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: address.extension[geolocation].extension[longitude].valueDecimal
+    downstream:
+      platform: postgres
+      name: omop_public_location
+      env: PROD
+      fieldPath: longitude
+    operation: "FHIR_EXTENSION_EXTRACT"
+    # address.first().extension
+    #   .where(url='http://hl7.org/fhir/StructureDefinition/geolocation').first()
+    #   .extension.where(url='longitude').first().valueDecimal
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_patient_to_omop_death"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Patient → OMOP Death"
+description: >
+  Transformation des ressources FHIR Patient en table OMOP Death
+  via une ViewDefinition SQL on FHIR. Filtre les patients portant
+  une date de décès (deceased.ofType(dateTime).exists()).
+  La death_date et death_datetime sont toutes deux dérivées de
+  Patient.deceased[dateTime].
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Patient.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_death
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_death
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: deceased.ofType(dateTime)
+    downstream:
+      platform: postgres
+      name: omop_public_death
+      env: PROD
+      fieldPath: death_date
+    operation: "DATE_TRUNCATE"
+    # deceased.ofType(dateTime) → date uniquement (troncature heure)
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Patient.ndjson
+      env: PROD
+      fieldPath: deceased.ofType(dateTime)
+    downstream:
+      platform: postgres
+      name: omop_public_death
+      env: PROD
+      fieldPath: death_datetime
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # death_type_concept_id : valeur constante 32817 ("EHR")
+  # pas de champ source FHIR
+  - downstream:
+      platform: postgres
+      name: omop_public_death
+      env: PROD
+      fieldPath: death_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_encounter_to_omop_visit_detail"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Encounter → OMOP Visit Detail"
+description: >
+  Transformation des ressources FHIR Encounter en table OMOP Visit Detail
+  via une ViewDefinition SQL on FHIR. Structure symétrique à visit_occurrence :
+  mapping conditionnel du visit_detail_concept_id depuis class.code,
+  décomposition de period.start/end en date + datetime,
+  et mapping des modes d'admission et de sortie.
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Encounter.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_visit_detail
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: period.start
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_start_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: period.start
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_start_datetime
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: period.end
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_end_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: period.end
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_end_datetime
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: class.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_concept_id
+    operation: "OMOP_VISIT_CONCEPT_MAPPING"
+    # class.code.where($this = 'IMP').count() * 9201
+    # + class.code.where($this = 'AMB').count() * 9202
+    # + class.code.where($this = 'EMER').count() * 9203
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: class.display
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: class.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # visit_detail_type_concept_id : valeur constante 44818518
+  # ("Visit derived from EHR record") — pas de champ source FHIR
+  - downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: visit_detail_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.admitSource.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: admitted_from_concept_id
+    operation: "OMOP_ADMIT_SOURCE_CONCEPT_MAPPING"
+    # coding.first().code.where($this = 'emd').count() * 8870
+    # + coding.first().code.where($this = 'gp').count() * 8782
+    # + coding.first().code.where($this = 'other').count() * 8844
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.admitSource.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: admitted_from_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.admitSource.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: admitted_from_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.dischargeDisposition.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: discharged_to_concept_id
+    operation: "OMOP_DISCHARGE_CONCEPT_MAPPING"
+    # coding.first().code.where($this = 'home').count() * 8536
+    # + coding.first().code.where($this = 'exp').count() * 4216643
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.dischargeDisposition.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: discharged_to_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Encounter.ndjson
+      env: PROD
+      fieldPath: hospitalization.dischargeDisposition.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_visit_detail
+      env: PROD
+      fieldPath: discharged_to_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_condition_to_omop_condition_occurrence"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Condition → OMOP Condition Occurrence"
+description: >
+  Transformation des ressources FHIR Condition en table OMOP Condition Occurrence
+  via une ViewDefinition SQL on FHIR. Exclut les codes Z87.2, Z37.0 et Z88.0.
+  Le condition_concept_id est positionné à 0 (non mappé) en attente d'un
+  vocabulaire OMOP. Mapping conditionnel du condition_status_concept_id
+  depuis le code de catégorie PMSI (DP→4307107, DA→4230359).
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Condition.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_condition_occurrence
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: visit_detail_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: recordedDate
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_start_date
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # condition_concept_id : constante 0 — mapping vocabulaire OMOP non encore réalisé
+  - downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # condition_type_concept_id : constante 32817 ("EHR") — pas de champ source FHIR
+  - downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: category.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_status_concept_id
+    operation: "OMOP_CONDITION_STATUS_CONCEPT_MAPPING"
+    # category.first().coding.first().code.where($this = 'DP').count() * 4307107
+    # + category.first().coding.first().code.where($this = 'DA').count() * 4230359
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: category.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_condition_occurrence
+      env: PROD
+      fieldPath: condition_status_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_medicationadministration_to_omop_drug_exposure"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR MedicationAdministration → OMOP Drug Exposure"
+description: >
+  Transformation des ressources FHIR MedicationAdministration en table OMOP
+  Drug Exposure via une ViewDefinition SQL on FHIR.
+  Les dates sont extraites de effective[Period].start/end.
+  Le drug_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+  Le drug_type_concept_id est la constante 38000180 ("Inpatient administration").
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_MedicationAdministration.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_drug_exposure
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_exposure_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: visit_detail_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: effective.start
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_exposure_start_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: effective.start
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_exposure_start_datetime
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: effective.end
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_exposure_end_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: effective.end
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_exposure_end_datetime
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # drug_concept_id : constante 0 — mapping vocabulaire OMOP non encore réalisé
+  - downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: medication.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: medication.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: medication.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # drug_type_concept_id : constante 38000180 ("Inpatient administration")
+  - downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: dosage.route.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: route_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: dosage.route.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: route_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: dosage.route.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: route_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: dosage.dose.value
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: quantity
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationAdministration.ndjson
+      env: PROD
+      fieldPath: dosage.dose.unit
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: dose_unit_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_medicationrequest_to_omop_drug_exposure"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR MedicationRequest → OMOP Drug Exposure"
+description: >
+  Transformation des ressources FHIR MedicationRequest en table OMOP
+  Drug Exposure via une ViewDefinition SQL on FHIR.
+  Les dates sont extraites de dosageInstruction.first().timing.repeat.bounds[Period].
+  Le drug_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+  Le drug_type_concept_id est la constante 38000177 ("Written prescription").
+  Alimente la même table physique que fhir_medicationadministration_to_omop_drug_exposure.
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_MedicationRequest.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_drug_exposure
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_exposure_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: visit_detail_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: dosageInstruction.timing.repeat.bounds.ofType(Period).start
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_exposure_start_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: dosageInstruction.timing.repeat.bounds.ofType(Period).end
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_exposure_end_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  # drug_concept_id : constante 0 — mapping vocabulaire OMOP non encore réalisé
+  - downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: medication.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: medication.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: medication.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # drug_type_concept_id : constante 38000177 ("Written prescription")
+  - downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: drug_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: dosageInstruction.route.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: route_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: dosageInstruction.route.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: route_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_MedicationRequest.ndjson
+      env: PROD
+      fieldPath: dosageInstruction.route.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_drug_exposure
+      env: PROD
+      fieldPath: route_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_procedure_to_omop_procedure_occurrence"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Procedure → OMOP Procedure Occurrence"
+description: >
+  Transformation des ressources FHIR Procedure en table OMOP Procedure Occurrence
+  via une ViewDefinition SQL on FHIR.
+  La date est extraite de performed[dateTime].
+  Le procedure_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+  Le procedure_type_concept_id est la constante 38000275 ("EHR order list entry").
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Procedure.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_procedure_occurrence
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: procedure_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: visit_detail_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: performed.ofType(dateTime)
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: procedure_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: performed.ofType(dateTime)
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: procedure_datetime
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # procedure_concept_id : constante 0 — mapping vocabulaire OMOP non encore réalisé
+  - downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: procedure_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: code.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: procedure_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: code.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: procedure_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Procedure.ndjson
+      env: PROD
+      fieldPath: code.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: procedure_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # procedure_type_concept_id : constante 38000275 ("EHR order list entry")
+  - downstream:
+      platform: postgres
+      name: omop_public_procedure_occurrence
+      env: PROD
+      fieldPath: procedure_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_observation_to_omop_measurement_blood_pressure"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Observation (BP) → OMOP Measurement"
+description: >
+  Transformation des ressources FHIR Observation de tension artérielle
+  en table OMOP Measurement via une ViewDefinition SQL on FHIR.
+  Filtre les observations portant au moins un component (component.exists()).
+  Le forEach sur component génère une ligne OMOP par composant
+  (systolique / diastolique). Le measurement_concept_id est fixé à 0
+  (mapping vocabulaire OMOP non réalisé). Le measurement_type_concept_id
+  est la constante 44818702 ("Lab result").
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Observation.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_measurement
+    env: PROD
+
+fineGrainedLineages:
+
+  # ── select root ─────────────────────────────────────────────────────────
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: visit_detail_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: effectiveDateTime
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  # measurement_concept_id : constante 0 — mapping vocabulaire OMOP non réalisé
+  - downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  # measurement_type_concept_id : constante 44818702 ("Lab result")
+  - downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_event_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # ── select forEach: component ────────────────────────────────────────────
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.code.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_source_value
+    operation: "IDENTITY"
+    # forEach: component — une ligne par composant
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.code.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.code.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.valueQuantity.value
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: value_as_number
+    operation: "IDENTITY"
+    # valueQuantity.where($this is Quantity).value
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.valueQuantity.code
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: unit_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: component.valueQuantity.unit
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: unit_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_observation_to_omop_measurement_simple"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Observation (simple) → OMOP Measurement"
+description: >
+  Transformation des ressources FHIR Observation scalaires en table OMOP
+  Measurement via une ViewDefinition SQL on FHIR.
+  Filtre les observations sans composant (component.exists().not()) —
+  complémentaire de fhir_observation_to_omop_measurement_blood_pressure.
+  Inclut les valeurs de référence range_low / range_high.
+  Le measurement_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+  Le measurement_type_concept_id est la constante 44818702 ("Lab result").
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Observation.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_measurement
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: visit_detail_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: effectiveDateTime
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  # measurement_concept_id : constante 0 — mapping vocabulaire OMOP non réalisé
+  - downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: code.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: code.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: code.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # measurement_type_concept_id : constante 44818702 ("Lab result")
+  - downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: measurement_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: valueQuantity.value
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: value_as_number
+    operation: "IDENTITY"
+    # valueQuantity.where($this is Quantity).value
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: valueQuantity.code
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: unit_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: valueQuantity.unit
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: unit_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: referenceRange.low.value
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: range_low
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Observation.ndjson
+      env: PROD
+      fieldPath: referenceRange.high.value
+    downstream:
+      platform: postgres
+      name: omop_public_measurement
+      env: PROD
+      fieldPath: range_high
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_condition_to_omop_death_cause"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Condition (DP) → OMOP Death Cause"
+description: >
+  Transformation des ressources FHIR Condition en table OMOP Death Cause
+  via une ViewDefinition SQL on FHIR.
+  Filtre les conditions de diagnostic principal (category.coding.code = 'DP')
+  pour un patient donné. Le cause_concept_id est fixé à 0
+  (mapping vocabulaire OMOP non réalisé).
+  Note : le filtre subject.reference est un exemple de développement —
+  en production, ce prédicat est retiré pour couvrir l'ensemble des patients.
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Condition.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_death_cause
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_death_cause
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # cause_concept_id : constante 0 — mapping vocabulaire OMOP non encore réalisé
+  - downstream:
+      platform: postgres
+      name: omop_public_death_cause
+      env: PROD
+      fieldPath: cause_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_death_cause
+      env: PROD
+      fieldPath: cause_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_death_cause
+      env: PROD
+      fieldPath: cause_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_death_cause
+      env: PROD
+      fieldPath: cause_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+---
+
+kind: DATA_JOB
+jobId: "fhir_condition_to_omop_observation"
+dataFlow:
+  orchestrator: pathling
+  flowId: "fhir_semantic_layer_to_omop"
+  cluster: "PROD"
+name: "FHIR Condition (Z-codes) → OMOP Observation"
+description: >
+  Transformation des ressources FHIR Condition en table OMOP Observation
+  via une ViewDefinition SQL on FHIR.
+  Filtre complémentaire de condition_occurrence : seuls les codes Z87.2,
+  Z37.0 et Z88.0 sont retenus (antécédents, accouchement, allergie médicamenteuse).
+  Ces codes sont sémantiquement des observations et non des conditions cliniques
+  actives dans le modèle OMOP AP-HP.
+  Le observation_concept_id est fixé à 0 (mapping vocabulaire OMOP non réalisé).
+  Le observation_type_concept_id est la constante 38000280 ("Observation recorded
+  from EHR").
+type: "ViewDefinition"
+
+inputDatasets:
+  - platform: s3
+    name: sharing_layer_Condition.ndjson
+    env: PROD
+
+outputDatasets:
+  - platform: postgres
+    name: omop_public_observation
+    env: PROD
+
+fineGrainedLineages:
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: id
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: observation_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: subject.reference
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: person_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: visit_occurrence_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: encounter.reference
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: visit_detail_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: recordedDate
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: observation_date
+    operation: "DATE_TRUNCATE"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: recordedDate
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: observation_datetime
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # observation_concept_id : constante 0 — mapping vocabulaire OMOP non encore réalisé
+  - downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: observation_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.display
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: observation_source_value
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.code
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: observation_source_concept_id
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  - upstream:
+      platform: s3
+      name: sharing_layer_Condition.ndjson
+      env: PROD
+      fieldPath: code.coding.system
+    downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: observation_coding_source_system
+    operation: "IDENTITY"
+    confidence: 1.0
+
+  # observation_type_concept_id : constante 38000280 ("Observation recorded from EHR")
+  - downstream:
+      platform: postgres
+      name: omop_public_observation
+      env: PROD
+      fieldPath: observation_type_concept_id
+    operation: "CONSTANT"
+    confidence: 1.0

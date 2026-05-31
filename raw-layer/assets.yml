@@ -1,0 +1,1168 @@
+kind: CONTAINER
+platform: postgres
+database: ehr
+env: PROD
+name: EHR
+description: C'est la Base de prod (AP-HP)
+subTypes: Database
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+kind: CONTAINER
+platform: postgres
+database: ehr
+schema: public
+name: public
+env: PROD
+parentContainer:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  env: PROD
+subTypes: Schema
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: soin
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.patient,PROD)"
+kind: DATASET
+name: ehr_public_patient
+platform: postgres
+env: PROD
+description: "Données démographiques et identité consolidées du patient. Combine l'identité\
+  \ (linkId: 2958000860428) et le géocodage (linkId: 3816475533472). Le sexe est consolidé\
+  \ depuis les données PMSI (linkId: 3894630481120)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: patient_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: nom
+      type: string
+      description: "Nom du patient (linkId: 8605698058770)"
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: prenom
+      type: string
+      description: "Prénom du patient (linkId: 6214879623503)"
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: nir
+      type: string
+      description: "Numéro d'Inscription au Répertoire - NIR, 13 à 15 chiffres (linkId: 5711960356160)"
+      nativeDataType: VARCHAR(15)
+      partOfKey: false
+    - fieldPath: ins
+      type: string
+      description: "Identité Nationale de Santé - INS (linkId: 3764723550987)"
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: date_naissance
+      type: date
+      description: "Date de naissance (linkId: 5036133558154)"
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: sexe
+      type: string
+      description: "Sexe consolidé depuis les données PMSI — valeurs : h, f (linkId: 3894630481120)"
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: date_deces
+      type: date
+      description: "Date de décès (linkId: 5633552097315)"
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: source_deces
+      type: string
+      description: "Source de la date de décès (linkId: 9098810065693)"
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: rang_gemellaire
+      type: number
+      description: "Rang gémellaire du bénéficiaire, entre 1 et 10 (linkId: 6931296968515)"
+      nativeDataType: INTEGER
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+properties:
+  fhir_link_id: "2958000860428"
+  source_system: EDSH
+subTypes:
+  - Table
+tags:
+  - pii
+glossaryTerms:
+  - donnees-patient.patient
+  - donnees-patient.identifiant-national-sante
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "3667192a0a19c51419efe99aa865c1ba"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.actes,PROD)"
+kind: DATASET
+name: ehr_public_actes
+platform: postgres
+env: PROD
+description: "Actes et procédures médicales réalisés durant les séjours hospitaliers.\
+  \ Utilise les classifications CCAM et autres référentiels standardisés (linkId:\
+  \ 591926901726)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: acte_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: pmsi_id
+      type: number
+      description: Référence vers donnees_pmsi.pmsi_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: code_acte
+      type: string
+      description: Code CCAM ou autre référentiel de l'acte
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: libelle_acte
+      type: string
+      description: Libellé de l'acte ou de la procédure
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: date_acte
+      type: date
+      description: Date et heure de réalisation de l'acte
+      nativeDataType: TIMESTAMP
+      partOfKey: false
+    - fieldPath: executant
+      type: string
+      description: Professionnel exécutant (hors socle EDSH)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: date_recueil
+      type: date
+      description: Date de recueil de l'acte
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_actes_patient
+      sourceFields:
+        - platform: postgres
+          name: ehr_schema_actes
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_schema_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_schema_patient
+          env: PROD
+          fieldPath: patient_id
+    - name: fk_donnees_pmsi_pmsi
+      sourceFields:
+        - platform: postgres
+          name: ehr_schema_actes
+          env: PROD
+          fieldPath: pmsi_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_schema_donnees_pmsi
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_schema_donnees_pmsi
+          env: PROD
+          fieldPath: pmsi_id
+properties:
+  fhir_link_id: "591926901726"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir-r4
+  - pmsi
+glossaryTerms:
+  - pmsi.acte
+  - codification.ccam
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "d3376216b28d970eea0eb4b1c53cf351"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.administration,PROD)"
+kind: DATASET
+name: ehr_public_administration
+platform: postgres
+env: PROD
+description: "Données d'administration effective des médicaments avec codification\
+  \ ATC. Distincte de la prescription, cette table trace les administrations réelles\
+  \ avec leurs plages horaires. Peut être liée à une prescription ou indépendante\
+  \ (linkId: 817801935685)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: administration_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: prescription_id
+      type: number
+      description: Référence optionnelle vers prescription.prescription_id (FK nullable)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: denomination
+      type: string
+      description: Dénomination commune internationale (DCI) ou nom commercial du médicament administré
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: code_atc
+      type: string
+      description: Code ATC (Anatomical Therapeutic Chemical) du médicament administré
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: voie_administration
+      type: string
+      description: Voie d'administration effective
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: quantite
+      type: number
+      description: Quantité administrée
+      nativeDataType: DECIMAL(10,3)
+      partOfKey: false
+    - fieldPath: unite_quantite
+      type: string
+      description: Unité de la quantité administrée (ex. mg, mL, UI)
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: date_heure_debut
+      type: date
+      description: Date et heure de début d'administration
+      nativeDataType: TIMESTAMP
+      partOfKey: false
+    - fieldPath: date_heure_fin
+      type: date
+      description: Date et heure de fin d'administration
+      nativeDataType: TIMESTAMP
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_administration_patient
+      sourceFields:
+        - platform: postgres
+          name: ehr_schema_administration
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_schema_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_schema_patient
+          env: PROD
+          fieldPath: patient_id
+properties:
+  fhir_link_id: "817801935685"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir-r4
+glossaryTerms:
+  - medicament.administration
+  - codification.atc
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "729e20fbb85377b8640209b041418e51"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.biologie,PROD)"
+kind: DATASET
+name: ehr_public_biologie
+platform: postgres
+env: PROD
+description: "Table consolidée des résultats biologiques. Regroupe fonction rénale,\
+  \ bilan hépatique, hémogramme et autres examens biologiques, différenciés par code\
+  \ LOINC et type d'examen (linkId: 7702944131447)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: biologie_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: code_loinc
+      type: string
+      description: Code LOINC identifiant le test biologique
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: libelle_test
+      type: string
+      description: Libellé du test biologique
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: type_examen
+      type: string
+      description: "Type d'examen : fonction_renale, bilan_hepatique, hemogramme, autres"
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: valeur
+      type: number
+      description: Valeur numérique du résultat
+      nativeDataType: DECIMAL(15,6)
+      partOfKey: false
+    - fieldPath: unite
+      type: string
+      description: Unité de mesure du résultat
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: valeur_texte
+      type: string
+      description: Valeur textuelle du résultat (pour les résultats non numériques)
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: date_prelevement
+      type: date
+      description: Date et heure du prélèvement
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: statut_validation
+      type: string
+      description: "Statut de validation du résultat : en_attente, valide, rejete, en_cours"
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: borne_inf_normale
+      type: number
+      description: Borne inférieure de la valeur normale
+      nativeDataType: DECIMAL(15,6)
+      partOfKey: false
+    - fieldPath: borne_sup_normale
+      type: number
+      description: Borne supérieure de la valeur normale
+      nativeDataType: DECIMAL(15,6)
+      partOfKey: false
+    - fieldPath: laboratoire
+      type: string
+      description: Laboratoire réalisateur (hors socle EDSH)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_biologie_patient
+      sourceFields:
+        - platform: postgres
+          name: biologie
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_schema_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_schema_patient
+          env: PROD
+          fieldPath: patient_id
+properties:
+  fhir_link_id: "7702944131447"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir-r4
+glossaryTerms:
+  - biologie.resultat-biologique
+  - codification.loinc
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "63073b282083f5bd1a437525b906d72c"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.diagnostics,PROD)"
+kind: DATASET
+name: ehr_public_diagnostics
+platform: postgres
+env: PROD
+description: "Codes diagnostics associés aux séjours hospitaliers. Utilise la classification\
+  \ CIM-10 (ICD-10). Rattaché à un séjour PMSI (linkId: 9391816419630)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: diagnostic_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: pmsi_id
+      type: number
+      description: Référence vers donnees_pmsi.pmsi_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: code_diagnostic
+      type: string
+      description: Code CIM-10/ICD-10 du diagnostic
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: type_diagnostic
+      type: string
+      description: "Type de diagnostic (ex: DP, DR, DAS)"
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: libelle_diagnostic
+      type: string
+      description: Libellé du diagnostic
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: date_recueil
+      type: date
+      description: Date de recueil du diagnostic
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_diagnostics_patient
+      sourceFields:
+        - platform: postgres
+          name: ehr_public_diagnostics
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_public_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_public_patient
+          env: PROD
+          fieldPath: patient_id
+    - name: fk_donnees_pmsi_pmsi
+      sourceFields:
+        - platform: postgres
+          name: ehr_public_diagnostics
+          env: PROD
+          fieldPath: pmsi_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_public_donnees_pmsi
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_public_donnees_pmsi
+          env: PROD
+          fieldPath: pmsi_id
+properties:
+  fhir_link_id: "9391816419630"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir-r4
+  - pmsi
+glossaryTerms:
+  - pmsi.diagnostic
+  - codification.cim10
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "d3376216b28d970eea0eb4b1c53cf351"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.donnees_pmsi,PROD)"
+kind: DATASET
+name: ehr_public_donnees_pmsi
+platform: postgres
+env: PROD
+description: "Données de séjour hospitalier issues du PMSI (Programme de Médicalisation\
+  \ des Systèmes d'Information). Table centrale de la modélisation, liant l'ensemble\
+  \ des données cliniques à un séjour (linkId: 2825244231605)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: pmsi_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: mode_sortie
+      type: string
+      description: Mode de sortie du séjour
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: age_admission
+      type: number
+      description: Âge à l'admission, nécessaire si date de naissance non disponible
+      nativeDataType: INTEGER
+      partOfKey: false
+    - fieldPath: date_debut_sejour
+      type: date
+      description: Date de début du séjour hospitalier
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: date_fin_sejour
+      type: date
+      description: Date de fin du séjour hospitalier
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: mode_entree
+      type: string
+      description: Mode d'entrée dans l'établissement
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: etablissement
+      type: string
+      description: Établissement de soins
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: service
+      type: string
+      description: Service hospitalier
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: unite_fonctionnelle
+      type: string
+      description: Unité fonctionnelle de prise en charge
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_donnees_pmsi_patient
+      sourceFields:
+        - platform: postgres
+          name: ehr_public_donnees_pmsi
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_public_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_public_patient
+          env: PROD
+          fieldPath: patient_id
+properties:
+  fhir_link_id: "2825244231605"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir-r4
+  - pmsi
+glossaryTerms:
+  - pmsi.sejour
+  - pmsi.donnees-pmsi
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "d3376216b28d970eea0eb4b1c53cf351"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.dossier_soins,PROD)"
+kind: DATASET
+name: ehr_public_dossier_soins
+platform: postgres
+env: PROD
+description: "Mesures cliniques et observations issues du dossier de soins infirmiers.\
+  \ Inclut constantes vitales, paramètres physiologiques et observations paramédicales\
+  \ (linkId: 305831246173)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: soin_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: code_loinc
+      type: string
+      description: Code LOINC identifiant le type de mesure
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: libelle_test
+      type: string
+      description: Libellé de la mesure ou de l'observation
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: valeur
+      type: number
+      description: Valeur numérique de la mesure
+      nativeDataType: DECIMAL(15,6)
+      partOfKey: false
+    - fieldPath: unite
+      type: string
+      description: Unité de la mesure
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: valeur_code
+      type: string
+      description: Valeur codée (pour les observations qualitatives)
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: valeur_texte
+      type: string
+      description: Valeur textuelle (pour les observations non structurées)
+      nativeDataType: TEXT
+      partOfKey: false
+    - fieldPath: date_mesure
+      type: date
+      description: Date de la mesure
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: unite_soins
+      type: string
+      description: Unité de soins (hors socle EDSH)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: professionnel
+      type: string
+      description: Professionnel ayant réalisé la mesure (hors socle EDSH)
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_dossier_soins_patient
+      sourceFields:
+        - platform: postgres
+          name: ehr_public_dossier_soins
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_public_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_public_patient
+          env: PROD
+          fieldPath: patient_id
+properties:
+  fhir_link_id: "305831246173"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir-r4
+glossaryTerms:
+  - soins.mesure-clinique
+  - codification.loinc
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "25fdababcd8169cae1dc99e7b638670c"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.patient_adresse,PROD)"
+kind: DATASET
+name: ehr_public_patient_adresse
+platform: postgres
+env: PROD
+description: "Données de géocodage du domicile patient. Historique des adresses avec\
+  \ coordonnées géographiques, code IRIS et commune de résidence. Rattaché à l'identité\
+  \ patient (linkId: 3816475533472)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: patient_adresse_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: latitude
+      type: number
+      description: "Latitude du domicile patient (linkId: 3709843054556)"
+      nativeDataType: DECIMAL(10,7)
+      partOfKey: false
+    - fieldPath: longitude
+      type: number
+      description: "Longitude du domicile patient (linkId: 7651448032665)"
+      nativeDataType: DECIMAL(10,7)
+      partOfKey: false
+    - fieldPath: code_iris
+      type: string
+      description: Code IRIS de la commune de résidence
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: libelle_iris
+      type: string
+      description: Libellé de l'IRIS de résidence
+      nativeDataType: VARCHAR(200)
+      partOfKey: false
+    - fieldPath: code_geographique_residence
+      type: string
+      description: Code géographique de la commune de résidence
+      nativeDataType: VARCHAR(10)
+      partOfKey: false
+    - fieldPath: libelle_geographique_residence
+      type: string
+      description: Libellé de la commune de résidence
+      nativeDataType: VARCHAR(200)
+      partOfKey: false
+    - fieldPath: date_recueil
+      type: date
+      description: Date de recueil de l'adresse
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_patient_patient_adresse
+      sourceFields:
+        - platform: postgres
+          name: ehr_public_patient_adresse
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_public_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_public_patient
+          env: PROD
+          fieldPath: patient_id
+properties:
+  fhir_link_id: "3816475533472"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - pii
+  - fhir-r4
+glossaryTerms:
+  - donnees-patient.adresse
+  - donnees-patient.geocodage
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "3667192a0a19c51419efe99aa865c1ba"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.posologie,PROD)"
+kind: DATASET
+name: ehr_public_posologie
+platform: postgres
+env: PROD
+description: "Détail posologique des prescriptions médicamenteuses. Précise le nombre\
+  \ de prises, les quantités et les plages horaires associées à chaque prescription\
+  \ (linkId: 6348237104421)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: posologie_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: prescription_id
+      type: number
+      description: Référence vers prescription.prescription_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: nombre_prises_par_jour
+      type: number
+      description: Nombre de prises quotidiennes (entre 1 et 24)
+      nativeDataType: INTEGER
+      partOfKey: false
+    - fieldPath: quantite
+      type: number
+      description: Quantité administrée par prise
+      nativeDataType: DECIMAL(10,3)
+      partOfKey: false
+    - fieldPath: unite_quantite
+      type: string
+      description: Unité de la quantité (ex. mg, mL, UI)
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: date_heure_debut
+      type: date
+      description: Date et heure de début de la posologie
+      nativeDataType: TIMESTAMP
+      partOfKey: false
+    - fieldPath: date_heure_fin
+      type: date
+      description: Date et heure de fin de la posologie
+      nativeDataType: TIMESTAMP
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_posologie_prescription
+      sourceFields:
+        - platform: postgres
+          name: ehr_public_posologie
+          env: PROD
+          fieldPath: prescription_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_public_prescription
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_public_prescription
+          env: PROD
+          fieldPath: prescription_id
+properties:
+  fhir_link_id: "6348237104421"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir-r4
+glossaryTerms:
+  - medicament.posologie
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "729e20fbb85377b8640209b041418e51"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.prescription,PROD)"
+kind: DATASET
+name: ehr_public_prescription
+platform: postgres
+env: PROD
+description: "Données de prescription médicamenteuse avec codification ATC. Couvre\
+  \ la dénomination, la voie d'administration et les dates de prescription. Lié à\
+  \ la table posologie pour le détail des doses (linkId: 817801935685)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: prescription_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: prescripteur
+      type: string
+      description: Identifiant du prescripteur
+      nativeDataType: VARCHAR(50)
+      partOfKey: false
+    - fieldPath: denomination
+      type: string
+      description: Dénomination commune internationale (DCI) ou nom commercial du médicament
+      nativeDataType: VARCHAR(255)
+      partOfKey: false
+    - fieldPath: code_atc
+      type: string
+      description: Code ATC (Anatomical Therapeutic Chemical) du médicament
+      nativeDataType: VARCHAR(20)
+      partOfKey: false
+    - fieldPath: voie_administration
+      type: string
+      description: Voie d'administration prescrite
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: date_prescription
+      type: date
+      description: Date de la prescription (hors socle EDSH)
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: date_debut_prescription
+      type: date
+      description: Date de début de la prescription
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: date_fin_prescription
+      type: date
+      description: Date de fin de la prescription
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_prescription_patient
+      sourceFields:
+        - platform: postgres
+          name: ehr_public_prescription
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_public_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_public_patient
+          env: PROD
+          fieldPath: patient_id
+properties:
+  fhir_link_id: "817801935685"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - fhir-r4
+glossaryTerms:
+  - medicament.prescription
+  - codification.atc
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "729e20fbb85377b8640209b041418e51"
+---
+#urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.style_vie,PROD)"
+kind: DATASET
+name: ehr_public_style_vie
+platform: postgres
+env: PROD
+description: "Données consolidées sur les habitudes de vie du patient. Regroupe consommation\
+  \ de tabac, alcool, autres substances et activité physique déclarée (linkId: 1693164086678)."
+container:
+  platform: postgres
+  instance: postgres
+  database: ehr
+  schema: public
+  env: PROD
+schema:
+  fields:
+    - fieldPath: style_vie_id
+      type: number
+      description: Clé primaire technique (BIGSERIAL)
+      nativeDataType: BIGSERIAL
+      partOfKey: true
+    - fieldPath: patient_id
+      type: number
+      description: Référence vers patient.patient_id (FK)
+      nativeDataType: BIGINT
+      partOfKey: false
+    - fieldPath: consommation_tabac
+      type: string
+      description: Statut de consommation du tabac
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: consommation_alcool
+      type: string
+      description: Statut de consommation d'alcool
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: consommation_autres_drogues
+      type: string
+      description: Statut de consommation d'autres substances psychoactives
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: activite_physique
+      type: string
+      description: Niveau d'activité physique déclaré
+      nativeDataType: VARCHAR(100)
+      partOfKey: false
+    - fieldPath: date_recueil
+      type: date
+      description: Date de recueil des informations sur le style de vie
+      nativeDataType: DATE
+      partOfKey: false
+    - fieldPath: created_at
+      type: date
+      description: Date de création de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+    - fieldPath: updated_at
+      type: date
+      description: Date de dernière mise à jour de l'enregistrement (audit)
+      nativeDataType: TIMESTAMP WITH TIME ZONE
+      partOfKey: false
+  foreignKeys:
+    - name: fk_style_vie_patient
+      sourceFields:
+        - platform: postgres
+          name: ehr_public_style_vie
+          env: PROD
+          fieldPath: patient_id
+      foreignDataset:
+        platform: postgres
+        name: ehr_public_patient
+        env: PROD
+      foreignFields:
+        - platform: postgres
+          name: ehr_public_patient
+          env: PROD
+          fieldPath: patient_id
+properties:
+  fhir_link_id: "1693164086678"
+  source_system: EDSH
+subTypes: Table
+tags:
+  - pii
+  - fhir-r4
+glossaryTerms:
+  - facteur-risque.style-vie
+  - facteur-risque.tabac
+  - facteur-risque.alcool
+owners:
+  owner: datahub
+  type: TECHNICAL_OWNER
+domains: "25fdababcd8169cae1dc99e7b638670c"

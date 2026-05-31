@@ -1,0 +1,125 @@
+kind: ASSERTION
+id: ehr-patient-freshness-check-1
+description: "La table patient doit être mise à jour dans les 24h (cron : 0 8 * * *)."
+sourceType: NATIVE
+properties:
+  name: "Fraîcheur — patient.updated_at (FRESHNESS)"
+assertion:
+  type: FRESHNESS
+  entityUrn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient,PROD)"
+  freshnessType: DATASET_CHANGE
+  scheduleType: CRON
+  cron: "0 8 * * *"
+  timezone: "UTC"
+---
+kind: ASSERTION
+id: ehr-patient-freshness-check-2
+description: "La table patient doit être mise à jour dans les 24h."
+sourceType: NATIVE
+properties:
+  name: "Fraîcheur — patient.updated_at (SQL)"
+assertion:
+  type: SQL
+  entityUrn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient,PROD)"
+  sqlType: METRIC
+  statement: "SELECT COUNT(*) FROM public.patient WHERE updated_at >= NOW() - INTERVAL '24 hours'"
+  operator: GREATER_THAN
+  value: 0
+  changeType: ABSOLUTE
+---
+kind: ASSERTION
+id: ehr-patient_adresse-freshness-check-1
+description: "La table patient_adresse doit être mise à jour dans les 24h."
+sourceType: NATIVE
+properties:
+  name: "Fraîcheur — patient_adresse.updated_at (SQL)"
+assertion:
+  type: SQL
+  entityUrn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient_adresse,PROD)"
+  sqlType: METRIC
+  statement: "SELECT COUNT(*) FROM public.patient_adresse WHERE updated_at >= NOW() - INTERVAL '24 hours'"
+  operator: GREATER_THAN
+  value: 0
+  changeType: ABSOLUTE
+---
+kind: ASSERTION
+id: ehr-patient_adresse-freshness-check-2
+description: "La table patient_adresse doit être mise à jour dans les 24h (cron : 0 8 * * *)."
+sourceType: NATIVE
+properties:
+  name: "Fraîcheur — patient_adresse.updated_at"
+assertion:
+  type: FRESHNESS
+  entityUrn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient_adresse,PROD)"
+  freshnessType: DATASET_CHANGE
+  scheduleType: CRON
+  cron: "0 8 * * *"
+  timezone: "UTC"
+---
+kind: ASSERTION
+id: warehouse_staging_stg_ehr__patient-unique-check-1
+description: "patient_id doit être unique."
+sourceType: NATIVE
+properties:
+  name: "Unicité — stg_ehr__patient.patient_id"
+  dbt_test: "unique_stg_ehr__patient_patient_id"
+assertion:
+  type: SQL
+  entityUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_staging_stg_ehr__patient,PROD)"
+  sqlType: METRIC
+  statement: "SELECT COUNT(*) - COUNT(DISTINCT patient_id) FROM staging.stg_ehr__patient"
+  operator: EQUAL_TO
+  value: 0
+  changeType: ABSOLUTE
+---
+kind: ASSERTION
+id: warehouse_staging_stg_ehr__patient-unique-check-2
+description: "patient_id doit être unique."
+sourceType: NATIVE
+properties:
+  name: "Unicité — stg_ehr__patient.patient_id"
+  dbt_test: "unique_stg_ehr__patient_patient_id"
+assertion:
+  type: FIELD
+  entityUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_staging_stg_ehr__patient,PROD)"
+  fieldType: FIELD_METRIC
+  fieldPath: "patient_id"
+  dataType: STRING
+  nativeDataType: "VARCHAR"
+  metric: UNIQUE_PERCENTAGE
+  metricOperator: EQUAL_TO
+  metricValue: "1.0"
+---
+kind: ASSERTION
+id: warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check
+description: "fhir_id ne doit jamais être null."
+sourceType: NATIVE
+properties:
+  name: "Complétude — fhir_patient.fhir_id non null"
+  dbt_test: "not_null_fhir_patient_fhir_id"
+assertion:
+  type: FIELD
+  entityUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+  fieldType: FIELD_VALUES
+  fieldPath: "fhir_id"
+  dataType: STRING
+  nativeDataType: "VARCHAR"
+  operator: NOT_NULL
+  excludeNulls: false
+---
+kind: ASSERTION
+id: warehouse_staging_stg_ehr__patient_adresse.patient_id-compleness-check
+description: "patient_id ne doit jamais être null."
+sourceType: NATIVE
+properties:
+  name: "Complétude — stg_ehr__patient_adresse.patient_id non null"
+  dbt_test: "not_null_stg_ehr__patient_adresse_patient_id"
+assertion:
+  type: FIELD
+  entityUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_staging_stg_ehr__patient_adresse,PROD)"
+  fieldType: FIELD_VALUES
+  fieldPath: "patient_id"
+  dataType: NUMBER
+  nativeDataType: "BIGINT"
+  operator: NOT_NULL
+  excludeNulls: false

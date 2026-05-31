@@ -1,0 +1,2602 @@
+# ─── 2026-05-01 ───────────────────────────────────────────────────────────────
+aspectName: DATASET_PROFILE
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777662127622   # 2026-05-01T21:02:07.622+02:00
+messageId: "profile-ehr.public.patient-20260501"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+rowCount: 1480100
+columnCount: 12
+sizeInBytes: 311681024   # ~297 Mo
+fieldProfiles:
+  - fieldPath: "patient_id"
+    uniqueCount: 1480100
+    uniqueProportion: 1.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "10000001"
+    max: "99999999"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "nom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "prenom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nir"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nis"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "date_naissance"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "1900-01-01"
+    max: ""
+  - fieldPath: "sexe"
+    uniqueCount: 2
+    uniqueProportion: 0.000002
+    nullCount: 38
+    nullProportion: 0.000026
+    distinctValueFrequencies:
+      - value: "m"
+        frequency: 740720
+      - value: "f"
+        frequency: 739342
+    sampleValues: ["h","f"]
+  - fieldPath: "date_deces"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "rang_gemellaire"
+    uniqueCount: 0
+    uniqueProportion: 1.0
+    nullCount: 740050
+    nullProportion: 0.5
+    min: "1"
+    max: "10"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "created_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+  - fieldPath: "updated_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+---
+# ─── 2026-05-02 ───────────────────────────────────────────────────────────────
+aspectName: DATASET_PROFILE
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777748527622   # 2026-05-02T21:02:07.622+02:00
+messageId: "profile-ehr.public.patient-20260502"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+rowCount: 1480520
+columnCount: 12
+sizeInBytes: 311769088   # ~297.1 Mo
+fieldProfiles:
+  - fieldPath: "patient_id"
+    uniqueCount: 1480520
+    uniqueProportion: 1.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "10000001"
+    max: "99999999"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "nom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "prenom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nir"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nis"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "date_naissance"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "1900-01-01"
+    max: ""
+  - fieldPath: "sexe"
+    uniqueCount: 2
+    uniqueProportion: 0.000002
+    nullCount: 40
+    nullProportion: 0.000027
+    distinctValueFrequencies:
+      - value: "m"
+        frequency: 740927
+      - value: "f"
+        frequency: 739553
+    sampleValues: ["h","f"]
+  - fieldPath: "date_deces"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "rang_gemellaire"
+    uniqueCount: 0
+    uniqueProportion: 1.0
+    nullCount: 740260
+    nullProportion: 0.5
+    min: "1"
+    max: "10"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "created_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+  - fieldPath: "updated_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+---
+# ─── 2026-05-03 ───────────────────────────────────────────────────────────────
+aspectName: DATASET_PROFILE
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777834927622   # 2026-05-03T21:02:07.622+02:00
+messageId: "profile-ehr.public.patient-20260503"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+rowCount: 1480890
+columnCount: 12
+sizeInBytes: 311846912   # ~297.2 Mo
+fieldProfiles:
+  - fieldPath: "patient_id"
+    uniqueCount: 1480890
+    uniqueProportion: 1.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "10000001"
+    max: "99999999"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "nom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "prenom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nir"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nis"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "date_naissance"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "1900-01-01"
+    max: ""
+  - fieldPath: "sexe"
+    uniqueCount: 2
+    uniqueProportion: 0.000002
+    nullCount: 41
+    nullProportion: 0.0000277
+    distinctValueFrequencies:
+      - value: "m"
+        frequency: 741112
+      - value: "f"
+        frequency: 739737
+    sampleValues: ["h","f"]
+  - fieldPath: "date_deces"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "rang_gemellaire"
+    uniqueCount: 0
+    uniqueProportion: 1.0
+    nullCount: 740445
+    nullProportion: 0.5
+    min: "1"
+    max: "10"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "created_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+  - fieldPath: "updated_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+---
+# ─── 2026-05-04 ───────────────────────────────────────────────────────────────
+aspectName: DATASET_PROFILE
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777921327622   # 2026-05-04T21:02:07.622+02:00
+messageId: "profile-aphp_prod.public.patient-20260504"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+rowCount: 1481200
+columnCount: 12
+sizeInBytes: 311912448   # ~297.4 Mo
+fieldProfiles:
+  - fieldPath: "patient_id"
+    uniqueCount: 1481200
+    uniqueProportion: 1.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "10000001"
+    max: "99999999"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "nom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "prenom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nir"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nis"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "date_naissance"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "1900-01-01"
+    max: ""
+  - fieldPath: "sexe"
+    uniqueCount: 2
+    uniqueProportion: 0.000002
+    nullCount: 42
+    nullProportion: 0.0000284
+    distinctValueFrequencies:
+      - value: "m"
+        frequency: 741267
+      - value: "f"
+        frequency: 739891
+    sampleValues: ["h","f"]
+  - fieldPath: "date_deces"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "rang_gemellaire"
+    uniqueCount: 0
+    uniqueProportion: 1.0
+    nullCount: 740600
+    nullProportion: 0.5
+    min: "1"
+    max: "10"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "created_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+  - fieldPath: "updated_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+---
+# ─── 2026-05-05 ───────────────────────────────────────────────────────────────
+aspectName: DATASET_PROFILE
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778007727622   # 2026-05-05T21:02:07.622+02:00
+messageId: "profile-ehr.public.patient-20260505"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+rowCount: 1481560
+columnCount: 12
+sizeInBytes: 311988224   # ~297.5 Mo
+fieldProfiles:
+  - fieldPath: "patient_id"
+    uniqueCount: 1481560
+    uniqueProportion: 1.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "10000001"
+    max: "99999999"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "nom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "prenom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nir"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nis"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "date_naissance"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "1900-01-01"
+    max: ""
+  - fieldPath: "sexe"
+    uniqueCount: 2
+    uniqueProportion: 0.000002
+    nullCount: 43
+    nullProportion: 0.000029
+    distinctValueFrequencies:
+      - value: "m"
+        frequency: 741449
+      - value: "f"
+        frequency: 740068
+    sampleValues: ["h","f"]
+  - fieldPath: "date_deces"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "rang_gemellaire"
+    uniqueCount: 0
+    uniqueProportion: 1.0
+    nullCount: 740780
+    nullProportion: 0.5
+    min: "1"
+    max: "10"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "created_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+  - fieldPath: "updated_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+---
+# ─── 2026-05-06 ───────────────────────────────────────────────────────────────
+aspectName: DATASET_PROFILE
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778094127622   # 2026-05-06T21:02:07.622+02:00
+messageId: "profile-ehr.public.patient-20260506"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+rowCount: 1481920
+columnCount: 12
+sizeInBytes: 312064000   # ~297.7 Mo
+fieldProfiles:
+  - fieldPath: "patient_id"
+    uniqueCount: 1481920
+    uniqueProportion: 1.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "10000001"
+    max: "99999999"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "nom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "prenom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nir"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nis"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "date_naissance"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "1900-01-01"
+    max: ""
+  - fieldPath: "sexe"
+    uniqueCount: 2
+    uniqueProportion: 0.000002
+    nullCount: 44
+    nullProportion: 0.0000297
+    distinctValueFrequencies:
+      - value: "m"
+        frequency: 741612
+      - value: "f"
+        frequency: 740264
+    sampleValues: ["h","f"]
+  - fieldPath: "date_deces"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "rang_gemellaire"
+    uniqueCount: 0
+    uniqueProportion: 1.0
+    nullCount: 740960
+    nullProportion: 0.5
+    min: "1"
+    max: "10"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "created_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+  - fieldPath: "updated_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+---
+# ─── 2026-05-07 (original) ────────────────────────────────────────────────────
+aspectName: DATASET_PROFILE
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778180527622   # 2026-05-07T21:02:07.622+02:00
+messageId: "profile-ehr.public.patient-20260507"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+rowCount: 1482300
+columnCount: 12
+sizeInBytes: 312145920   # ~298 Mo
+fieldProfiles:
+  - fieldPath: "patient_id"
+    uniqueCount: 1482300
+    uniqueProportion: 1.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "10000001"
+    max: "99999999"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "nom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "prenom"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nir"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "nis"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "date_naissance"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+    min: "1900-01-01"
+    max: ""
+  - fieldPath: "sexe"
+    uniqueCount: 2
+    uniqueProportion: 0.000002
+    nullCount: 45
+    nullProportion: 0.00003
+    distinctValueFrequencies:
+      - value: "m"
+        frequency: 741803
+      - value: "f"
+        frequency: 740452
+    sampleValues: ["h","f"]
+  - fieldPath: "date_deces"
+    uniqueCount: 0
+    uniqueProportion: 0.0
+    nullCount: 0
+    nullProportion: 0.0
+  - fieldPath: "rang_gemellaire"
+    uniqueCount: 0
+    uniqueProportion: 1.0
+    nullCount: 741150
+    nullProportion: 0.5
+    min: "1"
+    max: "10"
+    sampleValues: ["10000001","23456789","87654321"]
+  - fieldPath: "created_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+  - fieldPath: "updated_at"
+    uniqueCount: 0
+    uniqueProportion: 0
+    nullCount: 0
+    nullProportion: 0
+
+#  - fieldPath: "age"
+#    uniqueCount: 102
+#    uniqueProportion: 0.0001
+#    nullCount: 3210
+#    nullProportion: 0.0022
+#    min: "0"
+#    max: "117"
+#    mean: "54.3"
+#    median: "56.0"
+#    stdev: "18.7"
+#    quantiles:
+#      - quantile: "0.25"
+#        value: "41.0"
+#      - quantile: "0.50"
+#        value: "56.0"
+#      - quantile: "0.75"
+#        value: "68.0"
+#      - quantile: "0.95"
+#        value: "84.0"
+#    histogram:
+#      boundaries: ["0", "20", "40", "60", "80", "100", "120"]
+#      heights: [0.04, 0.12, 0.28, 0.31, 0.19, 0.05, 0.01]
+
+#  - fieldPath: "date_entree"
+#    uniqueCount: 3287
+#    uniqueProportion: 0.0022
+#    nullCount: 0
+#    nullProportion: 0.0
+#    min: "2018-01-02"
+#    max: "2025-05-04"
+#    median: "2022-06-15"
+
+#  - fieldPath: "code_diagnostic_principal"
+#    uniqueCount: 4821
+#    uniqueProportion: 0.003
+#    nullCount: 12300
+#    nullProportion: 0.0083
+#    distinctValueFrequencies:
+#      - value: "Z511"
+#        frequency: 34210
+#      - value: "I10"
+#        frequency: 28540
+#      - value: "E119"
+#        frequency: 21003
+#    sampleValues:
+#      - "Z511"
+#      - "I10"
+#      - "J181"
+---
+# ── datasetUsageStatistics — ehr.public.patient — 2026-05-07 ───────────────────────────
+aspectName: DATASET_USAGE_STATISTICS
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778180527622   # 2026-05-07T21:02:07.622+02:00
+messageId: "usage-ehr_public_patient-20260507"
+
+eventGranularity:
+  unit: DAY
+  multiple: 1
+
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+
+uniqueUserCount: 5
+totalSqlQueries: 624
+
+# ── Requêtes représentatives (colonnes du schéma réel) ───────────────────────
+topSqlQueries:
+  - "SELECT patient_id, nir, ins, date_naissance, sexe FROM patient WHERE date_deces IS NULL"
+  - "SELECT patient_id, nom, prenom, date_naissance FROM patient WHERE ins = $1"
+  - "SELECT COUNT(*) FROM patient WHERE sexe IS NULL OR sexe NOT IN ('h','f')"
+  - "SELECT patient_id, source_deces FROM patient WHERE date_deces > '2026-01-01'"
+  - "SELECT patient_id, rang_gemellaire FROM patient WHERE rang_gemellaire > 1 ORDER BY patient_id"
+
+# ── Utilisateurs : humains + comptes techniques ──────────────────────────────
+userCounts:
+  - user: "urn:li:corpuser:etl-pipeline"
+    count: 298
+  - user: "urn:li:corpuser:jdupont"
+    count: 148
+    userEmail: "j.dupont@aphp.fr"
+  - user: "urn:li:corpuser:mmartin"
+    count: 97
+    userEmail: "m.martin@aphp.fr"
+  - user: "urn:li:corpuser:quality-bot"
+    count: 72
+  - user: "urn:li:corpuser:fhir-export-svc"
+    count: 9
+
+# ── Colonnes accédées (toutes les colonnes du schéma) ───────────────────────
+fieldCounts:
+  - fieldPath: "patient_id"       # PK — présente dans toutes les jointures
+    count: 624
+  - fieldPath: "ins"              # Identité Nationale de Santé — clé métier principale
+    count: 489
+  - fieldPath: "nir"              # NIR — lookup fréquent identito-vigilance
+    count: 412
+  - fieldPath: "date_naissance"   # filtre démographique récurrent
+    count: 387
+  - fieldPath: "sexe"             # consolidé PMSI — contrôle qualité quotidien
+    count: 341
+  - fieldPath: "date_deces"       # exclusion cohortes actives
+    count: 298
+  - fieldPath: "nom"              # accès nominatif (traçé — habilitations DMP)
+    count: 201
+  - fieldPath: "prenom"           # idem
+    count: 198
+  - fieldPath: "source_deces"     # audit qualité décès
+    count: 134
+  - fieldPath: "rang_gemellaire"  # études épidémio — accès ponctuel
+    count: 47
+  - fieldPath: "updated_at"       # détection delta ETL
+    count: 38
+  - fieldPath: "created_at"       # audit ingestion
+    count: 12
+---
+# ── datasetUsageStatistics — ehr.public.patient — 2026-05-24 ───────────────────────────
+aspectName: DATASET_USAGE_STATISTICS
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1779649327622   # 2026-05-24T21:02:07.622+02:00
+messageId: "usage-ehr_public_patient-20260507"
+uniqueUserCount: 5
+totalSqlQueries: 624
+# ── Requêtes représentatives (colonnes du schéma réel) ───────────────────────
+topSqlQueries:
+  - "SELECT patient_id, nir, ins, date_naissance, sexe FROM patient WHERE date_deces IS NULL"
+  - "SELECT patient_id, nom, prenom, date_naissance FROM patient WHERE ins = $1"
+  - "SELECT COUNT(*) FROM patient WHERE sexe IS NULL OR sexe NOT IN ('h','f')"
+  - "SELECT patient_id, source_deces FROM patient WHERE date_deces > '2026-01-01'"
+  - "SELECT patient_id, rang_gemellaire FROM patient WHERE rang_gemellaire > 1 ORDER BY patient_id"
+
+# ── Utilisateurs : humains + comptes techniques ──────────────────────────────
+userCounts:
+  - user: "urn:li:corpuser:etl-pipeline"
+    count: 298
+  - user: "urn:li:corpuser:jdupont"
+    count: 148
+    userEmail: "j.dupont@aphp.fr"
+  - user: "urn:li:corpuser:mmartin"
+    count: 97
+    userEmail: "m.martin@aphp.fr"
+  - user: "urn:li:corpuser:quality-bot"
+    count: 72
+  - user: "urn:li:corpuser:fhir-export-svc"
+    count: 9
+
+# ── Colonnes accédées (toutes les colonnes du schéma) ───────────────────────
+fieldCounts:
+  - fieldPath: "patient_id"       # PK — présente dans toutes les jointures
+    count: 624
+  - fieldPath: "ins"              # Identité Nationale de Santé — clé métier principale
+    count: 489
+  - fieldPath: "nir"              # NIR — lookup fréquent identito-vigilance
+    count: 412
+  - fieldPath: "date_naissance"   # filtre démographique récurrent
+    count: 387
+  - fieldPath: "sexe"             # consolidé PMSI — contrôle qualité quotidien
+    count: 341
+  - fieldPath: "date_deces"       # exclusion cohortes actives
+    count: 298
+  - fieldPath: "nom"              # accès nominatif (traçé — habilitations DMP)
+    count: 201
+  - fieldPath: "prenom"           # idem
+    count: 198
+  - fieldPath: "source_deces"     # audit qualité décès
+    count: 134
+  - fieldPath: "rang_gemellaire"  # études épidémio — accès ponctuel
+    count: 47
+  - fieldPath: "updated_at"       # détection delta ETL
+    count: 38
+  - fieldPath: "created_at"       # audit ingestion
+    count: 12
+---
+aspectName: OPERATION
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777593600000
+lastUpdatedTimestamp: 1777593000000
+operationType: CUSTOM
+customOperationType: "QUALITY_CHECK"
+sourceType: DATA_PROCESS
+numAffectedRows: 982400
+actor: "quality-bot"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: QUERY
+queries:
+  - "urn:li:query:quality-check-consultation-20260501"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  checkType: "completeness"
+  threshold: "0.95"
+  score: "0.97"
+messageId: "op-quality-check-consultation-20260501"
+---
+# ── Jour 2 — 2026-05-02 — FRESHNESS_CHECK ────────────────────────────────────
+aspectName: OPERATION
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777680000000
+lastUpdatedTimestamp: 1777679400000
+operationType: CUSTOM
+customOperationType: "FRESHNESS_CHECK"
+sourceType: DATA_PROCESS
+numAffectedRows: 984100
+actor: "quality-bot"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: QUERY
+queries:
+  - "urn:li:query:freshness-check-consultation-20260502"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  checkType: "freshness"
+  maxDelayHours: "24"
+  actualDelayHours: "3"
+messageId: "op-freshness-check-consultation-20260502"
+---
+# ── Jour 3 — 2026-05-03 — ANOMALY_DETECTION ──────────────────────────────────
+aspectName: OPERATION
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777766400000
+lastUpdatedTimestamp: 1777765800000
+operationType: CUSTOM
+customOperationType: "ANOMALY_DETECTION"
+sourceType: DATA_PROCESS
+numAffectedRows: 986750
+actor: "quality-bot"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: QUERY
+queries:
+  - "urn:li:query:anomaly-detection-consultation-20260503"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  checkType: "volume_anomaly"
+  expectedRows: "985000"
+  deviation: "0.18"
+  status: "WARNING"
+messageId: "op-anomaly-detection-consultation-20260503"
+---
+# ── Jour 4 — 2026-05-04 — QUALITY_CHECK (uniqueness) ────────────────────────
+aspectName: OPERATION
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777852800000
+lastUpdatedTimestamp: 1777852200000
+operationType: CUSTOM
+customOperationType: "QUALITY_CHECK"
+sourceType: DATA_PROCESS
+numAffectedRows: 988300
+actor: "quality-bot"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: QUERY
+queries:
+  - "urn:li:query:quality-check-consultation-20260504"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  checkType: "uniqueness"
+  column: "consultation_id"
+  threshold: "1.0"
+  score: "1.0"
+messageId: "op-quality-check-consultation-20260504"
+---
+# ── Jour 5 — 2026-05-05 — REFERENTIAL_CHECK ──────────────────────────────────
+aspectName: OPERATION
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777939200000
+lastUpdatedTimestamp: 1777938600000
+operationType: CUSTOM
+customOperationType: "REFERENTIAL_CHECK"
+sourceType: DATA_PROCESS
+numAffectedRows: 990100
+actor: "quality-bot"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: QUERY
+queries:
+  - "urn:li:query:referential-check-consultation-20260505"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+  - platform: postgres
+    name: ehr_public_patient_adresse
+    env: PROD
+customProperties:
+  checkType: "referential_integrity"
+  foreignKey: "sejour_id"
+  orphanRows: "142"
+  status: "WARNING"
+messageId: "op-referential-check-consultation-20260505"
+---
+# ── Jour 6 — 2026-05-06 — QUALITY_CHECK (validity) ──────────────────────────
+aspectName: OPERATION
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778025600000
+lastUpdatedTimestamp: 1778025000000
+operationType: CUSTOM
+customOperationType: "QUALITY_CHECK"
+sourceType: DATA_PROCESS
+numAffectedRows: 992800
+actor: "quality-bot"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: QUERY
+queries:
+  - "urn:li:query:quality-check-consultation-20260506"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  checkType: "validity"
+  column: "date_consultation"
+  rule: "not_future_date"
+  threshold: "0.99"
+  score: "0.994"
+messageId: "op-quality-check-consultation-20260506"
+---
+# ── Jour 7 — 2026-05-07 — PROFILE_SNAPSHOT ───────────────────────────────────
+aspectName: OPERATION
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778112000000
+lastUpdatedTimestamp: 1778111400000
+operationType: CUSTOM
+customOperationType: "PROFILE_SNAPSHOT"
+sourceType: DATA_PROCESS
+numAffectedRows: 994500
+actor: "quality-bot"
+eventGranularity:
+  unit: DAY
+  multiple: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: QUERY
+queries:
+  - "urn:li:query:profile-snapshot-consultation-20260507"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  checkType: "profiling"
+  nullRate: "0.021"
+  distinctPatientIds: "47832"
+  avgConsultationsPerPatient: "20.79"
+messageId: "op-profile-snapshot-consultation-20260507"
+---
+aspectName: OPERATION
+# ── Jour 1 — 2026-05-01 — CREATE ────────────────────────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777593600000
+lastUpdatedTimestamp: 1777593600000
+operationType: CREATE
+sourceType: DATA_PLATFORM
+actor: "dba-admin"
+customProperties:
+  migration: "V20__create_table_consultation.sql"
+  tool: "flyway"
+---
+aspectName: OPERATION
+# ── Jour 2 — 2026-05-02 — ALTER (ajout colonne) ─────────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777680000000
+lastUpdatedTimestamp: 1777680000000
+operationType: ALTER
+sourceType: DATA_PLATFORM
+actor: "dba-admin"
+customProperties:
+  migration: "V21__add_column_statut.sql"
+  tool: "flyway"
+---
+aspectName: OPERATION
+# ── Jour 3 — 2026-05-03 — ALTER (ajout index) ───────────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777766400000
+lastUpdatedTimestamp: 1777766400000
+operationType: ALTER
+sourceType: DATA_PLATFORM
+actor: "dba-admin"
+customProperties:
+  migration: "V22__add_index_patient_id.sql"
+  tool: "flyway"
+---
+aspectName: OPERATION
+# ── Jour 4 — 2026-05-04 — ALTER (contrainte FK) ─────────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777852800000
+lastUpdatedTimestamp: 1777852800000
+operationType: ALTER
+sourceType: DATA_PLATFORM
+actor: "dba-admin"
+customProperties:
+  migration: "V23__add_fk_sejour_id.sql"
+  tool: "flyway"
+---
+aspectName: OPERATION
+# ── Jour 5 — 2026-05-05 — ALTER (renommage colonne) ─────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777939200000
+lastUpdatedTimestamp: 1777939200000
+operationType: ALTER
+sourceType: DATA_PLATFORM
+actor: "dba-admin"
+customProperties:
+  migration: "V24__rename_column_date_consult.sql"
+  tool: "flyway"
+---
+aspectName: OPERATION
+# ── Jour 6 — 2026-05-06 — ALTER (ajout colonne nullable) ────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778025600000
+lastUpdatedTimestamp: 1778025600000
+operationType: ALTER
+sourceType: DATA_PLATFORM
+actor: "dba-admin"
+customProperties:
+  migration: "V25__add_column_motif_nullable.sql"
+  tool: "flyway"
+---
+aspectName: OPERATION
+# ── Jour 7 — 2026-05-07 (hier) — DROP ───────────────────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778112000000
+lastUpdatedTimestamp: 1778112000000
+operationType: DROP
+sourceType: DATA_PLATFORM
+actor: "dba-admin"
+customProperties:
+  migration: "V26__drop_table_consultation_legacy.sql"
+  tool: "flyway"
+---
+aspectName: OPERATION
+# ── Jour 1 — 2026-05-01 | INSERT quotidien nominal ──────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777600860000        # 01/05/2026 02:01 UTC
+lastUpdatedTimestamp: 1777600800000   # 01/05/2026 02:00 UTC
+eventGranularity:
+  unit: SECOND
+  multiple: 1
+operationType: INSERT
+sourceType: DATA_PROCESS
+numAffectedRows: 4823
+actor: "etl-pipeline"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  pipeline: "fhir-to-edsp"
+  environment: "production"
+  batch_id: "batch-20260501"
+messageId: "op-patient-insert-20260501"
+---
+aspectName: OPERATION
+# ── Jour 2 — 2026-05-02 | UPDATE de correction J+1 ─────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777687260000        # 02/05/2026 02:01 UTC
+lastUpdatedTimestamp: 1777687200000   # 02/05/2026 02:00 UTC
+eventGranularity:
+  unit: SECOND
+  multiple: 1
+operationType: UPDATE
+sourceType: DATA_PROCESS
+numAffectedRows: 312
+actor: "etl-pipeline"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  pipeline: "fhir-to-edsp"
+  environment: "production"
+  batch_id: "batch-20260502-correction"
+  reason: "reconciliation_ipp"           # corrections d'identité IPP après rapprochement
+messageId: "op-patient-update-20260502"
+---
+aspectName: OPERATION
+# ── Jour 3 — 2026-05-03 | INSERT quotidien (volume élevé — weekend long) ────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777773660000        # 03/05/2026 02:01 UTC
+lastUpdatedTimestamp: 1777773600000   # 03/05/2026 02:00 UTC
+eventGranularity:
+  unit: SECOND
+  multiple: 1
+operationType: INSERT
+sourceType: DATA_PROCESS
+numAffectedRows: 9147                 # cumul samedi + dimanche
+actor: "etl-pipeline"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  pipeline: "fhir-to-edsp"
+  environment: "production"
+  batch_id: "batch-20260503"
+  note: "rattrappage_weekend"
+messageId: "op-patient-insert-20260503"
+---
+aspectName: OPERATION
+# ── Jour 4 — 2026-05-04 | INSERT nominal ────────────────────────────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777860060000        # 04/05/2026 02:01 UTC
+lastUpdatedTimestamp: 1777860000000   # 04/05/2026 02:00 UTC
+eventGranularity:
+  unit: SECOND
+  multiple: 1
+operationType: INSERT
+sourceType: DATA_PROCESS
+numAffectedRows: 5102
+actor: "etl-pipeline"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  pipeline: "fhir-to-edsp"
+  environment: "production"
+  batch_id: "batch-20260504"
+messageId: "op-patient-insert-20260504"
+---
+aspectName: OPERATION
+# ── Jour 5 — 2026-05-05 | INSERT dégradé — incident FHIR upstream ───────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1777946460000        # 05/05/2026 02:01 UTC
+lastUpdatedTimestamp: 1777946400000   # 05/05/2026 02:00 UTC
+eventGranularity:
+  unit: SECOND
+  multiple: 1
+operationType: INSERT
+sourceType: DATA_PROCESS
+numAffectedRows: 87                   # ⚠ anomalie : volume très faible
+actor: "etl-pipeline"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  pipeline: "fhir-to-edsp"
+  environment: "production"
+  batch_id: "batch-20260505"
+  alert: "upstream_fhir_server_partial_outage"
+  incident_ref: "INC-2026-0892"
+messageId: "op-patient-insert-20260505"
+---
+aspectName: OPERATION
+# ── Jour 6 — 2026-05-06 | UPDATE de reprise + INSERT de rattrapage ───────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778032860000        # 06/05/2026 02:01 UTC
+lastUpdatedTimestamp: 1778032800000   # 06/05/2026 02:00 UTC
+eventGranularity:
+  unit: SECOND
+  multiple: 1
+operationType: UPDATE
+sourceType: DATA_PROCESS
+numAffectedRows: 4938                 # re-traitement des lignes partielles de J-1
+actor: "etl-pipeline"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  pipeline: "fhir-to-edsp"
+  environment: "production"
+  batch_id: "batch-20260506-replay"
+  reason: "replay_after_incident"
+  incident_ref: "INC-2026-0892"
+messageId: "op-patient-update-20260506"
+---
+aspectName: OPERATION
+# ── Jour 7 — 2026-05-07 | INSERT nominal — retour à la normale ──────────────
+dataset:
+  platform: postgres
+  name: ehr_public_patient
+  env: PROD
+timestampMillis: 1778119260000        # 07/05/2026 02:01 UTC
+lastUpdatedTimestamp: 1778119200000   # 07/05/2026 02:00 UTC
+eventGranularity:
+  unit: SECOND
+  multiple: 1
+operationType: INSERT
+sourceType: DATA_PROCESS
+numAffectedRows: 5284
+actor: "etl-pipeline"
+affectedDatasets:
+  - platform: postgres
+    name: ehr_public_patient
+    env: PROD
+customProperties:
+  pipeline: "fhir-to-edsp"
+  environment: "production"
+  batch_id: "batch-20260507"
+messageId: "op-patient-insert-20260507"
+---
+# 1 — Freshness check #1 (postgres / ehr_public_patient)
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779443737556
+assertionUrn: "urn:li:assertion:ehr-patient-freshness-check-1"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient,PROD)"
+runId: "urn:li:assertion:ehr-patient-freshness-check-1:1779443737556"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  nativeResults:
+    threshold_hours: "24"
+    max_age_hours_observed: "0.76"
+---
+# 2 — Freshness check #2 (postgres / ehr_public_patient)
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779443737556
+assertionUrn: "urn:li:assertion:ehr-patient-freshness-check-2"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient,PROD)"
+runId: "urn:li:assertion:ehr-patient-freshness-check-2:1779443737556"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  nativeResults:
+    threshold_hours: "24"
+    max_age_hours_observed: "0.76"
+---
+# 3 — Completeness check (duckdb / fhir_patient)
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779443737555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1779443737555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14861
+  nativeResults:
+    success_pct: "100.0"
+    null_count: "0"
+    row_count: "14861"
+---
+# 4 — Uniqueness check #1 (duckdb / stg_ehr__patient)
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779443737556
+assertionUrn: "urn:li:assertion:warehouse_staging_stg_ehr__patient-unique-check-1"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_staging_stg_ehr__patient,PROD)"
+runId: "urn:li:assertion:warehouse_staging_stg_ehr__patient-unique-check-1:1779443737556"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14798
+  nativeResults:
+    success_pct: "100.0"
+    duplicate_count: "0"
+    row_count: "14798"
+---
+# 5 — Uniqueness check #2 (duckdb / stg_ehr__patient)
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779443737556
+assertionUrn: "urn:li:assertion:warehouse_staging_stg_ehr__patient-unique-check-2"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_staging_stg_ehr__patient,PROD)"
+runId: "urn:li:assertion:warehouse_staging_stg_ehr__patient-unique-check-2:1779443737556"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14798
+  nativeResults:
+    success_pct: "100.0"
+    duplicate_count: "0"
+    row_count: "14798"
+---
+# ─── Assertion: warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check ──────────────────────────────────────────────
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779443737555
+assertionUrn: "urn:li:assertion:urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1779443737555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14861
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14861"
+    null_count: "0"
+---
+# ─── Assertion: warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check ───
+
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779357337555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1779357337555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14846
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14846"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779270937555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1779270937555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15080
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15080"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779184537555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1779184537555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15110
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15110"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779098137555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1779098137555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15102
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15102"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1779011737555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1779011737555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14797
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14797"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778925337555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778925337555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14972
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14972"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778838937555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778838937555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15219
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15219"
+    null_count: "0"
+---
+# FAILURE — null_count: 30
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778752537555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778752537555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: FAILURE
+  rowCount: 15163
+  missingCount: 30
+  nativeResults:
+    success_pct: "99.8"
+    row_count: "15163"
+    null_count: "30"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778666137555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778666137555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14741
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14741"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778579737555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778579737555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14916
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14916"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778493337555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778493337555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15077
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15077"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778406937555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778406937555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14747
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14747"
+    null_count: "0"
+---
+# FAILURE — null_count: 49
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778320537555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778320537555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: FAILURE
+  rowCount: 15021
+  missingCount: 49
+  nativeResults:
+    success_pct: "99.67"
+    row_count: "15021"
+    null_count: "49"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778234137555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778234137555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15184
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15184"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778147737555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778147737555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15208
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15208"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1778061337555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1778061337555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14755
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14755"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777974937555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777974937555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15274
+  nativeResults:
+   success_pct: "100.0"
+   row_count: "15274"
+   null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777888537555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777888537555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14904
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14904"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777802137555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777802137555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15183
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15183"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777715737555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777715737555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15185
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15185"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777629337555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777629337555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14832
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14832"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777542937555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777542937555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15089
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15089"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777456537555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777456537555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14715
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14715"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777370137555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777370137555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14831
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14831"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777283737555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777283737555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14953
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14953"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777197337555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777197337555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15235
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15235"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777110937555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777110937555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15141
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15141"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1777024537555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1777024537555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 14865
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "14865"
+    null_count: "0"
+---
+aspectName: ASSERTION_RUN_EVENT
+timestampMillis: 1776938137555
+assertionUrn: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check"
+asserteeUrn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+runId: "urn:li:assertion:warehouse-fhir-semantic-layer-fhir_patient.fhir_id-compleness-check:1776938137555"
+partitionSpec:
+  type: FULL_TABLE
+  partition: "FULL_TABLE_SNAPSHOT"
+result:
+  type: SUCCESS
+  rowCount: 15083
+  nativeResults:
+    success_pct: "100.0"
+    row_count: "15083"
+    null_count: "0"
+---
+# ═══════════════════════════════════════════════════════════════════════════
+# Flow : ehr_to_duckdb_raw_layer  —  start 2026-05-25T08:00:00Z (1779696000000)
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ── ehr_patient_to_raw_layer ─────────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_patient_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_patient_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696180000   # +3 min
+status: COMPLETE
+attempt: 1
+durationMillis: 180000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_patient_adresse_to_raw_layer ─────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_patient_adresse_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_patient_adresse_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696120000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_donnees_pmsi_to_raw_layer ─────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_donnees_pmsi_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_donnees_pmsi_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696240000   # +4 min
+status: COMPLETE
+attempt: 1
+durationMillis: 240000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_diagnostics_to_raw_layer ──────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_diagnostics_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_diagnostics_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696180000   # +3 min
+status: COMPLETE
+attempt: 1
+durationMillis: 180000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_biologie_to_raw_layer  [FAILURE — timeout sur grande table] ───────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_biologie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_biologie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696090000   # +1 min 30 s
+status: COMPLETE
+attempt: 1
+durationMillis: 90000
+result:
+  type: FAILURE
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_actes_to_raw_layer ────────────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_actes_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_actes_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696120000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_prescription_to_raw_layer ─────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_prescription_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_prescription_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696120000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_dossier_soins_to_raw_layer ────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_dossier_soins_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_dossier_soins_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696180000   # +3 min
+status: COMPLETE
+attempt: 1
+durationMillis: 180000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_posologie_to_raw_layer ────────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_posologie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_posologie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696060000   # +1 min
+status: COMPLETE
+attempt: 1
+durationMillis: 60000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_administration_to_raw_layer ──────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_administration_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_administration_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696120000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_style_vie_to_raw_layer ────────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_style_vie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_style_vie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696060000   # +1 min
+status: COMPLETE
+attempt: 1
+durationMillis: 60000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Flow : ehr_to_duckdb_raw_layer  —  DAG run 2026-05-25T08:00:00Z
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ── ehr_patient_to_raw_layer ─────────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_patient_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_patient_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696180000   # +3 min
+status: COMPLETE
+attempt: 1
+durationMillis: 180000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_patient_adresse_to_raw_layer ─────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_patient_adresse_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_patient_adresse_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696120000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_donnees_pmsi_to_raw_layer ─────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_donnees_pmsi_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_donnees_pmsi_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696240000   # +4 min
+status: COMPLETE
+attempt: 1
+durationMillis: 240000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_diagnostics_to_raw_layer ──────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_diagnostics_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_diagnostics_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696180000   # +3 min
+status: COMPLETE
+attempt: 1
+durationMillis: 180000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_biologie_to_raw_layer  [FAILURE — connexion PostgreSQL perdue] ────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_biologie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_biologie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696090000   # +1 min 30 s
+status: COMPLETE
+attempt: 1
+durationMillis: 90000
+result:
+  type: FAILURE
+  nativeResultType: "airflow.TaskInstanceState.FAILED"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_actes_to_raw_layer ────────────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_actes_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_actes_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696120000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_prescription_to_raw_layer ─────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_prescription_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_prescription_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696120000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_dossier_soins_to_raw_layer ────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_dossier_soins_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_dossier_soins_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696180000   # +3 min
+status: COMPLETE
+attempt: 1
+durationMillis: 180000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_posologie_to_raw_layer ────────────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_posologie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_posologie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696060000   # +1 min
+status: COMPLETE
+attempt: 1
+durationMillis: 60000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_administration_to_raw_layer ──────────────────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_administration_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_administration_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696120000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── ehr_style_vie_to_raw_layer  [STARTED — toujours en cours au moment de la capture]
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_style_vie_to_raw_layer__2026-05-25T08:00:00"
+timestampMillis: 1779696000000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Flow : duckdb_fhir_semantic_layer_to_postgres_semantic_layer
+#        DAG run 2026-05-25T08:15:00Z (1779696900000)
+# ═══════════════════════════════════════════════════════════════════════════
+---
+# ── fhir_semantic_layer_patient_to_semantic_layer ────────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_patient_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696900000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_patient_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696960000   # +1 min
+status: COMPLETE
+attempt: 1
+durationMillis: 60000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── fhir_semantic_layer_encounter_to_semantic_layer ──────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_encounter_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696900000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_encounter_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779697020000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── fhir_semantic_layer_condition_to_semantic_layer ──────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_condition_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696900000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_condition_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779697020000   # +2 min
+status: COMPLETE
+attempt: 1
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── fhir_semantic_layer_procedure_to_semantic_layer ──────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_procedure_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696900000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_procedure_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696960000   # +1 min
+status: COMPLETE
+attempt: 1
+durationMillis: 60000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── fhir_semantic_layer_observation_to_semantic_layer ────────────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_observation_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696900000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_observation_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779697080000   # +3 min
+status: COMPLETE
+attempt: 1
+durationMillis: 180000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── fhir_semantic_layer_observation_component_to_semantic_layer  [SKIPPED — table source vide]
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_observation_component_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696900000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_observation_component_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696930000   # +30 s
+status: COMPLETE
+attempt: 1
+durationMillis: 30000
+result:
+  type: SKIPPED
+  nativeResultType: "airflow.TaskInstanceState.SKIPPED"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── fhir_semantic_layer_medication_request_to_semantic_layer ─────────────────
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_medication_request_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696900000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_medication_request_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696960000   # +1 min
+status: COMPLETE
+attempt: 1
+durationMillis: 60000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+# ── fhir_semantic_layer_medication_administration_to_semantic_layer  [FAILURE — deadlock PostgreSQL]
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_medication_administration_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696900000
+status: STARTED
+attempt: 1
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_medication_administration_to_semantic_layer__2026-05-25T08:15:00"
+timestampMillis: 1779696945000   # +45 s
+status: COMPLETE
+attempt: 1
+durationMillis: 45000
+result:
+  type: FAILURE
+  nativeResultType: "airflow.TaskInstanceState.FAILED"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_medication_administration_to_semantic_layer__2026-05-25T08:21:00"
+timestampMillis: 1779697380000   # 08:23:00Z  (+2 min)
+status: COMPLETE
+attempt: 2
+durationMillis: 120000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_fhir_semantic_layer_observation_component_to_semantic_layer__2026-05-25T08:16:00"
+timestampMillis: 1779696990000   # 08:16:30Z  (+30 s)
+status: COMPLETE
+attempt: 2
+durationMillis: 30000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE
+---
+aspectName: DATA_PROCESS_INSTANCE_RUN_EVENT
+dataProcessInstanceUrn: "urn:li:dataProcessInstance:airflow_ehr_biologie_to_raw_layer__2026-05-25T08:06:00"
+timestampMillis: 1779696600000   # 08:10:00Z  (+4 min)
+status: COMPLETE
+attempt: 2
+durationMillis: 240000
+result:
+  type: SUCCESS
+  nativeResultType: "airflow.TaskInstanceState.SUCCESS"
+partitionSpec:
+  partition: "FULL_TABLE_SNAPSHOT"
+  type: FULL_TABLE

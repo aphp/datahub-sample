@@ -1,0 +1,1134 @@
+kind: DATA_PRODUCT
+id: "b78435bfad26dab4c11e6e41c2a72b53"
+name: "Venues et séjours des patients"
+
+description: |
+  ## À quoi correspondent ces données ?
+
+  Les données d'enregistrements de venues et séjours décrivent les **passages des patients** à travers leurs contacts avec le système de santé dans les hôpitaux de l'AP-HP, qu'il s'agisse :
+
+  *   d'une hospitalisation de jour ou d'une hospitalisation complète,
+  *   d'une consultation ou d'une téléconsultation,
+  *   d'un passage aux urgences,
+  *   d'une venue pour la réalisation d'actes ou d'examens en externe.
+
+  ## À quoi servent ces données ?
+
+  Les enregistrements de venues et séjours contribuent à la constitution d'un dossier pour chaque patient. Elles permettent de **reconstituer la trajectoire hospitalière d'un patient** : chaque venue ou séjour est identifié, daté et localisé.
+
+  **Ces données servent principalement à :**
+
+  *   **la valorisation financière** (facturation directe à l'assurance maladie et arrêté de versement PMSI),
+  *   **mesurer l'activité médicale** des établissements,
+  *   **alimenter la recherche clinique** en permettant d'identifier des groupes de patients selon leurs parcours.
+
+  Dans l'Entrepôt de Données de Santé (EDS), elles servent de **socle de rattachement** aux autres ensembles de données (diagnostics, actes, documents, médicaments, biologie…).
+
+  ## Que contiennent ces données ?
+
+  Les informations administratives sont organisées autour de la notion de dossier administratif qui sert d'enveloppe pour enregistrer les venues et séjours des patients.
+
+  On distingue **4 types de dossiers** :
+
+  *   dossier de venue aux urgences non suivi d'une hospitalisation,
+  *   dossier de venue en hospitalisation de jour,
+  *   dossier de venue en hospitalisation complète,
+  *   dossier de consultation.
+
+  **À minima, les données administratives contiennent :**
+
+  *   Un **numéro de dossier**,
+  *   **Identité du patient** : chaque venue est rattachée à l'identité du patient, avec des informations sociodémographiques de base comme la date de naissance et le sexe,
+  *   **Mode d'entrée et de sortie** du patient : transfert, naissance, décès, retour à domicile, etc.,
+  *   **Date** : les données indiquent au minimum les dates de début et de fin du dossier.
+
+  En complément pour les dossiers d'hospitalisation et de venues aux urgences, on dispose des **mouvements des patients** qui contiennent :
+
+  *   **Dates** : les données indiquent les dates et les heures de prise en charge du patient dans les différentes unités médicales, depuis son arrivée jusqu'à la fin du séjour,
+  *   **Localisation** : elles précisent la structure dans laquelle le patient a été pris en charge : hôpital, unité fonctionnelle (UF), unité médico-administrative (UMA) ou unité d'hébergement (UH).
+
+  ## D'où viennent les données ?
+
+  Les données de venues et séjours des patients proviennent du logiciel de dossier patient informatisé **ORBIS®**, et sont **mises à jour quotidiennement**.
+
+  ## Quelles données sont disponibles dans l'EDS ?
+
+  **Les données d'enregistrements de venues et séjours disponibles dans l'EDS couvrent :**
+
+  *   les **hospitalisations complètes** (MCO, PSY et SMR),
+  *   les **hospitalisations partielles**, dont les venues en séances (radiothérapie, chimiothérapie, dialyse…),
+  *   les **passages aux urgences**,
+  *   les **consultations externes**.
+
+  **Elles excluent pour le moment :**
+
+  *   les **données de l'Hôpital Européen Georges-Pompidou** (HEGP),
+  *   les données produites dans les différents hôpitaux de l'AP-HP avant le déploiement d'ORBIS® dans l'établissement.
+
+  ## Comment sont-elles reliées au patient ?
+
+  Chaque dossier possède un numéro unique, le NDA. Il est rattaché à un patient (par l'Identifiant Permanent du Patient (IPP) à l'AP-HP). À travers ces 2 identifiants, il est possible de rapprocher les venues et séjours à d'autres ensembles de données du dossier patient : actes médicaux, diagnostics, résultats d'analyses de biologie, médicaments, documents médicaux produits pendant le séjour.
+
+  ## Ce qu'il faut savoir avant de les utiliser
+
+  *   **Historique et profondeur variable** : le logiciel ORBIS® n'a pas été déployé dans tous les hôpitaux à la même période. Le déploiement du module de gestion des dossiers administratifs a pris une dizaine d'années. À ce jour, les données de l'HEGP ne sont pas incluses dans l'EDS.
+  *   **Les dates de consultations externes sont difficilement exploitables** : un NDA est créé lors de la première venue d'un patient dans une unité d'hébergement et reste ensuite ouvert, ce qui empêche d'identifier précisément les dates de chaque consultation, à l'exception de la toute première.
+
+  ## Différences de détail en fonction du type de prise en charge
+
+  ### Pour une hospitalisation complète (MCO, PSY et SMR)
+
+  **Structures :** toutes les structures de prise en charge sont connues : hôpital, UF, UMA, UH.
+
+  **Dates :** les dates de début et de fin de dossier correspondent aux dates d'entrée et de sortie de l'hôpital.
+
+  ### Pour une hospitalisation partielle (MCO, PSY et SMR)
+
+  **Structures :** toutes les structures de prise en charge sont connues : hôpital, UF, UMA, UH.
+
+  **Dates :** les dates de début et de fin de dossier ne sont pas très informatives. Chaque venue donne lieu à l'enregistrement d'un mouvement dont la date est correcte, mais la date d'entrée est égale à la date de sortie. Les heures d'entrée et de sortie ne sont pas enregistrées.
+
+  **Limites :** un seul dossier d'hospitalisation partielle est ouvert lors de la première venue mais quasiment jamais fermé. Chaque service possède son propre dossier.
+
+  ### Pour les passages aux urgences
+
+  Les dossiers de type urgence ne concernent que les patients passés aux urgences mais non hospitalisés. Pour les patients hospitalisés ensuite, le dossier est transformé en dossier d'hospitalisation complète.
+
+  **Structures :** hôpital, UF, UH uniquement.
+
+  **Dates :** les dates de début et de fin de dossier correspondent aux dates d'entrée et de sortie de l'hôpital.
+
+  ### Pour les consultations externes
+
+  **Structures :** toutes les structures de prise en charge sont connues : hôpital, UF, UMA, UH.
+
+  **Dates :** les dates de début et de fin de dossier ne sont pas informatives.
+
+  **Limites :** un dossier de consultation est ouvert lors de la première venue mais quasiment jamais fermé. Chaque service possède son propre dossier de consultation.
+
+domains: "9306fe49bb1f70f491a712ff19b8d972"
+glossaryTerms:
+  - aphp:medico-administrative
+tags:
+  - aphp:access
+  - aphp:overview
+owners:
+  - owner: "antoine.sansegundo@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.availability: "Partiellement disponibles"
+  fr.aphp.panorama.availability-by-usage:
+    - "cohort360"
+    - "pilote"
+    - "datalab"
+  fr.aphp.panorama.data-format: "Données structurées"
+  fr.aphp.panorama.data-source: "ORBIS®"
+  fr.aphp.healthdcat.publishingFrequency: "DAILY"
+  fr.aphp.panorama.description: "Ensemble des enregistrements décrivant les passages des patients à l'AP-HP : hospitalisations (complète ou partielle), consultations ou passages aux urgences."
+  fr.aphp.panorama.note-cohort360: |
+    ## Pour accéder aux données de votre patientèle
+
+    *   Les données sont exploitables dans **Cohort360**, un outil de requêtage, **visualisation et d'extraction en ligne**, qui permet :
+
+        *   Un usage **autonome et sécurisé** des données,
+        *   L'accès aux **données nominatives** des patients suivis dans votre service.
+
+    *   L'outil est accessible à **tous les praticiens de l'AP-HP** pour analyser leur propre activité clinique.
+
+    *   **Conditions d'accès** : Disponible **immédiatement après une formation en ligne** à l'utilisation de l'outil.
+
+    **Informations spécifiques à l'exploitation des données dans Cohort360 :**
+
+    *   Selon le type de données, les éléments seront retranscrits au niveau de l'hôpital ou de l'UF. Les UC/UH ne sont pas prises en compte dans l'outil.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Cohort360](https://eds.aphp.fr/nos-produits/#cohort)
+  fr.aphp.panorama.note-datalab: |
+    ## Pour la recherche
+
+    *   L'accès aux données de l'EDS dans le cadre d'un projet de recherche nécessite **un examen par le Comité Scientifique et Éthique (CSE) de l'AP-HP**. Il est nécessaire de constituer et déposer un dossier complet (contenant notamment un plan d'analyse des risques, signé par le DPO local) via l'URC.
+
+        *   **Délai** : En fonction du type de projet, un ou plusieurs mois peuvent s'écouler entre la soumission du projet et la mise à disposition des données.
+
+    *   Les données sont **pseudonymisées** pour garantir la confidentialité des patients.
+
+        *   Elles sont accessibles dans **un environnement sécurisé**, équipé d'outils pour l'analyse de données massives (notamment un espace **Jupyter**).
+
+    *   Ce cadre s'applique aussi aux **projets menés avec des partenaires extérieurs**.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Datalab](https://eds.aphp.fr/nos-produits/#datalab)
+  fr.aphp.panorama.note-pilote: |
+    ## Pour le pilotage de votre activité
+
+    *   Les données sont présentées sous forme de **tableaux de bord automatisés** dans le portail **Pilote**, avec possibilité de filtrer sur les services de l'AP-HP.
+
+    *   Les tableaux de bords agrégés sont accessibles **aux services cliniques et directions fonctionnelles de l'AP-HP**. L'accès aux tableaux de bord fournissant des données nominatives est restreint au périmètre de soin.
+
+    *   La priorisation de création de nouveaux tableaux de bord
+---
+kind: DATA_PRODUCT
+id: "332168b7470838bba4325ea913c8be42"
+name: "Diagnostics"
+
+description: |
+  ## À quoi correspondent ces données ?
+
+  Les données de diagnostics médicaux décrivent les motifs de prise en charge des patients pendant une venue ou un séjour à l'hôpital.
+
+  Ces diagnostics sont recueillis en majorité dans le cadre du Programme de Médicalisation des Systèmes d'Information (PMSI) ; ils participent au recueil des données obligatoires pour la facturation des hospitalisations.
+
+  ## À quoi servent ces données ?
+
+  **Les données de diagnostics servent principalement à :**
+
+  *   valoriser les séjours hospitaliers (arrêté versement PMSI),
+  *   mesurer l'activité médicale des établissements,
+  *   alimenter la recherche clinique et les analyses de parcours de soins, en identifiant des groupes de patients selon les diagnostics renseignés.
+
+  ## Que contiennent ces données ?
+
+  Dans l'EDS, **chaque diagnostic est décrit à l'aide de plusieurs informations**, notamment :
+
+  *   le **code CIM-10** : les données de diagnostics sont codées selon la Classification Internationale des Maladies (CIM-10). Chaque diagnostic est associé à un code CIM-10,
+  *   le **libellé du diagnostic CIM-10** (par exemple le code "I10" est relié au libellé "Hypertension essentielle"),
+  *   la **date de saisie** du code.
+
+  Dans le cadre du recueil PMSI, on distingue plusieurs types de diagnostics : le diagnostic principal (motif d'hospitalisation) et les diagnostics associés (diagnostics reliés ou associés), qui sont des pathologies complémentaires prises en charge au cours de l'hospitalisation.
+
+  ## D'où viennent les données ?
+
+  L'EDS met à disposition les données de diagnostics issues de la base AREM ainsi que celles issues de la base ORBIS®.
+
+  La base AREM est la version consolidée et contrôlée par les Départements d'Information Médicale (DIM) des données PMSI issues d'ORBIS®.
+
+  **Délai de disponibilité** : les données sont accessibles **environ 2 mois après leur enregistrement**, le temps nécessaire pour leur codage, leur validation et leur transmission.
+
+  ## Quelles données sont disponibles dans l'EDS ?
+
+  **Les données de diagnostics disponibles dans l'EDS couvrent :**
+
+  *   les séjours de médecine, chirurgie et obstétrique (MCO),
+  *   en hospitalisation complète ou partielle.
+
+  **Elles excluent pour le moment :**
+
+  *   les consultations externes (sans hospitalisation),
+  *   la psychiatrie (PSY),
+  *   l'hospitalisation à domicile (HAD),
+  *   les passages aux urgences,
+  *   les soins Médicaux et de Réadaptation (SMR),
+  *   les soins de longue durée (SLD),
+  *   les données de l'hôpital européen Georges-Pompidou (HEGP),
+  *   les données produites avant le déploiement d'ORBIS® dans chaque établissement.
+
+  ## Comment sont-elles reliées au patient ?
+
+  Chaque diagnostic est rattaché à un **séjour hospitalier** (par le Numéro de Dossier Administratif) et à une **unité médicale**.
+  Cela permet de les croiser avec les actes médicaux réalisés, les résultats d'analyses de biologie, les médicaments prescrits et administrés, et les documents médicaux produits pendant le séjour.
+
+  ## Note sur l'exploitation des données d'ORBIS®
+
+  Bien que les données issues de la base AREM soient généralement suffisantes, il est possible d'**exploiter directement les données issues d'ORBIS®**, actualisées **quotidiennement**.
+
+  Ces données permettent une couverture étendue (MCO, PSY, HAD, SLD) et incluent l'heure d'enregistrement des diagnostics.
+  Cependant elles **ne sont pas soumises au contrôle de conformité ou de qualité** des DIM, et ne sont pas disponibles depuis la même date pour tous les hôpitaux.
+
+domains: "d3376216b28d970eea0eb4b1c53cf351"
+
+glossaryTerms:
+  - aphp:medico-administrative
+
+tags:
+  - aphp:access
+  - aphp:overview
+
+owners:
+  - owner: "david.ouagne@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.availability: "Partiellement disponibles"
+  fr.aphp.panorama.availability-by-usage:
+    - "cohort360"
+    - "pilote"
+    - "datalab"
+  fr.aphp.panorama.data-format: "Données structurées"
+  fr.aphp.panorama.data-source:
+    - "ORBIS®"
+    - "AREM"
+  fr.aphp.healthdcat.publishingFrequency: "DAILY"
+  fr.aphp.healthdcat.numberOfRecords: "1000000000"
+  fr.aphp.healthdcat.referenceSpecification: "HL7-FHIR-R4"
+  fr.aphp.healthdcat.temporalCoverageStart: "2019-01-01"
+  fr.aphp.healthdcat.legalBasis:
+    - "eu-gdpr:A9-2-i"
+    - "eu-gdpr:A9-2-c"
+    - "eu-gdpr:A6-1-f"
+    - "eu-gdpr:A6-1-e"
+    - "eu-gdpr:A6-1-c"
+  fr.aphp.healthdcat.dataController: "AP-HP"
+  fr.aphp.panorama.description: "Ensemble des données décrivant les codes diagnostics (CIM-10) d'hospitalisation des patients."
+  fr.aphp.panorama.note-cohort360: |
+    ## Pour accéder aux données de votre patientèle
+
+    *   Les données sont exploitables dans **Cohort360**, un outil de requêtage, **visualisation et d'extraction en ligne**, qui permet :
+
+        *   Un usage **autonome et sécurisé** des données,
+        *   L'accès aux **données nominatives** des patients suivis dans votre service.
+
+    *   L'outil est accessible à **tous les praticiens de l'AP-HP** pour analyser leur propre activité clinique.
+
+    *   **Conditions d'accès** : Disponible **immédiatement après une formation en ligne** à l'utilisation de l'outil.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Cohort360](https://eds.aphp.fr/nos-produits/#cohort)
+  fr.aphp.panorama.note-datalab: |
+    ## Pour la recherche
+
+    *   L'accès aux données de l'EDS dans le cadre d'un projet de recherche nécessite **un examen par le Comité Scientifique et Éthique (CSE) de l'AP-HP**. Il est nécessaire de constituer et déposer un dossier complet (contenant notamment un plan d'analyse des risques, signé par le DPO local) via l'URC.
+
+        *   **Délai** : En fonction du type de projet, un ou plusieurs mois peuvent s'écouler entre la soumission du projet et la mise à disposition des données.
+
+    *   Les données sont **pseudonymisées** pour garantir la confidentialité des patients.
+
+        *   Elles sont accessibles dans **un environnement sécurisé**, équipé d'outils pour l'analyse de données massives (notamment un espace **Jupyter**).
+
+    *   Ce cadre s'applique aussi aux **projets menés avec des partenaires extérieurs**.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Datalab](https://eds.aphp.fr/nos-produits/#datalab)
+  fr.aphp.panorama.note-pilote: |
+    ## Pour le pilotage de votre activité
+
+    *   Les données sont présentées sous forme de **tableaux de bord automatisés** dans le portail **Pilote**, avec possibilité de filtrer sur les services de l'AP-HP.
+
+    *   Les tableaux de bords agrégés sont accessibles **aux services cliniques et directions fonctionnelles de l'AP-HP**. L'accès aux tableaux de bord fournissant des données nominatives est restreint au périmètre de soin.
+
+    *   La priorisation de création de nouveaux tableaux de bord est effectuée par la gouvernance Données de l'EDS (COPIL, Club utilisateurs…).
+
+    *   Les tableaux de bord permettent selon leur périmètre :
+
+        *   D'**analyser l'activité d'un service**,
+        *   De **suivre des indicateurs de qualité relative à la prise en charge des patients**,
+        *   De suivre des indicateurs épidémiologiques (suivi des décès, suivi des infections respiratoires virales,...).
+
+    *   **Mise à jour** : Les tableaux de bord sont **actualisés quotidiennement**.
+
+    [En savoir plus sur Pilote](https://eds.aphp.fr/nos-produits/#pilote)
+
+    [Accéder à l'outil](https://pilote.aphp.fr/ibmcognos/bi/)
+
+    [Contacter le support](mailto:pilote.support.sap@aphp.fr)
+---
+kind: DATA_PRODUCT
+id: "63073b282083f5bd1a437525b906d72c"
+name: "Biologie"
+
+description: |
+  ## À quoi correspondent ces données ?
+
+  Les données de biologie correspondent aux résultats des examens réalisés dans les laboratoires de l'AP-HP.
+
+  Tous les résultats disponibles dans l'EDS sont issus du logiciel de biologie GLIMS® où ils ont été validés biologiquement.
+
+  ## À quoi servent ces données ?
+
+  Les résultats de biologie constituent un élément essentiel du diagnostic et du suivi clinique.
+  **Dans l'EDS, ils sont utilisés pour :**
+
+  *   identifier des groupes de patients à partir de critères biologiques,
+  *   mener des projets de recherche,
+  *   contribuer au pilotage de certaines activités de laboratoire.
+
+  ## Que contiennent ces données ?
+
+  Chaque analyse comprend :
+
+  *   un **type d'examen** (ex. glucose, lipase),
+  *   une **valeur de résultat** : numérique (ex. 120) ou textuelle (ex. présence/absence),
+  *   l'**unité de mesure** (ex. mmol/L),
+  *   des **valeurs de référence** (quand elles sont disponibles),
+  *   la **date de validation biologique**,
+  *   un **code ANABIO**, identifiant unique de l'analyse propre au référentiel interne de l'AP-HP (81% des analyses enregistrées sont associées à un code ANABIO),
+  *   un **code LOINC**, identifiant unique propre au référentiel international LOINC (61% des analyses enregistrées sont associées à un code LOINC).
+
+  ## D'où viennent les données ?
+
+  Les données proviennent **du logiciel de biologie GLIMS©**, le système d'information de biologie médicale utilisé dans l'AP-HP.
+
+  Les données sont intégrées dans l'EDS avec une **actualisation quotidienne**.
+
+  ## Quelles données sont disponibles dans l'EDS ?
+
+  **Les données de biologie de l'EDS incluent :**
+
+  *   les données de biochimie,
+  *   les données d'hématologie,
+  *   les données d'immunologie,
+  *   les données sérologiques,
+  *   les données de biologie moléculaire en bactériologie, mycologie, virologie et parasitologie.
+
+  **Elles excluent pour le moment :**
+
+  *   les données de culture en bactériologie, mycologie et parasitologie,
+  *   les données génétiques.
+
+  Les dates de disponibilité des données diffèrent selon les sites, dépendant du calendrier de déploiement de GLIMS® et du remplacement de systèmes antérieurs (DxLab). Les données les plus anciennes sont actuellement disponibles **à partir de mars 2020**.
+
+  ## Comment sont-elles reliées au patient ?
+
+  Les résultats d'examens sont rattachés à un **séjour hospitalier** (par le Numéro de Dossier Administratif) et à une **unité médicale**.
+  Cela permet de les croiser avec les actes médicaux réalisés, les diagnostics, les médicaments prescrits et administrés, et les documents médicaux produits pendant le séjour.
+
+  Attention, ce rattachement peut être plus difficile pour les **consultations externes** (NDA ouvert en continu) ou les **hospitalisations longues** avec transfert entre différents services.
+
+  ## Ce qu'il faut savoir avant de les utiliser
+
+  *   **Évolution du référentiel ANABIO** : référentiel interne de l'AP-HP aligné sur LOINC, mais cet alignement n'est pas encore complet. De nouveaux concepts sont régulièrement créés (ex. variants COVID, nouveaux marqueurs). Il faut tenir compte de ces évolutions dans les analyses longitudinales.
+  *   **Multiplicité des codes pour un même examen** : une même analyse biologique peut exister sous plusieurs codes ANABIO ou LOINC (normes différentes, automates différents, réactifs différents), ce qui peut compliquer la recherche des résultats d'un examen.
+
+domains: "63073b282083f5bd1a437525b906d72c"
+
+glossaryTerms:
+  - aphp:biologie
+
+tags:
+  - aphp:access
+  - aphp:overview
+
+owners:
+  - owner: "christophe.andre@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.availability: "Partiellement disponibles"
+  fr.aphp.panorama.availability-by-usage:
+    - "cohort360"
+    - "pilote"
+    - "datalab"
+  fr.aphp.panorama.data-format: "Textes et données structurées"
+  fr.aphp.panorama.data-source: "GLIMS"
+  fr.aphp.panorama.description: "Ensemble des résultats d'examens de biologie réalisés dans les laboratoires de l'AP-HP."
+  fr.aphp.panorama.note-cohort360: |
+    ## Pour accéder aux données de votre patientèle
+
+    *   Les données sont exploitables dans **Cohort360**, un outil de requêtage, **visualisation et d'extraction en ligne**, qui permet :
+
+        *   Un usage **autonome et sécurisé** des données,
+        *   L'accès aux **données nominatives** des patients suivis dans votre service.
+
+    *   L'outil est accessible à **tous les praticiens de l'AP-HP** pour analyser leur propre activité clinique.
+
+    *   **Conditions d'accès** : Disponible **immédiatement après une formation en ligne** à l'utilisation de l'outil.
+
+    **Informations spécifiques à l'exploitation des données dans Cohort360 :**
+
+    *   Dans Cohort360, seules les données numériques (quantitatives) des résultats sont disponibles (par exemple : "15 mmol/L"). Les résultats textuels (qualitatifs) ne sont pas disponibles (par exemple : "Absence").
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Cohort360](https://eds.aphp.fr/nos-produits/#cohort)
+  fr.aphp.panorama.note-datalab: |
+    ## Pour la recherche
+
+    *   L'accès aux données de l'EDS dans le cadre d'un projet de recherche nécessite **un examen par le Comité Scientifique et Éthique (CSE) de l'AP-HP**. Il est nécessaire de constituer et déposer un dossier complet (contenant notamment un plan d'analyse des risques, signé par le DPO local) via l'URC.
+
+        *   **Délai** : En fonction du type de projet, un ou plusieurs mois peuvent s'écouler entre la soumission du projet et la mise à disposition des données.
+
+    *   Les données sont **pseudonymisées** pour garantir la confidentialité des patients.
+
+        *   Elles sont accessibles dans **un environnement sécurisé**, équipé d'outils pour l'analyse de données massives (notamment un espace **Jupyter**).
+
+    *   Ce cadre s'applique aussi aux **projets menés avec des partenaires extérieurs**.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Datalab](https://eds.aphp.fr/nos-produits/#datalab)
+  fr.aphp.panorama.note-pilote: |
+    ## Pour le pilotage de votre activité
+
+    *   Les données sont présentées sous forme de **tableaux de bord automatisés** dans le portail **Pilote**, avec possibilité de filtrer sur les services de l'AP-HP.
+
+    *   Les tableaux de bords agrégés sont accessibles **aux services cliniques et directions fonctionnelles de l'AP-HP**. L'accès aux tableaux de bord fournissant des données nominatives est restreint au périmètre de soin.
+
+    *   La priorisation de création de nouveaux tableaux de bord est effectuée par la gouvernance Données de l'EDS (COPIL, Club utilisateurs…).
+
+    *   Les tableaux de bord permettent selon leur périmètre :
+
+        *   D'**analyser l'activité d'un service**,
+        *   De **suivre des indicateurs de qualité relative à la prise en charge des patients**,
+        *   De suivre des indicateurs épidémiologiques (suivi des décès, suivi des infections respiratoires virales,...).
+
+    *   **Mise à jour** : Les tableaux de bord sont **actualisés quotidiennement**.
+
+    **Informations spécifiques à l'exploitation des données dans Pilote :**
+
+    *   Dans Pilote, pour le moment, il n'est possible d'exploiter que les données de virologie (pour les analyses des épidémies respiratoires) et les données de bactériologie (pour les analyses de bactéries hautement résistantes).
+
+    [En savoir plus sur Pilote](https://eds.aphp.fr/nos-produits/#pilote)
+
+    [Accéder à l'outil](https://pilote.aphp.fr/ibmcognos/bi/)
+
+    [Contacter le support](mailto:pilote.support.sap@aphp.fr)
+---
+kind: DATA_PRODUCT
+id: "4c00c11dc1b03221ab639760f93f5821"
+name: "Actes médicaux"
+
+description: |
+  ## À quoi correspondent ces données ?
+
+  Les données d'actes médicaux décrivent les **gestes et interventions réalisés par les praticiens** au cours de la prise en charge d'un patient, depuis l'électrocardiogramme jusqu'à la transplantation cardiaque. Ces informations sont saisies lors de la réalisation de l'acte, que ce soit lors d'une hospitalisation ou d'une consultation externe.
+
+  ## À quoi servent ces données ?
+
+  Les données d'actes servent principalement à :
+
+  *   **valoriser les séjours hospitaliers** (facturation externe et tarification du Programme de Médicalisation des Systèmes d'Information (PMSI)),
+  *   **mesurer l'activité médicale** des établissements,
+  *   **alimenter la recherche clinique** et les analyses de parcours de soins en permettant d'identifier des groupes de patients selon les actes qu'ils ont reçus.
+
+  ## Que contiennent ces données ?
+
+  Dans l'EDS, chaque acte est décrit à l'aide de plusieurs informations :
+
+  *   **Code CCAM** : les données d'actes médicaux sont codées selon la Classification Commune des Actes Médicaux (CCAM), produite par l'assurance maladie. Chaque acte correspond à un identifiant officiel CCAM : par exemple EGLF001 = pose d'un cathéter veineux ombilical,
+  *   **Date de saisie** : le jour d'enregistrement de l'acte.
+
+  ## D'où viennent les données ?
+
+  L'EDS met à disposition les données d'actes issues de la base AREM ainsi que celles issues de la base ORBIS®.
+
+  La base AREM est la version consolidée et contrôlée par les Départements d'Information Médicale (DIM) des données PMSI issues du logiciel de dossier patient informatisé ORBIS®.
+
+  **Délai de disponibilité** : les données sont accessibles **environ 2 mois après leur enregistrement**, le temps nécessaire pour leur codage, leur validation et leur transmission.
+
+  ## Quelles données sont disponibles dans l'EDS ?
+
+  **Les données d'actes médicaux de l'EDS couvrent :**
+
+  *   les séjours de médecine, chirurgie et obstétrique (MCO),
+  *   en hospitalisation complète ou partielle,
+  *   les consultations externes.
+
+  **Elles excluent pour le moment :**
+
+  *   la psychiatrie (PSY),
+  *   l'hospitalisation à domicile (HAD),
+  *   les soins de longue durée (SLD),
+  *   les données de l'Hôpital Européen Georges-Pompidou (HEGP),
+  *   les données produites avant le déploiement d'ORBIS® dans chaque établissement.
+
+  ## Comment sont-elles reliées au patient ?
+
+  Chaque acte médical est rattaché à un **séjour hospitalier** (par le Numéro de Dossier Administratif) et à une **unité médicale**.
+  Cela permet de les croiser avec les diagnostics, les résultats d'analyses de biologie, les médicaments et les documents médicaux produits pendant le séjour.
+
+  Les actes dits _externes_ (réalisés hors hospitalisation, par exemple une radio ou une prise de sang) sont reliés uniquement au Numéro de Dossier Administratif.
+
+  ## Note sur l'exploitation des données d'ORBIS®
+
+  Bien que les données issues de la base AREM soient généralement suffisantes, il est possible d'**exploiter directement les données issues d'ORBIS®**, actualisées **quotidiennement**.
+
+  Ces données permettent une couverture étendue : elles incluent les actes CCAM pour la psychiatrie (PSY), l'hospitalisation à domicile (HAD) et les soins de longue durée (SLD), ainsi que l'heure d'enregistrement des actes.
+  Cependant elles **ne sont pas soumises au contrôle de conformité ou de qualité** des DIM, et ne sont pas disponibles depuis la même date pour tous les hôpitaux.
+
+domains: "d3376216b28d970eea0eb4b1c53cf351"
+
+glossaryTerms:
+  - aphp:medico-administrative
+
+tags:
+  - aphp:access
+  - aphp:overview
+
+owners:
+  - owner: "antoine.sansegundo@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.availability: "Partiellement disponibles"
+  fr.aphp.panorama.availability-by-usage:
+    - "cohort360"
+    - "pilote"
+    - "datalab"
+  fr.aphp.panorama.data-format: "Données structurées"
+  fr.aphp.panorama.data-source:
+    - "ORBIS®"
+    - "AREM"
+  fr.aphp.panorama.description: "Ensemble des données décrivant les actes médicaux (CCAM) réalisés par les professionnels de santé au cours d'une hospitalisation ainsi que les actes réalisés en externe."
+  fr.aphp.panorama.note-cohort360: |
+    ## Pour accéder aux données de votre patientèle
+
+    *   Les données sont exploitables dans **Cohort360**, un outil de requêtage, **visualisation et d'extraction en ligne**, qui permet :
+
+        *   Un usage **autonome et sécurisé** des données,
+        *   L'accès aux **données nominatives** des patients suivis dans votre service.
+
+    *   L'outil est accessible à **tous les praticiens de l'AP-HP** pour analyser leur propre activité clinique.
+
+    *   **Conditions d'accès** : Disponible **immédiatement après une formation en ligne** à l'utilisation de l'outil.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Cohort360](https://eds.aphp.fr/nos-produits/#cohort)
+  fr.aphp.panorama.note-datalab: |
+    ## Pour la recherche
+
+    *   L'accès aux données de l'EDS dans le cadre d'un projet de recherche nécessite **un examen par le Comité Scientifique et Éthique (CSE) de l'AP-HP**. Il est nécessaire de constituer et déposer un dossier complet (contenant notamment un plan d'analyse des risques, signé par le DPO local) via l'URC.
+
+        *   **Délai** : En fonction du type de projet, un ou plusieurs mois peuvent s'écouler entre la soumission du projet et la mise à disposition des données.
+
+    *   Les données sont **pseudonymisées** pour garantir la confidentialité des patients.
+
+        *   Elles sont accessibles dans **un environnement sécurisé**, équipé d'outils pour l'analyse de données massives (notamment un espace **Jupyter**).
+
+    *   Ce cadre s'applique aussi aux **projets menés avec des partenaires extérieurs**.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Datalab](https://eds.aphp.fr/nos-produits/#datalab)
+  fr.aphp.panorama.note-pilote: |
+    ## Pour le pilotage de votre activité
+
+    *   Les données sont présentées sous forme de **tableaux de bord automatisés** dans le portail **Pilote**, avec possibilité de filtrer sur les services de l'AP-HP.
+
+    *   Les tableaux de bords agrégés sont accessibles **aux services cliniques et directions fonctionnelles de l'AP-HP**. L'accès aux tableaux de bord fournissant des données nominatives est restreint au périmètre de soin.
+
+    *   La priorisation de création de nouveaux tableaux de bord est effectuée par la gouvernance Données de l'EDS (COPIL, Club utilisateurs…).
+
+    *   Les tableaux de bord permettent selon leur périmètre :
+
+        *   D'**analyser l'activité d'un service**,
+        *   De **suivre des indicateurs de qualité relative à la prise en charge des patients**,
+        *   De suivre des indicateurs épidémiologiques (suivi des décès, suivi des infections respiratoires virales,...).
+
+    *   **Mise à jour** : Les tableaux de bord sont **actualisés quotidiennement**.
+
+    [En savoir plus sur Pilote](https://eds.aphp.fr/nos-produits/#pilote)
+
+    [Accéder à l'outil](https://pilote.aphp.fr/ibmcognos/bi/)
+
+    [Contacter le support](mailto:pilote.support.sap@aphp.fr)
+---
+kind: DATA_PRODUCT
+id: "061829895620992279f0890af4617db9"
+name: "Imagerie médicale"
+
+description: |
+  ## À quoi correspondent ces données ?
+
+  Les données d'imagerie de l'EDS regroupent les images produites lors des examens d'imagerie dans les hôpitaux de l'AP-HP (imagerie médicale, médecine nucléaire,...) et les métadonnées associées, par exemple des informations sur le patient, le service, la date ou les paramètres techniques.
+
+  **Le compte rendu qui peut être associé aux examens d'imagerie n'est pas décrit dans cette page.**
+  Voir la page Les documents médicaux pour en savoir plus.
+
+  ## À quoi servent ces données ?
+
+  Dans l'EDS, les données d'imagerie peuvent être réutilisées à des fins de recherche, de suivi de patients au sein des services cliniques, ou de pilotage de l'activité.
+
+  **Les métadonnées d'imagerie permettent notamment :**
+
+  *   l'identification des groupes de patients,
+  *   le suivi de l'activité d'imagerie dans un cadre de pilotage ou d'évaluation interne.
+
+  **Les images elles-mêmes, moins accessibles et plus coûteuses à exploiter, permettent notamment :**
+
+  *   le développement d'algorithmes de traitement d'image.
+
+  ## Que contiennent ces données ?
+
+  Chaque examen d'imagerie comprend généralement deux types d'informations.
+
+  *   **Les images d'examen :** les fichiers issus de l'examen au format DICOM, pouvant correspondre à des images 2D, 3D ou des vidéos.
+  *   **Les métadonnées d'examen qui comprennent entre autres :**
+      *   la date et l'heure de l'examen,
+      *   le service dans lequel il a été réalisé,
+      *   la modalité d'imagerie (Scanner, IRM, mammographie,...),
+      *   les paramètres d'acquisition de la machine.
+
+  ## D'où viennent les données ?
+
+  Les données d'imagerie de l'EDS proviennent du **PACS central de l'AP-HP**, système d'archivage et de transmission des images médicales. Il est utilisé pour permettre aux cliniciens en radiologie d'interpréter les résultats et de produire les comptes rendus pour le patient et les services cliniques prescripteurs.
+
+  ## Quelles données sont disponibles dans l'EDS ?
+
+  ### 1. Les images
+
+  *   Les images DICOM sont accessibles **uniquement dans le cadre de projets de recherche validés**.
+  *   Elles concernent principalement les examens suivants : scanner, IRM, TEP, mammographie.
+
+  **Certaines modalités ne sont pas encore intégrées** dans l'EDS sous forme d'images, notamment :
+
+  *   les échographies,
+  *   les examens d'ophtalmologie.
+
+  ### 2. Les métadonnées
+
+  Contrairement aux images, les métadonnées associées aux examens sont facilement disponibles que ce soit pour un projet de recherche, de pilotage ou de suivi de sa propre patientèle.
+
+  Elles couvrent notamment les examens de : scanner, IRM, TEP, radiographie, échographie.
+
+  **Les autres types d'imagerie sont soumis à une étude de faisabilité avant mise à disposition.**
+
+  ## Comment sont-elles reliées au patient ?
+
+  Les examens d'imagerie sont rattachés à un **patient** (par l'Identifiant Permanent du Patient (IPP) à l'AP-HP), ce qui permet d'associer chaque image ou série d'images à la bonne personne dans l'EDS.
+
+  À noter que 20% des examens d'imagerie ne sont pas correctement rattachés à un patient.
+
+  Lorsque ce lien est disponible, il permet de croiser les données d'imagerie avec les diagnostics et les actes médicaux.
+
+  ## Ce qu'il faut savoir avant de les utiliser
+
+  *   **Champs en texte libre** : certains champs de métadonnées (ex. localisation anatomique) sont renseignés librement par les praticiens, ce qui peut limiter la standardisation.
+  *   **Lien incomplet entre examen, séjour et compte rendu** : les examens étant peu souvent rattachés à une visite ou un séjour, il est difficile de lier systématiquement un examen à son compte rendu.
+  *   **Complexité au-delà des métadonnées simples** : l'exploitation de tout ce qui dépasse les métadonnées simples est très complexe et nécessite un examen approfondi de la demande.
+  *   **Historique variable** : bien que l'historique débute en 2005, les données ne sont pas disponibles depuis la même date pour tous les établissements.
+
+domains: "37a2b9df65252b1c399ee52bd97149f2"
+
+glossaryTerms:
+  - aphp:imagerie
+
+tags:
+  - aphp:overview
+
+owners:
+  - owner: "david.ouagne@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.availability: "Partiellement disponibles"
+  fr.aphp.panorama.availability-by-usage:
+    - "cohort360"
+    - "pilote"
+    - "datalab"
+  fr.aphp.panorama.data-format: "Données d'imagerie et données structurées"
+  fr.aphp.panorama.data-source: "PACS"
+  fr.aphp.panorama.description: "Ensemble des données issues des examens d'imagerie réalisés dans les hôpitaux de l'AP-HP, avec les fichiers d'images et les métadonnées qui les décrivent."
+  fr.aphp.panorama.note-cohort360: |
+    ## Pour accéder aux données de votre patientèle
+
+    *   Les données sont exploitables dans **Cohort360**, un outil de requêtage, **visualisation et d'extraction en ligne**, qui permet :
+
+        *   Un usage **autonome et sécurisé** des données,
+        *   L'accès aux **données nominatives** des patients suivis dans votre service.
+
+    *   L'outil est accessible à **tous les praticiens de l'AP-HP** pour analyser leur propre activité clinique.
+
+    *   **Conditions d'accès** : Disponible **immédiatement après une formation en ligne** à l'utilisation de l'outil.
+
+    **Informations spécifiques à l'exploitation des données dans Cohort360 :**
+
+    *   Cohort360 ne permet pas d'accéder aux images elles-mêmes.
+    *   Il n'est possible d'exploiter que les métadonnées des examens.
+    *   Les données des études (examens) et séries (acquisitions d'une étude) sont disponibles au requêtage, à la visualisation et à l'export.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Cohort360](https://eds.aphp.fr/nos-produits/#cohort)
+  fr.aphp.panorama.note-datalab: |
+    ## Pour la recherche
+
+    *   L'accès aux données de l'EDS dans le cadre d'un projet de recherche nécessite **un examen par le Comité Scientifique et Éthique (CSE) de l'AP-HP**. Il est nécessaire de constituer et déposer un dossier complet (contenant notamment un plan d'analyse des risques, signé par le DPO local) via l'URC.
+
+        *   **Délai** : En fonction du type de projet, un ou plusieurs mois peuvent s'écouler entre la soumission du projet et la mise à disposition des données.
+
+    *   Les données sont **pseudonymisées** pour garantir la confidentialité des patients.
+
+        *   Elles sont accessibles dans **un environnement sécurisé**, équipé d'outils pour l'analyse de données massives (notamment un espace **Jupyter**).
+
+    *   Ce cadre s'applique aussi aux **projets menés avec des partenaires extérieurs**.
+
+    **Informations spécifiques à l'exploitation des données dans Datalab :**
+
+    *   Les images peuvent être exploitées dans des espaces Datalab dans le cadre de projets de recherche validés.
+    *   Par défaut, l'EDS ne met pas à disposition d'outil de visualisation d'image dans ces espaces. La mise à disposition d'outils de visualisation ou de traitement d'images est soumise à examen. Une Consultation SI est à prévoir en amont du dépôt du dossier au CSE.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Datalab](https://eds.aphp.fr/nos-produits/#datalab)
+  fr.aphp.panorama.note-pilote: |
+    ## Pour le pilotage de votre activité
+
+    *   Les données sont présentées sous forme de **tableaux de bord automatisés** dans le portail **Pilote**, avec possibilité de filtrer sur les services de l'AP-HP.
+
+    *   Les tableaux de bords agrégés sont accessibles **aux services cliniques et directions fonctionnelles de l'AP-HP**. L'accès aux tableaux de bord fournissant des données nominatives est restreint au périmètre de soin.
+
+    *   La priorisation de création de nouveaux tableaux de bord est effectuée par la gouvernance Données de l'EDS (COPIL, Club utilisateurs…).
+
+    *   Les tableaux de bord permettent selon leur périmètre :
+
+        *   D'**analyser l'activité d'un service**,
+        *   De **suivre des indicateurs de qualité relative à la prise en charge des patients**,
+        *   De suivre des indicateurs épidémiologiques (suivi des décès, suivi des infections respiratoires virales,...).
+
+    *   **Mise à jour** : Les tableaux de bord sont **actualisés quotidiennement**.
+
+    **Informations spécifiques à l'exploitation des données dans Pilote :**
+
+    *   Dans Pilote il est possible d'exploiter les métadonnées d'imagerie (le type d'examen, la date de création, la structure prescriptrice ainsi que la structure exécutrice,...) mais pas les images.
+
+    [En savoir plus sur Pilote](https://eds.aphp.fr/nos-produits/#pilote)
+
+    [Accéder à l'outil](https://pilote.aphp.fr/ibmcognos/bi/)
+
+    [Contacter le support](mailto:pilote.support.sap@aphp.fr)
+---
+kind: DATA_PRODUCT
+id: "5c6a54ba1c2570e7fdabf67a04c199e5"
+name: "Documents médicaux"
+
+description: |
+  ## À quoi correspondent ces données ?
+
+  Les documents médicaux rassemblent l'ensemble des **comptes rendus et documents PDF** présents dans le logiciel de dossier patient informatisé **ORBIS®**, hors documents scannés venant de l'extérieur.
+  Ils constituent une **source d'information clinique textuelle** et peuvent aujourd'hui être exploités par des méthodes de traitement automatique des langues.
+
+  ## À quoi servent ces données ?
+
+  Les documents médicaux retracent le parcours clinique du patient : hospitalisation, consultation, interventions, examens…
+  Ils décrivent notamment les étapes de la prise en charge et les décisions médicales.
+
+  **Dans l'Entrepôt de Données de Santé (EDS), ces données peuvent être utilisées pour :**
+
+  *   la recherche médicale,
+  *   le suivi des patients (au sein de son propre service),
+  *   le pilotage de l'activité médicale.
+
+  ## Que contiennent ces données ?
+
+  Pour chaque document, on dispose :
+
+  *   du **type de document** (classé selon un sous-ensemble de la nomenclature internationale LOINC),
+  *   du **contenu textuel du document**, extrait du PDF et nettoyé des éléments périphériques (en-têtes, pieds de page),
+  *   de la **date et l'heure** de création ou de dernière modification,
+  *   du **service producteur**,
+  *   du statut de validation du document dans le dossier patient informatisé ORBIS®.
+
+  ## D'où viennent les données ?
+
+  Les documents proviennent du logiciel de dossier patient informatisé **ORBIS®**, et sont **mis à jour quotidiennement**.
+
+  ## Quelles données sont disponibles dans l'EDS ?
+
+  **Les données de documents médicaux disponibles dans l'EDS couvrent :**
+
+  *   l'ensemble des hôpitaux de l'AP-HP utilisant ORBIS®,
+  *   les principaux types de documents médicaux : comptes rendus, lettres, ordonnances, résultats d'examens, etc.
+
+  **Elles excluent pour le moment :**
+
+  *   les documents scannés, dont le texte n'est pas exploitable,
+  *   les transmissions infirmières,
+  *   les données de l'hôpital européen Georges-Pompidou (HEGP).
+
+  ## Comment sont-elles reliées au patient ?
+
+  En pratique clinique, chaque document est relié à un **séjour hospitalier** (par le Numéro de Dossier Administratif).
+  Cela permet de les croiser avec les diagnostics, les actes, les résultats d'analyses de biologie et les médicaments.
+
+  Attention, ce rattachement peut être plus difficile pour les **consultations externes** (NDA ouvert en continu) ou les **hospitalisations longues** avec transfert entre services.
+
+  ## Pseudonymisation des documents
+
+  Le contenu textuel des documents est soumis à un **processus de pseudonymisation automatique** pour protéger l'identité des patients.
+  Ce traitement vise à supprimer ou remplacer les éléments identifiants (nom, prénom, adresse, numéro d'identification, etc.).
+  Ce traitement n'est pas complètement exhaustif : certains champs peuvent ne pas être détectés.
+
+  Les documents non pseudonymisés restent accessibles uniquement aux cliniciens dans le cadre du soin direct.
+
+  ## Ce qu'il faut savoir avant de les utiliser
+
+  *   **Historique variable** : le logiciel ORBIS® n'a pas été déployé dans tous les hôpitaux à la même période. Les documents ne sont pas disponibles depuis la même date pour tous les établissements.
+  *   **Fiabilité de la classification** : le type de document est le résultat d'un algorithme attribuant une classe LOINC. La classification est globalement fiable (score moyen de 94 %), mais certains documents peuvent être mal classés.
+
+  ## Détails des typologies de documents disponibles
+
+  | **Nom d'usage du type de document** | **Classe** | **LOINC** |
+  | --- | --- | --- |
+  | Document importé manuellement | DOC-IMPOR | 60591-5 |
+  | Document sans type | INCONNU | 60591-5 |
+  | Ordonnances | ORDO | 57832-8 |
+  | Document scanné | DOC-SCAN | 60591-5 |
+  | Comptes Rendus Autres | CR-AUTRE | - |
+  | Comptes Rendus Examens | CR-EXAM | - |
+  | Comptes Rendus Hospitalisation | CRH | - |
+  | Lettres | LT | - |
+  | Comptes Rendus Consultation | CR-CONS | 11488-4 |
+  | CR Anatomopathologie | CR-ANAPATH | 11526-1 |
+  | CR Réunion de concertation pluridisciplinaire (RCP) | CR-RCP | 34794-8 |
+  | CR Anesthésie | CR-ANESTH | 77436-4 |
+  | CR Staff médical | CR-STAFF | 75494-5 |
+  | CR Bilan pré-opératoire | CR-BPREOPER | 34876-3 |
+  | CR Bilan post-opératoire | CR-BPOSTOPER | 34875-5 |
+  | CR Opératoire | CR-OP | 34874-8 |
+  | CR Nutrition / diététique | CR-NUTRI | 84284-9 |
+  | CR Accouchement | CR-ACCOU | 15508-5 |
+  | CR Urgence | CR-URG | 15507-7 |
+  | CR Intervention SAMU | CR-SAMU | 67796-3 |
+  | CR Dialyse | CR-DIALY | 87238-2 |
+  | CR Acte thérapeutique | CR-ACTE-THER | 78320-9 |
+  | CR Hospitalisation à domicile (HAD) | CR-HAD | 75503-3 |
+  | CR Bilan fonctionnel | CR-BILFONC | 47420-5 |
+  | CR Téléconsultation | CR-TELECONS | 85208-7 |
+  | CR Consultation d'ophtalmologie | CR-CONS-OPH | 34807-8 |
+  | CR Consultation d'anesthésie | CR-CONS-ANESTH | 34749-2 |
+  | CR Imagerie médicale | CR-IMAG | 18748-4 |
+  | CR Endoscopie digestive | CR-ENDO-DIG | 18751-8 |
+  | CR Anuscopie | CR-ANUSC | 28028-9 |
+  | CR Rectoscopie | CR-RECTO | 18753-4 |
+  | CR Coloscopie | CR-COLO | 18746-8 |
+  | CR Bronchoscopie | CR-BRONC | 18744-3 |
+  | CR Électroencéphalogramme (EEG) | CR-EEG | 11523-8 |
+  | CR Explorations fonctionnelles respiratoires (EFR) | CR-EFR | 58477-1 |
+  | CR Biologie | CR-BIOLO | 11502-2 |
+  | CR Actes diagnostiques | CR-ACTES-DG | 70004-7 |
+  | CR Échographie cardiaque | CR-ECHO-COEUR | 78199-7 |
+  | CR Doppler membres inférieurs | CR-DOP-MI | 72830-3 |
+  | CR Bilan urodynamique (BUD) | CR-BUD | 78622-8 |
+  | CR Échographie obstétricale | CR-ECHO-OBS | 12129-3 |
+  | CR Coronarographie | CR-CORO | 76640-2 |
+  | CR Électrocardiogramme (ECG) | CR-ECG | 11524-6 |
+  | CR Hospitalisation de jour (HDJ) | CRH-HDJ | 34112-3 |
+  | CR Hospitalisation de semaine (HDS) | CRH-HDS | 34112-3 |
+  | CR Hospitalisation complète | CRH-HC | 11490-0 |
+  | CR Hospitalisation chirurgie | CRH-CHIR | 34848-2 |
+  | CR Hospitalisation GHR | CRH-GHR | 100602-2 |
+  | CR Séjour de courte durée (SDC) | CRH-SDC | 100602-2 |
+  | Lettre de sortie | LT-SOR | 11490-0 |
+  | Certificat | CERTIF | 89601-9 |
+  | Lettre de transfert | LT-TRANSF | 18761-7 |
+
+domains: "25fdababcd8169cae1dc99e7b638670c"
+
+glossaryTerms:
+  - "aphp:document-medicaux"
+
+tags:
+  - "aphp:access"
+  - "aphp:overview"
+
+owners:
+  - owner: "antoine.sansegundo@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.availability: "Partiellement disponibles"
+  fr.aphp.panorama.availability-by-usage:
+  - "cohort360"
+  - "pilote"
+  - "datalab"
+  fr.aphp.panorama.data-format: "Textes et données structurées"
+  fr.aphp.panorama.data-source: "ORBIS®"
+  fr.aphp.panorama.description: "Ensemble des documents cliniques produits ou importés dans le dossier patient ORBIS®, comprenant les comptes rendus et pièces PDF."
+  fr.aphp.panorama.note-cohort360: |
+    ## Pour accéder aux données de votre patientèle
+
+    *   Les données sont exploitables dans **Cohort360**, un outil de requêtage, **visualisation et d'extraction en ligne**, qui permet :
+
+        *   Un usage **autonome et sécurisé** des données,
+        *   L'accès aux **données nominatives** des patients suivis dans votre service.
+
+    *   L'outil est accessible à **tous les praticiens de l'AP-HP** pour analyser leur propre activité clinique.
+
+    *   **Conditions d'accès** : Disponible **immédiatement après une formation en ligne** à l'utilisation de l'outil.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Cohort360](https://eds.aphp.fr/nos-produits/#cohort)
+  fr.aphp.panorama.note-datalab: |
+    ## Pour la recherche
+
+    *   L'accès aux données de l'EDS dans le cadre d'un projet de recherche nécessite **un examen par le Comité Scientifique et Éthique (CSE) de l'AP-HP**. Il est nécessaire de constituer et déposer un dossier complet (contenant notamment un plan d'analyse des risques, signé par le DPO local) via l'URC.
+
+        *   **Délai** : En fonction du type de projet, un ou plusieurs mois peuvent s'écouler entre la soumission du projet et la mise à disposition des données.
+
+    *   Les données sont **pseudonymisées** pour garantir la confidentialité des patients.
+
+        *   Elles sont accessibles dans **un environnement sécurisé**, équipé d'outils pour l'analyse de données massives (notamment un espace **Jupyter**).
+
+    *   Ce cadre s'applique aussi aux **projets menés avec des partenaires extérieurs**.
+
+    [Contacter un référent](https://eds.aphp.fr/coordinateurs-et-data-scientists/)
+
+    [En savoir plus sur Datalab](https://eds.aphp.fr/nos-produits/#datalab)
+  fr.aphp.panorama.note-pilote: |
+    ## Pour le pilotage de votre activité
+
+    *   Les données sont présentées sous forme de **tableaux de bord automatisés** dans le portail **Pilote**, avec possibilité de filtrer sur les services de l'AP-HP.
+
+    *   Les tableaux de bords agrégés sont accessibles **aux services cliniques et directions fonctionnelles de l'AP-HP**. L'accès aux tableaux de bord fournissant des données nominatives est restreint au périmètre de soin.
+
+    *   La priorisation de création de nouveaux tableaux de bord est effectuée par la gouvernance Données de l'EDS (COPIL, Club utilisateurs…).
+
+    *   Les tableaux de bord permettent selon leur périmètre :
+
+        *   D'**analyser l'activité d'un service**,
+        *   De **suivre des indicateurs de qualité relative à la prise en charge des patients**,
+        *   De suivre des indicateurs épidémiologiques (suivi des décès, suivi des infections respiratoires virales,...).
+
+    *   **Mise à jour** : Les tableaux de bord sont **actualisés quotidiennement**.
+
+    **Informations spécifiques à l'exploitation des données dans Pilote :**
+
+    *   Dans Pilote il est possible d'exploiter les métadonnées du document (le type du document, la date de création, le statut de validation du document, la structure qui l'a généré…) mais pas leur contenu.
+
+    [En savoir plus sur Pilote](https://eds.aphp.fr/nos-produits/#pilote)
+
+    [Accéder à l'outil](https://pilote.aphp.fr/ibmcognos/bi/)
+
+    [Contacter le support](mailto:pilote.support.sap@aphp.fr)
+---
+kind: DATA_PRODUCT
+id: "7e9648368d3638abfb352c9585d5d567"
+name: "Activité générale Maternité"
+
+domains: "25fdababcd8169cae1dc99e7b638670c"
+
+glossaryTerms:
+  - aphp:maternite
+
+owners:
+  - owner: "antoine.sansegundo@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.data-source: "ORBIS®"
+  fr.aphp.panorama.description: "Suivi de l'activité de maternité (patientes, antécédents, déroulement de l'accouchement, etc)."
+  fr.aphp.panorama.habilitation: "Restreint aux équipes de soin"
+  fr.aphp.panorama.level: "Hôpital"
+  fr.aphp.panorama.link_pilote: "https://wiki-pilote.aphp.fr/2-Dictionnaire/Rapports/Maternit%C3%A9"
+---
+kind: DATA_PRODUCT
+id: "b720bd422a11c5da1336c4da5e137067"
+name: "FHIR Standardized Patient Identity"
+description: |
+  Le produit donnée **FHIR Standardized Patient Identity** fournit une représentation normalisée, qualifiée et réutilisable de l’identité patient, destinée à faciliter les échanges, l’intégration et la valorisation des données au sein du système d'information hospitalier et des plateformes de données.
+
+  Les données sources proviennent du dossier patient informatisé (DPI) et des référentiels d'identité associés. Elles regroupent les informations d'identification du patient, telles que les identifiants métier et nationaux, les éléments d'état civil, les coordonnées, ainsi que les liens de rapprochement et de gestion d'identité lorsque ceux-ci sont disponibles.
+
+  Avant leur exposition, les données font l'objet d'un ensemble de traitements visant à garantir leur qualité et leur cohérence :
+
+  * contrôle de complétude des informations obligatoires ;
+  * vérification des règles de gestion et des contraintes métier ;
+  * qualification des identifiants ;
+  * normalisation des valeurs et des formats ;
+  * gestion des incohérences détectées lors des processus d'identitovigilance.
+
+  Les données qualifiées sont ensuite transformées selon le modèle d'information HL7 FHIR afin de produire des ressources conformes aux profils de référence définis par l'organisation. Cette standardisation permet de proposer une vue canonique, interopérable et indépendante des applications sources, facilitant ainsi la réutilisation des données pour des usages opérationnels, analytiques, réglementaires, de recherche ou de partage inter-établissements.
+
+  Ce Data Product constitue le point d'accès de référence pour les consommateurs souhaitant exploiter les données d'identité patient sous une forme standardisée, gouvernée et prête à l'usage.
+
+domains: "3667192a0a19c51419efe99aa865c1ba"
+
+glossaryTerms:
+  - aphp:medico-administrative
+
+owners:
+  - owner: "antoine.sansegundo@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.data-format: "Données structurées"
+  fr.aphp.panorama.data-source: "ORBIS®"
+  fr.aphp.panorama.habilitation: "Restreint aux équipes de soin"
+  fr.aphp.healthdcat.publishingFrequency: "DAILY"
+  fr.aphp.healthdcat.numberOfRecords: "20000000000"
+  fr.aphp.healthdcat.referenceSpecification: "HL7-FHIR-R4"
+  fr.aphp.healthdcat.temporalCoverageStart: "2017-01-01"
+  fr.aphp.healthdcat.legalBasis:
+    - "eu-gdpr:A9-2-i"
+    - "eu-gdpr:A9-2-c"
+    - "eu-gdpr:A6-1-f"
+    - "eu-gdpr:A6-1-e"
+    - "eu-gdpr:A6-1-c"
+  fr.aphp.healthdcat.dataController: "AP-HP"
+assets:
+  - "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient_adresse,PROD)"
+  - "urn:li:dataJob:(urn:li:dataFlow:(airflow,ehr_to_duckdb_raw_layer,PROD),ehr_patient_to_raw_layer)"
+  - "urn:li:dataJob:(urn:li:dataFlow:(airflow,ehr_to_duckdb_raw_layer,PROD),ehr_patient_adresse_to_raw_layer)"
+  - "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_patient,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_patient_adresse,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:dbt,transform_layer_stg_ehr__patient,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_staging_stg_ehr__patient,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:dbt,transform_layer_stg_ehr__patient_adresse,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_staging_stg_ehr__patient_adresse,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_fhir-semantic-layer_fhir_patient,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:dbt,transform_layer_fhir_patient,PROD)"
+  - "urn:li:dataJob:(urn:li:dataFlow:(airflow,duckdb_fhir_semantic_layer_to_postgres_semantic_layer,PROD),fhir_semantic_layer_patient_to_semantic_layer)"
+  - "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer_public_fhir_patient,PROD)"
+---
+kind: DATA_PRODUCT
+id: "0f61491882d0ea5ea6a501521d937e9b"
+name: "OMOP Standardized Patient Identity"
+description: |
+  Le Data Product **OMOP Standardized Patient Identity** fournit une représentation de l'identité patient conforme au modèle de données OMOP Common Data Model (CDM), destinée aux usages analytiques, de recherche et de valorisation des données de santé.
+
+  Ce Data Product s'appuie sur les données issues du Data Product **FHIR Standardized Patient Identity**, qui constitue sa source de référence. Les ressources FHIR standardisées sont transformées et alignées avec les structures et conventions du modèle OMOP afin de garantir une représentation cohérente et exploitable dans les environnements d'analyse de données de santé.
+
+  Les traitements réalisés incluent :
+
+  * l'extraction des informations pertinentes à partir des ressources FHIR ;
+  * l'application des règles de correspondance entre les modèles FHIR et OMOP ;
+  * la normalisation des identifiants et des concepts ;
+  * le contrôle de cohérence des données produites ;
+  * l'intégration dans les structures du modèle OMOP CDM.
+
+  Les données résultantes sont exposées sous une forme compatible avec les outils et méthodologies de l'écosystème OMOP, facilitant les analyses multicentriques, les études observationnelles, la recherche clinique et les travaux de science des données.
+
+  Ce Data Product constitue la couche d'accès de référence pour les consommateurs souhaitant exploiter les données d'identité patient dans un environnement analytique reposant sur le standard OMOP, tout en bénéficiant de la gouvernance et de la standardisation assurées en amont par le socle FHIR.
+
+domains: "3667192a0a19c51419efe99aa865c1ba"
+
+glossaryTerms:
+  - aphp:medico-administrative
+
+owners:
+  - owner: "antoine.sansegundo@aphp.fr"
+    type: TECHNICAL_OWNER
+  - owner: "christel.gerardin@aphp.fr"
+    type: BUSINESS_OWNER
+
+structuredProperties:
+  fr.aphp.panorama.data-format: "Données structurées"
+  fr.aphp.panorama.data-source: "Hub d'intégration"
+  fr.aphp.healthdcat.publishingFrequency: "MONTHLY"
+  fr.aphp.healthdcat.numberOfRecords: "9000000000"
+  fr.aphp.healthdcat.referenceSpecification: "OMOP-CDM-5.4"
+  fr.aphp.healthdcat.temporalCoverageStart: "2017-01-01"
+  fr.aphp.healthdcat.dataController: "AP-HP"
+assets:
+  - "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer_public_fhir_patient,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:s3,sharing_layer_Patient.ndjson,PROD)"
+  - "urn:li:dataJob:(urn:li:dataFlow:(airflow,postgres_semantic_layer_to_s3_sharing_layer,PROD),semantic_layer_fhir_patient_to_sharing_layer)"
+  - "urn:li:dataJob:(urn:li:dataFlow:(pathling,fhir_semantic_layer_to_omop,PROD),fhir_patient_to_omop_death)"
+  - "urn:li:dataJob:(urn:li:dataFlow:(pathling,fhir_semantic_layer_to_omop,PROD),fhir_patient_to_omop_location)"
+  - "urn:li:dataJob:(urn:li:dataFlow:(pathling,fhir_semantic_layer_to_omop,PROD),fhir_patient_to_omop_person)"
+  - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_death,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_location,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_person,PROD)"
