@@ -8,7 +8,7 @@ description: >
   vers le raw layer.
 project: "ehr2rawlayer"
 externalUrl: "https://gitlab.example.org/eds/ehr_to_fhir_semantic_layer"
-domains: soin
+domains: "c8eda4574cd1f980d8a5d1a2e72148b4"
 #subTypes: "DBT"
 owners:
   - owner: "eds-data-engineering"
@@ -10041,7 +10041,7 @@ description: >
   vers le raw layer.
 project: "semanticlayer2fhir"
 externalUrl: "https://gitlab.example.org/eds/ehr_to_fhir_semantic_layer"
-domains: soin
+domains: "c8eda4574cd1f980d8a5d1a2e72148b4"
 #subTypes: "DBT"
 owners:
   - owner: "eds-data-engineering"

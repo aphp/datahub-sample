@@ -8,7 +8,7 @@ description: >
   vers le raw layer.
 project: "semanticlayer2sharinglayer"
 externalUrl: "https://gitlab.example.org/eds/ehr_to_fhir_semantic_layer"
-domains: eds
+domains: "c8eda4574cd1f980d8a5d1a2e72148b4"
 #subTypes: "DBT"
 owners:
   - owner: "eds-data-engineering"
@@ -4114,7 +4114,7 @@ description: >
   vers le format de livraison OMOP.
 project: "fhir2omop"
 externalUrl: "https://gitlab.example.org/eds/ehr_to_fhir_semantic_layer"
-domains: eds
+domains: "c8eda4574cd1f980d8a5d1a2e72148b4"
 #subTypes: "DBT"
 tags:
   - fhir
