@@ -2932,8 +2932,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: patient
-subTypes:
-  - View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-patient-vers-fhir-patient
+subTypes: View
 tags:
   - fhir-r4
 owners:
@@ -3116,8 +3116,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: patient_adresse
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-adresse-vers-fhir-patient
 tags:
   - fhir-r4
 owners:
@@ -3297,8 +3297,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: donnees_pmsi
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-pmsi-vers-fhir-encounter
 tags:
   - fhir-r4
 owners:
@@ -3487,8 +3487,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: diagnostics
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-diagnostics-vers-fhir-condition
 tags:
   - fhir-r4
 owners:
@@ -3646,8 +3646,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: actes
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-actes-vers-fhir-procedure
 tags:
   - fhir-r4
 owners:
@@ -3837,8 +3837,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: biologie
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-biologie-vers-fhir-observation
 tags:
   - fhir-r4
 owners:
@@ -4051,8 +4051,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: dossier_soins
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-dossier_soins-vers-fhir-observation
 tags:
   - fhir-r4
 owners:
@@ -4215,8 +4215,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: prescription
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-prescription--posologie-vers-fhir-medicationrequest
 tags:
   - fhir-r4
 owners:
@@ -4393,8 +4393,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: posologie
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-prescription--posologie-vers-fhir-medicationrequest
 tags:
   - fhir-r4
 owners:
@@ -4562,8 +4562,8 @@ properties:
   dbt_project: transform_layer
   materialized: view
   source_table: administration
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-administration-vers-fhir-medicationadministration
 tags:
   - fhir-r4
 owners:
@@ -8272,8 +8272,8 @@ properties:
   sql_path: models/staging/stg_ehr__actes.sql
   #sources:
   #  - raw_layer.actes
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-actes-vers-fhir-procedure
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -8452,8 +8452,8 @@ properties:
   sql_path: models/staging/stg_ehr__administration.sql
   #sources:
   #  - raw_layer.administration
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-administration-vers-fhir-medicationadministration
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -8666,8 +8666,8 @@ properties:
   sql_path: models/staging/stg_ehr__biologie.sql
   #sources:
   #  - raw_layer.biologie
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-biologie-vers-fhir-observation
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -8879,8 +8879,8 @@ properties:
   sql_path: models/staging/stg_ehr__diagnostics.sql
   #sources:
   #  - raw_layer.diagnostics
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-diagnostics-vers-fhir-condition
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -9047,8 +9047,8 @@ properties:
   sql_path: models/staging/stg_ehr__donnees_pmsi.sql
   #sources:
   #  - raw_layer.donnees_pmsi
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-pmsi-vers-fhir-encounter
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -9236,8 +9236,8 @@ properties:
   sql_path: models/staging/stg_ehr__dossier_soins.sql
   #sources:
   #  - raw_layer.dossier_soins
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-dossier_soins-vers-fhir-observation
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -9581,8 +9581,8 @@ properties:
   sql_path: models/staging/stg_ehr__patient_adresse.sql
   #sources:
   #  - raw_layer.patient_adresse
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-adresse-vers-fhir-patient
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -9746,8 +9746,8 @@ properties:
   sql_path: models/staging/stg_ehr__posologie.sql
   #sources:
   #  - raw_layer.posologie
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-prescription--posologie-vers-fhir-medicationrequest
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -9909,8 +9909,8 @@ properties:
   sql_path: models/staging/stg_ehr__prescription.sql
   #sources:
   #  - raw_layer.prescription
-subTypes:
-  - View
+subTypes: View
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-prescription--posologie-vers-fhir-medicationrequest
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
