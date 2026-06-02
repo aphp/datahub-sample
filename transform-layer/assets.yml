@@ -6641,8 +6641,8 @@ properties:
   #  - stg_ehr__diagnostics
   #  - fhir_patient
   #  - fhir_encounter
-subTypes:
-  - Table
+subTypes: Table
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-diagnostics-vers-fhir-condition
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -6832,8 +6832,8 @@ properties:
   #refs:
   #  - stg_ehr__donnees_pmsi
   #  - fhir_patient
-subTypes:
-  - Table
+subTypes: Table
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-pmsi-vers-fhir-encounter
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -7021,8 +7021,8 @@ properties:
   #  - stg_ehr__administration
   #  - fhir_patient
   #  - fhir_medication_request
-subTypes:
-  - Table
+subTypes: Table
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-administration-vers-fhir-medicationadministration
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -7225,8 +7225,8 @@ properties:
   #  - stg_ehr__prescription
   #  - stg_ehr__posologie
   #  - fhir_patient
-subTypes:
-  - Table
+subTypes: Table
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-prescription--posologie-vers-fhir-medicationrequest
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -7447,8 +7447,8 @@ properties:
   #  - stg_ehr__biologie
   #  - stg_ehr__dossier_soins
   #  - fhir_patient
-subTypes:
-  - Table
+subTypes: Table
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-biologie-vers-fhir-observation
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -8114,8 +8114,8 @@ properties:
   #  - stg_ehr__actes
   #  - fhir_patient
   #  - fhir_encounter
-subTypes:
-  - Table
+subTypes: Table
+externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-actes-vers-fhir-procedure
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -9400,7 +9400,6 @@ properties:
   #sources:
   #  - raw_layer.patient
 subTypes: View
-externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.html#table-patient-vers-fhir-patient
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
