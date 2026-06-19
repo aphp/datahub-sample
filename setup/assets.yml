@@ -1,11 +1,4 @@
 ﻿kind: DATA_PLATFORM
-name: fhir
-displayName: HL7 FHIR
-type: OTHERS
-logoUrl: https://interop.aphp.fr/assets/ico/icon-fhir-57.png
-datasetNameDelimiter: "."
----
-kind: DATA_PLATFORM
 name: pathling
 displayName: Pathling
 type: OTHERS
