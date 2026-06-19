@@ -545,7 +545,7 @@ description: |
   Ces données permettent une couverture étendue : elles incluent les actes CCAM pour la psychiatrie (PSY), l'hospitalisation à domicile (HAD) et les soins de longue durée (SLD), ainsi que l'heure d'enregistrement des actes.
   Cependant elles **ne sont pas soumises au contrôle de conformité ou de qualité** des DIM, et ne sont pas disponibles depuis la même date pour tous les hôpitaux.
 
-domains: "d3376216b28d970eea0eb4b1c53cf351"
+domains: "25fdababcd8169cae1dc99e7b638670c"
 
 glossaryTerms:
   - aphp:medico-administrative
