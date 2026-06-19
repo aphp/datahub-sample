@@ -83,6 +83,30 @@ kind: TAG
 name: "aphp:overview"
 description: "?"
 ---
+kind: TAG
+name: "pii"
+description: "Données à caractère personnel (Personally Identifiable Information)"
+---
+kind: TAG
+name: "identito-vigilance"
+description: "Données soumises aux exigences du Référentiel National d'Identitovigilance (RNIV)"
+---
+kind: TAG
+name: "rgpd"
+description: "Données soumises au Règlement Général sur la Protection des Données"
+---
+kind: TAG
+name: "eds"
+description: "Données issues de l'Entrepôt de Données de Santé"
+---
+kind: TAG
+name: "ins"
+description: "Identité Nationale de Santé (INS / NIR)"
+---
+kind: TAG
+name: "nir"
+description: "Numéro d'Inscription au Répertoire (numéro de sécurité sociale)"
+---
 kind: GLOSSARY_NODE
 id: fhir:Resource
 name: HL7 FHIR Resource
@@ -90,9 +114,42 @@ definition: "TODO"
 ---
 kind: GLOSSARY_TERM
 id: fhir:Patient
-name: HL7 FHIR Patient
-definition: "TODO"
+name: Patient
+definition: |
+  Le **patient** désigne toute personne ayant bénéficié d'une prise en charge médicale
+  et dont les données sont enregistrées dans l'Entrepôt de Données de Santé (EDS).
+
+  ## Identifiant
+
+  Chaque patient est identifié de manière unique par un **Identifiant Permanent du
+  Patient (IPP)**, garant de la continuité du suivi clinique.
+
+  ## Données couvertes
+
+  - **Identité civile** : nom, prénom, date et lieu de naissance, sexe
+  - **Identifiants nationaux** : NIR (Numéro d'Inscription au Répertoire), INS (Identité Nationale de Santé)
+  - **Données démographiques** : adresse de résidence, code IRIS, coordonnées géographiques
+  - **Statut vital** : date et source du décès le cas échéant
+
+  ## Qualité et gouvernance
+
+  L'identité patient est consolidée depuis plusieurs sources (ORBIS®, PMSI, données
+  de décès INSEE/CépiDc) et soumise aux exigences du Référentiel National
+  d'Identitovigilance (RNIV).
 parentNode: fhir:Resource
+domains: "3667192a0a19c51419efe99aa865c1ba"
+tags:
+  - pii
+  - identito-vigilance
+  - rgpd
+  - eds
+owners:
+  - owner: pr.jean-marie.renard
+    type: BUSINESS_OWNER
+  - owner: dr.claire.dubois
+    type: BUSINESS_OWNER
+  - owner: team-eds-mco
+    type: TECHNICAL_OWNER
 ---
 kind: GLOSSARY_TERM
 id: fhir:Encounter
@@ -134,12 +191,6 @@ kind: GLOSSARY_NODE
 id: omop:Concept
 name: OMOP CDM Concept
 definition: "TODO"
----
-kind: GLOSSARY_TERM
-id: omop:Person
-name: OMOP CDM Person
-definition: "TODO"
-parentNode: omop:Concept
 ---
 kind: GLOSSARY_TERM
 id: omop:VisitOccurrence
@@ -661,23 +712,16 @@ settings:
 ---
 kind: DOMAIN
 id: "3667192a0a19c51419efe99aa865c1ba"
-name: "Identité patient"
-description: "INS, patient, identité, rapprochement"
+name: "Patient & Identité"
+description: >
+  Identité civile, données démographiques et statut vital des patients.
+  Activité hospitalière, diagnostics, actes, séjours et données médico-administratives
+  (PMSI / ORBIS). INS, IPP, identitovigilance.
 ---
 kind: DOMAIN
-id: "9306fe49bb1f70f491a712ff19b8d972"
-name: "Parcours patient"
-description: "séjours, mouvements, venues"
----
-kind: DOMAIN
-id: "25fdababcd8169cae1dc99e7b638670c"
-name: Activité de soins
-description: "actes, prescriptions, observations"
----
-kind: DOMAIN
-id: "37a2b9df65252b1c399ee52bd97149f2"
-name: "Imagerie"
-description: "examens, comptes rendus, DICOM"
+id: "d3376216b28d970eea0eb4b1c53cf351"
+name: "Activité hospitalière (Facturation / PMSI)"
+description: "actes, prescriptions, observations, codage, GHM, recettes"
 ---
 kind: DOMAIN
 id: "63073b282083f5bd1a437525b906d72c"
@@ -685,8 +729,18 @@ name: Biologie
 description: analyses, résultats
 ---
 kind: DOMAIN
+id: "37a2b9df65252b1c399ee52bd97149f2"
+name: "Imagerie médicale"
+description: "examens, comptes rendus, DICOM"
+---
+kind: DOMAIN
+id: "5c76e0e1dc5c8de5d70b47a66de9e675"
+name: Recherche clinique
+description: cohortes, consentements
+---
+kind: DOMAIN
 id: "729e20fbb85377b8640209b041418e51"
-name: "Médicament"
+name: "Pharmacie & Médicaments"
 description: prescriptions, administrations
 ---
 kind: DOMAIN
@@ -695,14 +749,19 @@ name: Ressources humaines
 description: professionnels, affectations
 ---
 kind: DOMAIN
-id: "d3376216b28d970eea0eb4b1c53cf351"
-name: Facturation / PMSI
-description: codage, GHM, recettes
+id: "a53393d0e0aa4c898997902177f97800"
+name: Finance
+description: comptabilité, budget, facturation
 ---
 kind: DOMAIN
-id: "5c76e0e1dc5c8de5d70b47a66de9e675"
-name: Recherche clinique
-description: cohortes, consentements
+id: "677e98a6a3aa44919bcd8d6b65169682"
+name: Logistique
+description: approvisionnement, stocks, achats
+---
+kind: DOMAIN
+id: "6396286e290c46c39f7b2f9eb6860635"
+name: "Qualité & Sécurité des soins"
+description: indicateurs qualité, événements indésirables, certification
 ---
 kind: DOMAIN
 id: "c8eda4574cd1f980d8a5d1a2e72148b4"
@@ -710,6 +769,6 @@ name: "Interopérabilité"
 description: flux HL7, FHIR, mappings
 ---
 kind: DOMAIN
-id: "2f1be2995c249c1e6db9a15c7692e8b7"
-name: eds
-description: Domaine régit par le référentiel EDS
+id: "a92ed72b46984ac083906ae506a6e487"
+name: IT
+description: systèmes d'information, infrastructure, sécurité

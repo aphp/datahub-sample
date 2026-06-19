@@ -1275,7 +1275,7 @@ tags:
   - fhir:Encounter
   - ndjson
 glossaryTerms: fhir:Encounter
-domains: "9306fe49bb1f70f491a712ff19b8d972"
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
 name: sharing_layer_Condition.ndjson
@@ -2731,7 +2731,7 @@ tags:
   - fhir:Procedure
   - ndjson
 glossaryTerms: fhir:Procedure
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
 kind: CONTAINER
 platform: postgres
@@ -2847,8 +2847,8 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#PERSON
 subTypes: Table
 tags:
   - omop
-  - omop:Person
-glossaryTerms: omop:Person
+  - fhir:Patient
+glossaryTerms: fhir:Patient
 domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
@@ -3001,7 +3001,7 @@ tags:
   - omop
   - omop:VisitOccurrence
 glossaryTerms: omop:VisitOccurrence
-domains: "9306fe49bb1f70f491a712ff19b8d972"
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
 name: omop_public_location
@@ -3309,7 +3309,7 @@ tags:
   - omop
   - omop:VisitDetail
 glossaryTerms: omop:VisitDetail
-domains: "9306fe49bb1f70f491a712ff19b8d972"
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 kind: DATASET
 name: omop_public_condition_occurrence
@@ -3725,7 +3725,7 @@ tags:
   - omop
   - omop:ProcedureOccurrence
 glossaryTerms: omop:ProcedureOccurrence
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
 kind: DATASET
 name: omop_public_measurement
