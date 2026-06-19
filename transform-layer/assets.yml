@@ -2196,7 +2196,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "9306fe49bb1f70f491a712ff19b8d972"
+domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_diagnostics,PROD)"
 kind: DATASET
@@ -2347,7 +2347,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_biologie,PROD)"
 kind: DATASET
@@ -2539,7 +2539,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:duckdb,warehouse_raw-layer_prescription,PROD)"
 kind: DATASET
@@ -2848,7 +2848,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
 kind: CONTAINER
 platform: duckdb
@@ -3304,7 +3304,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "9306fe49bb1f70f491a712ff19b8d972"
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -3653,7 +3653,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -4058,7 +4058,7 @@ tags:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -5126,7 +5126,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "9306fe49bb1f70f491a712ff19b8d972"
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -5547,7 +5547,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -6837,7 +6837,7 @@ externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.htm
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "9306fe49bb1f70f491a712ff19b8d972"
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -8119,7 +8119,7 @@ externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.htm
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -8277,7 +8277,7 @@ externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.htm
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -9052,7 +9052,7 @@ externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.htm
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "9306fe49bb1f70f491a712ff19b8d972"
+domains: "3667192a0a19c51419efe99aa865c1ba"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -9241,7 +9241,7 @@ externalUrl: https://aphp.github.io/IG-fhir-dm/data-platform-transform-layer.htm
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "25fdababcd8169cae1dc99e7b638670c"
+domains: "d3376216b28d970eea0eb4b1c53cf351"
 upstreamLineage:
   upstreams:
     - dataset:
@@ -12033,3 +12033,2362 @@ runEvents:
   timestampMillis: 1779697260000   # 08:21:00Z
   status: STARTED
   attempt: 2
+
+# ══════════════════════════════════════════════════════════════
+# DBT DATA_FLOW — DuckDB raw-layer → fhir-semantic-layer (dbt run)
+# Porté depuis ariane-demo/extract-metadata/transform-layer
+# ══════════════════════════════════════════════════════════════
+---
+# ══════════════════════════════════════════════════════════════
+# DBT DATA_FLOW — DuckDB raw-layer → fhir-semantic-layer (dbt run)
+# ══════════════════════════════════════════════════════════════
+kind: DATA_FLOW
+orchestrator: dbt
+flowId: dbt_ehr_to_fhir_semantic_layer
+cluster: PROD
+name: dbt EHR → FHIR Semantic Layer
+description: 'Pipeline dbt de transformation EHR raw-layer → fhir-semantic-layer (DuckDB).
+
+  Projet : transform_layer — 10 vues staging + 8 tables FHIR.
+
+  Généré depuis transform-layer/target/manifest.json (dbt 1.11.11).
+
+  '
+project: transform_layer
+externalUrl: https://github.com/ariane-demo
+owners:
+- owner: datahub
+  type: TECHNICAL_OWNER
+- owner: datahub
+  type: BUSINESS_OWNER
+---
+kind: DATA_JOB
+jobId: stg_ehr__actes
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__actes
+description: Actes médicaux CCAM — source de fhir_procedure
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_actes
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__actes
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_actes
+    env: PROD
+    fieldPath: acte_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: acte_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_actes
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_actes
+    env: PROD
+    fieldPath: pmsi_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: pmsi_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_actes
+    env: PROD
+    fieldPath: code_acte
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: code_acte
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_actes
+    env: PROD
+    fieldPath: libelle_acte
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: libelle_acte
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_actes
+    env: PROD
+    fieldPath: date_acte
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: date_acte
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_actes
+    env: PROD
+    fieldPath: executant
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: executant
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_actes
+    env: PROD
+    fieldPath: date_recueil
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: date_recueil
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__administration
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__administration
+description: Administrations médicamenteuses — source de fhir_medication_administration
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_administration
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__administration
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: administration_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: administration_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: prescription_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: prescription_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: denomination
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: denomination
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: code_atc
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: code_atc
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: voie_administration
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: voie_administration
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: quantite
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: unite_quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: unite_quantite
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: date_heure_debut
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: date_heure_debut
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_administration
+    env: PROD
+    fieldPath: date_heure_fin
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: date_heure_fin
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__biologie
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__biologie
+description: Résultats biologiques LOINC — source de fhir_observation (category=laboratory)
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_biologie
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__biologie
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: biologie_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: biologie_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: code_loinc
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: code_loinc
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: libelle_test
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: libelle_test
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: type_examen
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: type_examen
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: valeur
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: valeur
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: unite
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: unite
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: date_prelevement
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: date_prelevement
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: statut_validation
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: statut_validation
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: borne_inf_normale
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: borne_inf_normale
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: borne_sup_normale
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: borne_sup_normale
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_biologie
+    env: PROD
+    fieldPath: laboratoire
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: laboratoire
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__diagnostics
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__diagnostics
+description: Diagnostics PMSI (CIM-10) — source de fhir_condition
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_diagnostics
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__diagnostics
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_diagnostics
+    env: PROD
+    fieldPath: diagnostic_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: diagnostic_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_diagnostics
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_diagnostics
+    env: PROD
+    fieldPath: pmsi_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: pmsi_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_diagnostics
+    env: PROD
+    fieldPath: code_diagnostic
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: code_diagnostic
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_diagnostics
+    env: PROD
+    fieldPath: type_diagnostic
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: type_diagnostic
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_diagnostics
+    env: PROD
+    fieldPath: libelle_diagnostic
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: libelle_diagnostic
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_diagnostics
+    env: PROD
+    fieldPath: date_recueil
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: date_recueil
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__donnees_pmsi
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__donnees_pmsi
+description: Séjours hospitaliers PMSI — source de fhir_encounter
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_donnees_pmsi
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__donnees_pmsi
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: pmsi_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: pmsi_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: date_debut_sejour
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: date_debut_sejour
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: date_fin_sejour
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: date_fin_sejour
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: mode_entree
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: mode_entree
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: mode_sortie
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: mode_sortie
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: etablissement
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: etablissement
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: service
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: service
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: unite_fonctionnelle
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: unite_fonctionnelle
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_donnees_pmsi
+    env: PROD
+    fieldPath: age_admission
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: age_admission
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__dossier_soins
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__dossier_soins
+description: Constantes cliniques LOINC — source de fhir_observation (category=vital-signs)
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_dossier_soins
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__dossier_soins
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_dossier_soins
+    env: PROD
+    fieldPath: soin_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: soin_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_dossier_soins
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_dossier_soins
+    env: PROD
+    fieldPath: code_loinc
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: code_loinc
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_dossier_soins
+    env: PROD
+    fieldPath: libelle_test
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: libelle_test
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_dossier_soins
+    env: PROD
+    fieldPath: valeur
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: valeur
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_dossier_soins
+    env: PROD
+    fieldPath: unite
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: unite
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_dossier_soins
+    env: PROD
+    fieldPath: date_mesure
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: date_mesure
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__patient
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__patient
+description: Patients EHR bruts
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_patient
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__patient
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: nom
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: nom
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: prenom
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: prenom
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: ins
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: ins
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: date_naissance
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: date_naissance
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: sexe
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: sexe
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: date_deces
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: date_deces
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: source_deces
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: source_deces
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient
+    env: PROD
+    fieldPath: rang_gemellaire
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: rang_gemellaire
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__patient_adresse
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__patient_adresse
+description: Adresses des patients EHR
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_patient_adresse
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__patient_adresse
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient_adresse
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient_adresse
+    env: PROD
+    fieldPath: latitude
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: latitude
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient_adresse
+    env: PROD
+    fieldPath: longitude
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: longitude
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient_adresse
+    env: PROD
+    fieldPath: code_iris
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: code_iris
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient_adresse
+    env: PROD
+    fieldPath: libelle_iris
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: libelle_iris
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient_adresse
+    env: PROD
+    fieldPath: code_geographique_residence
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: code_geographique_residence
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient_adresse
+    env: PROD
+    fieldPath: libelle_geographique_residence
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: libelle_geographique_residence
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_patient_adresse
+    env: PROD
+    fieldPath: date_recueil
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: date_recueil
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__posologie
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__posologie
+description: Posologie des prescriptions (1:N vers prescription)
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_posologie
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__posologie
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_posologie
+    env: PROD
+    fieldPath: posologie_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: posologie_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_posologie
+    env: PROD
+    fieldPath: prescription_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: prescription_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_posologie
+    env: PROD
+    fieldPath: nombre_prises_par_jour
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: nombre_prises_par_jour
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_posologie
+    env: PROD
+    fieldPath: quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: quantite
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_posologie
+    env: PROD
+    fieldPath: unite_quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: unite_quantite
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_posologie
+    env: PROD
+    fieldPath: date_heure_debut
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: date_heure_debut
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_posologie
+    env: PROD
+    fieldPath: date_heure_fin
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: date_heure_fin
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: stg_ehr__prescription
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt staging.stg_ehr__prescription
+description: Prescriptions médicamenteuses — source de fhir_medication_request
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_raw-layer_prescription
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__prescription
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: prescription_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: prescription_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: patient_id
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: prescripteur
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: prescripteur
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: denomination
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: denomination
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: code_atc
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: code_atc
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: voie_administration
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: voie_administration
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: date_prescription
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: date_prescription
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: date_debut_prescription
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: date_debut_prescription
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_raw-layer_prescription
+    env: PROD
+    fieldPath: date_fin_prescription
+  downstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: date_fin_prescription
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: fhir_condition
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt fhir-semantic-layer.fhir_condition
+description: 'Ressource FHIR Condition (profil DMCondition) — schéma aligné sur fhir-semantic-layer-ddl.sql.
+  Source : diagnostics, jointures avec fhir_patient et fhir_encounter.'
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__diagnostics
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_patient
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_encounter
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_condition
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: type_diagnostic
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_condition
+    env: PROD
+    fieldPath: categories
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: code_diagnostic
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_condition
+    env: PROD
+    fieldPath: code
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: libelle_diagnostic
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_condition
+    env: PROD
+    fieldPath: code
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: diagnostic_id
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_condition
+    env: PROD
+    fieldPath: identifiers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: type_diagnostic
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_condition
+    env: PROD
+    fieldPath: categories_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: libelle_diagnostic
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_condition
+    env: PROD
+    fieldPath: code_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__diagnostics
+    env: PROD
+    fieldPath: date_recueil
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_condition
+    env: PROD
+    fieldPath: recorded_date
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: fhir_encounter
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt fhir-semantic-layer.fhir_encounter
+description: 'Ressource FHIR Encounter (profil DMEncounter) — schéma aligné sur fhir-semantic-layer-ddl.sql.
+  Source : donnees_pmsi, jointure interne avec fhir_patient.'
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__donnees_pmsi
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_patient
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_encounter
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: pmsi_id
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: identifiers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: date_debut_sejour
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: length_number_of_day
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: date_fin_sejour
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: length_number_of_day
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: unite_fonctionnelle
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: service_provider_organization_display
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: service
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: service_provider_organization_display
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: etablissement
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: service_provider_organization_display
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: date_debut_sejour
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: period_start
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: date_fin_sejour
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: period_end
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: mode_entree
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: admit_source_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__donnees_pmsi
+    env: PROD
+    fieldPath: mode_sortie
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_encounter
+    env: PROD
+    fieldPath: discharge_disposition_text
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: fhir_medication_administration
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt fhir-semantic-layer.fhir_medication_administration
+description: 'Ressource FHIR MedicationAdministration (profil DMMedicationAdministration)
+  — schéma aligné sur fhir-semantic-layer-ddl.sql. Source : administration.'
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__administration
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_patient
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_medication_request
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_medication_administration
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: administration_id
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: identifiers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: denomination
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: medication_x
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: voie_administration
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: dosage
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: dosage
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: unite_quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: dosage
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: denomination
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: medication_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: date_heure_debut
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: effective_date_time
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: voie_administration
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: dosage_route_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: dosage_dose_value
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__administration
+    env: PROD
+    fieldPath: unite_quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_administration
+    env: PROD
+    fieldPath: dosage_dose_unit
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: fhir_medication_request
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt fhir-semantic-layer.fhir_medication_request
+description: 'Ressource FHIR MedicationRequest (profil DMMedicationRequest) — schéma
+  aligné sur fhir-semantic-layer-ddl.sql. Source : prescription + posologie (première
+  par prescription).'
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__prescription
+  env: PROD
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__posologie
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_patient
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_medication_request
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: prescription_id
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: identifiers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: denomination
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: medication_x
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: prescripteur
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: requester
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: voie_administration
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: dosage_instructions
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: dosage_instructions
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__posologie
+    env: PROD
+    fieldPath: unite_quantite
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: dosage_instructions
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: date_debut_prescription
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: dosage_instructions
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: date_fin_prescription
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: dosage_instructions
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: denomination
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: medication_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: date_prescription
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: authored_on
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: prescripteur
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: requester_practitioner_display
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: voie_administration
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: dosage_instruction_route_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: date_debut_prescription
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: dosage_instruction_timing_bounds_period_start
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__prescription
+    env: PROD
+    fieldPath: date_fin_prescription
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_medication_request
+    env: PROD
+    fieldPath: dosage_instruction_timing_bounds_period_end
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: fhir_observation
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt fhir-semantic-layer.fhir_observation
+description: Ressource FHIR Observation — schéma aligné sur fhir-semantic-layer-ddl.sql.
+  UNION de biologie (laboratory) et dossier_soins (vital-signs).
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__biologie
+  env: PROD
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__dossier_soins
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_patient
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_observation
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: statut_validation
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: status
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: code_loinc
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: code
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: libelle_test
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: code
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: biologie_id
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: identifiers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: laboratoire
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: performers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: libelle_test
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: code_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: date_prelevement
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: effective_date_time
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: laboratoire
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: performer_organization_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: valeur
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: value_quantity_value
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__biologie
+    env: PROD
+    fieldPath: unite
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: value_quantity_unit
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: soin_id
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: identifiers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__dossier_soins
+    env: PROD
+    fieldPath: date_mesure
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_observation
+    env: PROD
+    fieldPath: effective_date_time
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: fhir_observation_component
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt fhir-semantic-layer.fhir_observation_component
+description: Composantes d'observations de tension artérielle (StructureMap v2) —
+  schéma aligné sur fhir-semantic-layer-ddl.sql. Composantes systolique (8480-6) et
+  diastolique (8462-4) générées depuis fhir_observation.
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_observation
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_observation_component
+  env: PROD
+---
+kind: DATA_JOB
+jobId: fhir_patient
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt fhir-semantic-layer.fhir_patient
+description: Ressource FHIR Patient (profil DMPatient) — schéma aligné sur fhir-semantic-layer-ddl.sql.
+  Transformation EHR→FSL (groupes TransformPatient + setAddress).
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__patient
+  env: PROD
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__patient_adresse
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_patient
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: sexe
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: gender
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: patient_id
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: identifiers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: nom
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: names
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: prenom
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: names
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: ins
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: ins_nir_identifier
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: nom
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: full_names
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: prenom
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: full_names
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: date_naissance
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: birth_date
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: date_deces
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: deceased_date_time
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: source_deces
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: deceased_extension_death_source
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: latitude
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: address_extension_geolocation_latitude
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: longitude
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: address_extension_geolocation_longitude
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: code_iris
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: address_extension_census_tract
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient_adresse
+    env: PROD
+    fieldPath: code_geographique_residence
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: address_extension_pmsi_code_geo_code
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__patient
+    env: PROD
+    fieldPath: rang_gemellaire
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_patient
+    env: PROD
+    fieldPath: multiple_birth_integer
+  operation: IDENTITY
+  confidence: 1.0
+---
+kind: DATA_JOB
+jobId: fhir_procedure
+dataFlow:
+  orchestrator: dbt
+  flowId: dbt_ehr_to_fhir_semantic_layer
+  cluster: PROD
+name: dbt fhir-semantic-layer.fhir_procedure
+description: 'Ressource FHIR Procedure (profil DMProcedure) — schéma aligné sur fhir-semantic-layer-ddl.sql.
+  Source : actes, jointures avec fhir_patient et fhir_encounter.'
+type: DbtModel
+inputDatasets:
+- platform: duckdb
+  name: warehouse_staging_stg_ehr__actes
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_patient
+  env: PROD
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_encounter
+  env: PROD
+outputDatasets:
+- platform: duckdb
+  name: warehouse_fhir-semantic-layer_fhir_procedure
+  env: PROD
+fineGrainedLineages:
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: code_acte
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_procedure
+    env: PROD
+    fieldPath: code
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: libelle_acte
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_procedure
+    env: PROD
+    fieldPath: code
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: acte_id
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_procedure
+    env: PROD
+    fieldPath: identifiers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: executant
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_procedure
+    env: PROD
+    fieldPath: performers
+  operation: TRANSFORM
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: libelle_acte
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_procedure
+    env: PROD
+    fieldPath: code_text
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: date_acte
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_procedure
+    env: PROD
+    fieldPath: performed_date_time
+  operation: IDENTITY
+  confidence: 1.0
+- upstream:
+    platform: duckdb
+    name: warehouse_staging_stg_ehr__actes
+    env: PROD
+    fieldPath: executant
+  downstream:
+    platform: duckdb
+    name: warehouse_fhir-semantic-layer_fhir_procedure
+    env: PROD
+    fieldPath: performer_actor_practitioner_text
+  operation: IDENTITY
+  confidence: 1.0
