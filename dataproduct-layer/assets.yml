@@ -106,7 +106,7 @@ description: |
 
   **Limites :** un dossier de consultation est ouvert lors de la première venue mais quasiment jamais fermé. Chaque service possède son propre dossier de consultation.
 
-domains: "3667192a0a19c51419efe99aa865c1ba"
+domains: "9306fe49bb1f70f491a712ff19b8d972"
 glossaryTerms:
   - aphp:medico-administrative
 tags:
@@ -545,7 +545,7 @@ description: |
   Ces données permettent une couverture étendue : elles incluent les actes CCAM pour la psychiatrie (PSY), l'hospitalisation à domicile (HAD) et les soins de longue durée (SLD), ainsi que l'heure d'enregistrement des actes.
   Cependant elles **ne sont pas soumises au contrôle de conformité ou de qualité** des DIM, et ne sont pas disponibles depuis la même date pour tous les hôpitaux.
 
-domains: "d3376216b28d970eea0eb4b1c53cf351"
+domains: "25fdababcd8169cae1dc99e7b638670c"
 
 glossaryTerms:
   - aphp:medico-administrative
@@ -917,7 +917,7 @@ description: |
   | Certificat | CERTIF | 89601-9 |
   | Lettre de transfert | LT-TRANSF | 18761-7 |
 
-domains: "d3376216b28d970eea0eb4b1c53cf351"
+domains: "25fdababcd8169cae1dc99e7b638670c"
 
 glossaryTerms:
   - "aphp:document-medicaux"
@@ -1003,7 +1003,7 @@ kind: DATA_PRODUCT
 id: "7e9648368d3638abfb352c9585d5d567"
 name: "Activité générale Maternité"
 
-domains: "d3376216b28d970eea0eb4b1c53cf351"
+domains: "25fdababcd8169cae1dc99e7b638670c"
 
 glossaryTerms:
   - aphp:maternite
@@ -1132,67 +1132,3 @@ assets:
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_death,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_location,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_person,PROD)"
----
-kind: DATA_PRODUCT
-urn: "urn:li:dataProduct:eds-patient-identity"
-name: "Données d'identité patient"
-description: |
-  ## À quoi correspondent ces données ?
-
-  Les données d'identité patient regroupent l'ensemble des informations permettant
-  d'identifier de manière unique et fiable chaque patient pris en charge à l'AP-HP.
-  Elles constituent le **socle commun** auquel sont rattachés tous les autres ensembles
-  de données cliniques de l'EDS (séjours, diagnostics, biologie, médicaments…).
-
-  ## À quoi servent ces données ?
-
-  - **Identitovigilance** : garantir l'unicité du dossier patient et prévenir les doublons
-  - **Chaînage clinique** : lier les données de soins d'un même patient à travers les établissements et les années
-  - **Recherche clinique** : constituer des cohortes de patients selon des critères démographiques (âge, sexe, lieu de résidence)
-  - **Santé publique** : analyser les données de mortalité et de résidence à l'échelle populationnelle
-
-  ## Que contiennent ces données ?
-
-  - **Identité civile** : nom de naissance, prénom(s), date et lieu de naissance, sexe
-  - **Identifiants nationaux** : NIR (13-15 chiffres), INS (Identité Nationale de Santé)
-  - **Adresse de résidence** : géocodée avec coordonnées GPS, code IRIS et commune
-  - **Statut vital** : indicateur de décès, date et source (INSEE, CépiDc ou SIH)
-  - **Rang gémellaire** : pour les naissances multiples
-
-  ## D'où viennent les données ?
-
-  Les données sont issues du logiciel de dossier patient **ORBIS®**, consolidées avec
-  les données PMSI et enrichies par les fichiers de décès de l'INSEE et du CépiDc.
-  Elles sont mises à jour **quotidiennement**.
-
-  ## Ce qu'il faut savoir avant de les utiliser
-
-  - Les données sont **pseudonymisées** dans l'EDS : l'IPP est remplacé par un identifiant technique.
-  - L'INS n'est disponible que pour les patients dont l'identité a été vérifiée via le téléservice INSi.
-  - Les données de résidence proviennent d'un géocodage périodique et peuvent ne pas refléter l'adresse actuelle du patient.
-domains: "3667192a0a19c51419efe99aa865c1ba"
-glossaryTerms:
-  - fhir:Patient
-owners:
-  - owner: pr.jean-marie.renard
-    type: BUSINESS_OWNER
-  - owner: dr.claire.dubois
-    type: BUSINESS_OWNER
-  - owner: team-eds-mco
-    type: TECHNICAL_OWNER
-tags:
-  - pii
-  - identito-vigilance
-  - rgpd
-  - ins
-  - nir
-  - eds
-properties:
-  availability: "Disponibles"
-  availability-by-usage: "cohort360,datalab"
-  data-format: "Données structurées"
-  data-source: "ORBIS® / INSEE / CépiDc"
-  note-cohort360: "Accessibles à tous les praticiens dans Cohort360 pour analyser les patients de leur service. Les données nominatives sont disponibles après formation en ligne."
-  note-datalab: "Accès dans le cadre d'un projet de recherche soumis au Comité Scientifique et Éthique (CSE). Données pseudonymisées, environnement sécurisé Jupyter."
-taggedEntities:
-  - urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer_public_fhir_patient,PROD)"

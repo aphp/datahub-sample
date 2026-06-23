@@ -778,7 +778,7 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "d3376216b28d970eea0eb4b1c53cf351"
+domains: "25fdababcd8169cae1dc99e7b638670c"
 ---
 #urn: "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr.public.patient_adresse,PROD)"
 kind: DATASET
@@ -1163,4 +1163,4 @@ glossaryTerms:
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
-domains: "d3376216b28d970eea0eb4b1c53cf351"
+domains: "25fdababcd8169cae1dc99e7b638670c"
