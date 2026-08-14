@@ -1132,3 +1132,150 @@ assets:
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_death,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_location,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,omop_public_person,PROD)"
+
+# ==============================================================================
+# DataProduct de test — exporteur HealthDCAT-AP (dh-healthdcat-exporter)
+#
+# Toutes les propriétés obligatoires du profil SHACL "ehds" du HDH sont
+# renseignées : un `dh-healthdcat export-file --urn urn:li:dataProduct:test-healthdcat-ap-sample`
+# doit produire un Turtle conforme (à l'exception de dcat:byteSize, lecture
+# de datasetProfile non implémentée en v1 — voir docs/mapping.md du dépôt
+# de l'exporteur). Auto-suffisant : ne dépend d'aucun autre fichier layer,
+# seulement de setup/assets.yml (structured properties, tag dcat:sample,
+# domaine "Parcours patient").
+#
+# Chargement (ordre) :
+#   1. setup/assets.yml           (structured properties + tag dcat:sample)
+#   2. ce fichier (dataproduct-layer/assets.yml)
+# ==============================================================================
+---
+kind: DATASET
+name: "test_healthdcat_Patient.ndjson"
+platform: s3
+env: PROD
+displayName: "Patient (test HealthDCAT-AP)"
+description: "Distribution de test — ressources FHIR Patient, format NDJSON."
+externalUrl: "https://s3.aphp.fr/test-healthdcat/Patient.ndjson"
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: "Identifiant logique de la ressource (FHIR logical id)."
+      nativeDataType: "http://hl7.org/fhirpath/System.String"
+      partOfKey: true
+    - fieldPath: gender
+      type: string
+      nullable: true
+      description: "Sexe administratif du patient."
+      nativeDataType: "http://hl7.org/fhirpath/System.String"
+    - fieldPath: birthDate
+      type: date
+      nullable: true
+      description: "Date de naissance (YYYY-MM-DD)."
+      nativeDataType: "http://hl7.org/fhirpath/System.Date"
+---
+# dcat:byteSize (healthdcatap:healthDistribution_Shape, =1 obligatoire) se lit
+# depuis l'aspect timeseries datasetProfile, jamais depuis un champ de
+# kind: DATASET (DatasetDoc n'en a pas — voir docs/mapping.md du dépôt de
+# l'exporteur). Un adms:sample n'en a pas besoin : aucun profil pour
+# test_healthdcat_Patient_sample.ndjson ci-dessous.
+aspectName: DATASET_PROFILE
+dataset:
+  platform: s3
+  name: "test_healthdcat_Patient.ndjson"
+  env: PROD
+timestampMillis: 1786665600000   # 2026-08-14T00:00:00Z
+messageId: "profile-test_healthdcat_Patient-20260814"
+rowCount: 1000
+columnCount: 3
+sizeInBytes: 245760   # ~240 Ko, cohérent avec numberOfRecords: 1000
+---
+kind: DATASET
+name: "test_healthdcat_Patient_sample.ndjson"
+platform: s3
+env: PROD
+displayName: "Échantillon Patient (test HealthDCAT-AP)"
+description: "Échantillon public de démonstration — quelques ressources FHIR Patient synthétiques."
+externalUrl: "https://s3.aphp.fr/test-healthdcat/Patient_sample.ndjson"
+tags:
+  - "dcat:sample"
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: "Identifiant logique de la ressource (FHIR logical id)."
+      nativeDataType: "http://hl7.org/fhirpath/System.String"
+      partOfKey: true
+    - fieldPath: gender
+      type: string
+      nullable: true
+      description: "Sexe administratif du patient."
+      nativeDataType: "http://hl7.org/fhirpath/System.String"
+---
+kind: DATA_PRODUCT
+id: "test-healthdcat-ap-sample"
+name: "[TEST] Échantillon HealthDCAT-AP"
+description: |
+  DataProduct de test pour valider l'exporteur dh-healthdcat de bout en bout
+  sur une instance DataHub locale. Ne représente aucune donnée réelle de
+  l'EDS — à ne pas publier vers le HDH.
+domains: "9306fe49bb1f70f491a712ff19b8d972"
+tags:
+  - "aphp:overview"
+owners:
+  - owner: "eds-data-engineering@aphp.fr"
+    type: TECHNICAL_OWNER
+structuredProperties:
+  # --- Identité / description ---
+  fr.aphp.healthdcat.acronym: "TEST-HDCAT"
+  fr.aphp.healthdcat.datasetType: "PERSONAL_DATA"
+  fr.aphp.healthdcat.accessRights: "NON_PUBLIC"
+  fr.aphp.healthdcat.applicableLegislation: "COMMISSION IMPLEMENTING REGULATION (EU) 2023/138"
+  fr.aphp.healthdcat.language: "FRA"
+  fr.aphp.healthdcat.issued: "2026-01-01"
+
+  # --- Contact ---
+  fr.aphp.healthdcat.contactPointName: "Coordination EDS (test)"
+  fr.aphp.healthdcat.contactPointEmail: "eds-coord@aphp.fr"
+  fr.aphp.healthdcat.contactPointUrl: "https://eds.aphp.fr"
+
+  # --- Contexte réglementaire / santé ---
+  fr.aphp.healthdcat.provenance: "Jeu de démonstration synthétique, sans donnée patient réelle."
+  fr.aphp.healthdcat.purpose: "Validation technique de l'export HealthDCAT-AP."
+  fr.aphp.healthdcat.legalBasis: "eu-gdpr:A9-2-j"
+  fr.aphp.healthdcat.personalData: "HealthRecord"
+  fr.aphp.healthdcat.healthCategory: "HRAD"
+  fr.aphp.healthdcat.healthTheme: "health_systems"
+  fr.aphp.healthdcat.spatialCoverage: "FRA"
+
+  # --- Éditeur (dct:publisher) ---
+  fr.aphp.healthdcat.publisherName: "Assistance Publique - Hôpitaux de Paris"
+  fr.aphp.healthdcat.publisherHomepage: "https://www.aphp.fr"
+  fr.aphp.healthdcat.publisherEmail: "eds-contact@aphp.fr"
+  fr.aphp.healthdcat.publisherType: "Hospital or Healthcare System"
+  fr.aphp.healthdcat.publisherNote: "Entrepôt de Données de Santé de l'AP-HP."
+  fr.aphp.healthdcat.trustedDataHolder: "true"
+
+  # --- HDAB (healthdcatap:hdab) ---
+  fr.aphp.healthdcat.hdabName: "Health Data Hub"
+  fr.aphp.healthdcat.hdabHomepage: "https://www.health-data-hub.fr"
+  fr.aphp.healthdcat.hdabEmail: "contact@health-data-hub.fr"
+
+  # --- Recommandés (pas obligatoires SHACL, pour un export réaliste) ---
+  fr.aphp.healthdcat.license: "https://eds.aphp.fr/licence"
+  fr.aphp.healthdcat.publishingFrequency: "DAILY"
+  fr.aphp.healthdcat.numberOfRecords: 1000
+  fr.aphp.healthdcat.numberOfUniqueIndividuals: 1000
+  fr.aphp.healthdcat.minTypicalAge: 0
+  fr.aphp.healthdcat.maxTypicalAge: 110
+  fr.aphp.healthdcat.populationCoverage: "Échantillon synthétique, non représentatif."
+  fr.aphp.healthdcat.referenceSpecification: "HL7-FHIR-R4"
+  fr.aphp.healthdcat.coding: "SNOMED-CT"
+  fr.aphp.healthdcat.temporalCoverageStart: "2026-01-01"
+  fr.aphp.healthdcat.retentionPeriodStart: "2026-01-01"
+  fr.aphp.healthdcat.retentionPeriodEnd: "2036-01-01"
+assets:
+  - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient.ndjson,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient_sample.ndjson,PROD)"
