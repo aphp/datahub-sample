@@ -343,6 +343,19 @@ valueType: "string"
 entityTypes: [dataset, dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.populationCoverage"
+displayName: "Couverture de population"
+description: >
+  healthdcatap:populationCoverage. Absente à tort de la première extension —
+  seuls les tags dépréciés populationCoverage:general/targeted existaient
+  (valeur encodée dans le nom du tag, jamais appliqués sur un asset).
+  Détecté par le connecteur d'ingestion (avertissement "undeclared
+  structuredProperty" sur un DataProduct qui la référençait).
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataset, dataProduct]
+---
+kind: STRUCTURED_PROPERTY
 qualifiedName: "fr.aphp.healthdcat.referenceSpecification"
 displayName: "Standard de référence"
 description: >
@@ -706,3 +719,443 @@ kind: DOMAIN
 id: "2f1be2995c249c1e6db9a15c7692e8b7"
 name: eds
 description: Domaine régit par le référentiel EDS
+
+# ============================================================================
+# Extension HealthDCAT-AP — Phase 0 (dh-healthdcat-exporter)
+#
+# Complète les 16 propriétés fr.aphp.healthdcat.* déjà déclarées ci-dessus
+# pour couvrir les 18 propriétés obligatoires du profil SHACL "ehds" du HDH
+# (shapes/ehds/hdap-validator-sensitivity-shape.ttl côté
+# hdh/catalogue-de-metadonnees/api). Voir dh-healthdcat-exporter/docs/mapping.md
+# pour le tableau de correspondance complet et le détail des choix.
+#
+# fr.aphp.healthdcat.retentionPeriod (déclarée plus haut) est dépréciée au
+# profit de retentionPeriodStart/End ci-dessous : elle stocke une durée ISO
+# 8601 (P10Y) alors que healthdcatap:retentionPeriod exige un dct:PeriodOfTime
+# avec dates de début/fin. Elle n'est plus exportée mais reste déclarée (pas
+# de suppression de données existantes).
+# ============================================================================
+
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.acronym"
+displayName: "Acronyme"
+description: "dct:alternative"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.datasetType"
+displayName: "Type de jeu de données"
+description: "dct:type — vocabulaire EU Publications Office dataset-type"
+cardinality: SINGLE
+valueType: "string"
+allowedValues:
+  - value: "PERSONAL_DATA"
+  - value: "STATISTICAL"
+  - value: "HVD"
+  - value: "SYNTHETIC_DATA"
+  - value: "Other"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.accessRights"
+displayName: "Droits d'accès"
+description: >
+  dct:accessRights — remplace les tags accessRights:* (dépréciés : aucune
+  valeur autorisée, jamais appliqués sur un asset).
+cardinality: SINGLE
+valueType: "string"
+allowedValues:
+  - value: "PUBLIC"
+  - value: "NON_PUBLIC"
+  - value: "RESTRICTED"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.applicableLegislation"
+displayName: "Législation applicable"
+description: "dcatap:applicableLegislation"
+cardinality: MULTIPLE
+valueType: "string"
+allowedValues:
+  - value: "COMMISSION IMPLEMENTING REGULATION (EU) 2023/138"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.healthCategory"
+displayName: "Catégorie de données de santé"
+description: >
+  healthdcatap:healthCategory — remplace les tags healthCategory:* (dépréciés).
+  Vocabulaire EHDS (17 catégories, Annexe II du règlement EHDS).
+cardinality: MULTIPLE
+valueType: "string"
+allowedValues:
+  - value: "EHRS"
+    description: "Dossiers de santé électroniques"
+  - value: "DIOH"
+    description: "Facteurs influant sur la santé (déterminants socio-économiques, environnementaux)"
+  - value: "NRPE"
+    description: "Besoins, ressources et dépenses en soins de santé"
+  - value: "RPDG"
+    description: "Agents pathogènes ayant un impact sur la santé humaine"
+  - value: "HRAD"
+    description: "Données administratives liées aux soins de santé"
+  - value: "HGPD"
+    description: "Données génétiques, épigénomiques et génomiques humaines"
+  - value: "HPML"
+    description: "Autres données moléculaires humaines (protéomique, transcriptomique...)"
+  - value: "PGEH"
+    description: "Données de santé électroniques personnelles générées par dispositifs médicaux"
+  - value: "WELA"
+    description: "Données provenant d'applications de bien-être"
+  - value: "IDHP"
+    description: "Statut professionnel des professionnels de santé"
+  - value: "PHDR"
+    description: "Registres de santé publique"
+  - value: "MRMR"
+    description: "Registres médicaux et de mortalité"
+  - value: "EHCT"
+    description: "Essais et investigations cliniques"
+  - value: "EMRD"
+    description: "Autres données de santé provenant de dispositifs médicaux"
+  - value: "RMMD"
+    description: "Registres de produits médicinaux et dispositifs médicaux"
+  - value: "RQSH"
+    description: "Cohortes de recherche, questionnaires et enquêtes santé"
+  - value: "EINS"
+    description: "Biobanques et bases de données associées"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.healthTheme"
+displayName: "Thème de santé"
+description: "healthdcatap:healthTheme — vocabulaire EHDS"
+cardinality: MULTIPLE
+valueType: "string"
+allowedValues:
+  - value: "climate_health"
+  - value: "antimicrobial_control"
+  - value: "environmental_health"
+  - value: "blood_infections"
+  - value: "health_systems"
+  - value: "sensory_health"
+  - value: "respiratory_diseases"
+  - value: "lifecourse_health"
+  - value: "immunization_diseases"
+  - value: "enteric_infections"
+  - value: "injury_prevention"
+  - value: "emergency_settings"
+  - value: "cancer_disease"
+  - value: "vector_diseases"
+  - value: "health_products"
+  - value: "noncommunicable_diseases"
+  - value: "mental_health"
+  - value: "reproductive_health"
+  - value: "nutrition_security"
+  - value: "tropical_diseases"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.purpose"
+displayName: "Finalité"
+description: "dpv:hasPurpose — description courte de la finalité du traitement"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.provenance"
+displayName: "Provenance"
+description: "dct:provenance"
+cardinality: SINGLE
+valueType: "rich_text"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.personalData"
+displayName: "Catégories de données personnelles"
+description: >
+  dpv:hasPersonalData — remplace les tags personalData:* (dépréciés).
+  Vocabulaire DPV (dpv-pd), sous-ensemble pertinent santé.
+cardinality: MULTIPLE
+valueType: "string"
+allowedValues:
+  - value: "HealthRecord"
+  - value: "MedicalHealth"
+  - value: "Genetic"
+  - value: "HealthHistory"
+  - value: "Age"
+  - value: "Gender"
+  - value: "BirthDate"
+  - value: "Name"
+  - value: "Geographic"
+  - value: "Identifier"
+  - value: "Death"
+  - value: "OfficialID"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.language"
+displayName: "Langue"
+description: "dct:language — vocabulaire EU Publications Office"
+cardinality: MULTIPLE
+valueType: "string"
+allowedValues:
+  - value: "FRA"
+  - value: "ENG"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.issued"
+displayName: "Date de publication"
+description: "dct:issued"
+cardinality: SINGLE
+valueType: "date"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.contactPointName"
+displayName: "Point de contact — nom"
+description: "dcat:contactPoint (vcard:fn)"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.contactPointEmail"
+displayName: "Point de contact — email"
+description: "dcat:contactPoint (vcard:hasEmail)"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.contactPointUrl"
+displayName: "Point de contact — URL"
+description: >
+  dcat:contactPoint (vcard:hasURL). Obligatoire pour la conformité SHACL du
+  point de contact (:Kind_Shape exige vcard:hasURL).
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.retentionPeriodStart"
+displayName: "Conservation — début"
+description: >
+  healthdcatap:retentionPeriod (dcat:startDate). Remplace
+  fr.aphp.healthdcat.retentionPeriod (durée ISO 8601), incompatible avec le
+  dct:PeriodOfTime exigé par HealthDCAT-AP.
+cardinality: SINGLE
+valueType: "date"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.retentionPeriodEnd"
+displayName: "Conservation — fin"
+description: "healthdcatap:retentionPeriod (dcat:endDate)"
+cardinality: SINGLE
+valueType: "date"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.isReferencedBy"
+displayName: "Référencé par"
+description: "dct:isReferencedBy — DOI ou URI de publication associée"
+cardinality: MULTIPLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.accessUrl"
+displayName: "URL d'accès"
+description: "dcat:accessURL — au niveau de l'asset (Dataset DataHub), pas du DataProduct"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataset]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.downloadUrl"
+displayName: "URL de téléchargement"
+description: "dcat:downloadURL"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataset]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.distributionFormat"
+displayName: "Format de la distribution"
+description: >
+  dct:format — vocabulaire EU Publications Office file-type. NDJSON n'existe
+  pas dans ce vocabulaire (vérifié) : pour les exports .ndjson (sharing-layer),
+  choisir JSON à défaut, ou signaler le manque au HDH.
+cardinality: SINGLE
+valueType: "string"
+allowedValues:
+  - value: "JSON"
+  - value: "CSV"
+  - value: "PARQUET"
+  - value: "XML"
+  - value: "Other"
+entityTypes: [dataset]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.distributionStatus"
+displayName: "Statut de la distribution"
+description: "adms:status — vocabulaire EU Publications Office distribution-status"
+cardinality: SINGLE
+valueType: "string"
+allowedValues:
+  - value: "COMPLETED"
+  - value: "WITHDRAWN"
+entityTypes: [dataset]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.publisherName"
+displayName: "Éditeur — nom"
+description: "dct:publisher / foaf:name"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.publisherHomepage"
+displayName: "Éditeur — site web"
+description: "dct:publisher / foaf:homepage — obligatoire (:HealthPublisherAgent_Shape)"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.publisherEmail"
+displayName: "Éditeur — email"
+description: "dct:publisher / foaf:mbox — obligatoire (:HealthPublisherAgent_Shape)"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.publisherType"
+displayName: "Type d'éditeur"
+description: >
+  healthdcatap:publisherType — obligatoire pour le publisher
+  (:HealthPublisherAgent_Shape). Vocabulaire HDH publisher-type.
+cardinality: SINGLE
+valueType: "string"
+allowedValues:
+  - value: "National Statistics Institute"
+  - value: "Registry"
+  - value: "National Public Health Institute"
+  - value: "Biobank"
+  - value: "Research Institution"
+  - value: "Hospital or Healthcare System"
+  - value: "Government Health Department"
+  - value: "Non-Governmental Organizations"
+  - value: "Pharmaceutical and Biotechnology Company"
+  - value: "International Health Organization"
+  - value: "Health Insurance Company"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.publisherNote"
+displayName: "Note sur l'éditeur"
+description: "healthdcatap:publisherNote — obligatoire pour le publisher"
+cardinality: SINGLE
+valueType: "rich_text"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.trustedDataHolder"
+displayName: "Détenteur de confiance"
+description: >
+  healthdcatap:trustedDataHolder (xsd:boolean) — obligatoire pour le publisher.
+  DataHub n'a pas de type booléen natif pour les structured properties : deux
+  valeurs autorisées, sérialisées "true"^^xsd:boolean / "false"^^xsd:boolean.
+cardinality: SINGLE
+valueType: "string"
+allowedValues:
+  - value: "true"
+  - value: "false"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.creatorName"
+displayName: "Créateur — nom"
+description: "dct:creator / foaf:name"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.creatorHomepage"
+displayName: "Créateur — site web"
+description: "dct:creator / foaf:homepage"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.creatorEmail"
+displayName: "Créateur — email"
+description: "dct:creator / foaf:mbox"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.hdabName"
+displayName: "HDAB — nom"
+description: "healthdcatap:hdab / foaf:name"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.hdabHomepage"
+displayName: "HDAB — site web"
+description: "healthdcatap:hdab / foaf:homepage — obligatoire (:HealthAgent_Shape)"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: STRUCTURED_PROPERTY
+qualifiedName: "fr.aphp.healthdcat.hdabEmail"
+displayName: "HDAB — email"
+description: "healthdcatap:hdab / foaf:mbox — obligatoire (:HealthAgent_Shape)"
+cardinality: SINGLE
+valueType: "string"
+entityTypes: [dataProduct]
+---
+kind: TAG
+name: "dcat:sample"
+description: >
+  Marque un asset (Dataset DataHub) membre d'un DataProduct comme échantillon
+  HealthDCAT-AP (adms:sample) plutôt que distribution complète
+  (dcat:distribution). Un adms:sample n'a besoin que d'une dcat:accessURL
+  pour être valide côté SHACL ; une dcat:distribution normale doit en plus
+  porter dcat:byteSize, dct:format, dct:rights et
+  dcatap:applicableLegislation.
+
+# ----------------------------------------------------------------------------
+# Historique : une première version de cette extension représentait
+# publisher/creator/hdab via des CorpGroup + un OwnershipType custom
+# (`type: urn:li:ownershipType:healthdcat.publisher` dans owners:). Abandonné
+# après lecture du connecteur d'ingestion réel de ce dépôt
+# (aphp/datahub-yaml-source, src/datahub_yaml_source/builders/common.py
+# ::build_ownership_aspect) : il écrit `o.type` tel quel dans le champ enum
+# `OwnerClass.type` sans jamais renseigner `typeUrn` — la syntaxe
+# `type: urn:li:ownershipType:...` n'y est PAS interprétée comme un type
+# personnalisé (contrairement au SDK Python OSS `datahub dataproduct upsert`,
+# qui lui la supporte). `kind: CORP_GROUP`/`kind: OWNERSHIP_TYPE` n'existent
+# d'ailleurs pas du tout dans ce connecteur (voir
+# ENTITY_DOC_TYPES_BY_KIND dans src/datahub_yaml_source/models.py).
+#
+# D'où le choix ci-dessus : des propriétés structurées plates directement sur
+# le DATA_PRODUCT (confirmé supporté :
+# src/datahub_yaml_source/builders/data_product.py::build_data_product lit
+# `structuredProperties:` du document DATA_PRODUCT et émet
+# StructuredPropertiesClass). Plus simple, et le seul mécanisme qui
+# fonctionne réellement avec ce connecteur.
+# ----------------------------------------------------------------------------
