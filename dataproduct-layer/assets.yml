@@ -1279,3 +1279,146 @@ structuredProperties:
 assets:
   - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient.ndjson,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient_sample.ndjson,PROD)"
+
+# ==============================================================================
+# Deuxième DataProduct de test — validation réelle du filtrage --tag/--tag-mode/
+# --exclude-tag (dh-healthdcat, spec/spec-feature-tag-filtering.md côté
+# exporteur). Tag délibérément différent du DataProduct ci-dessus
+# (aphp:access ici, aphp:overview au-dessus), tous deux déjà déclarés comme
+# entités TAG dans setup/assets.yml — pas de référence pendante.
+#
+# Permet de tester, une fois ingéré :
+#   --tag aphp:overview                          -> seulement le 1er DataProduct
+#   --tag aphp:access                             -> seulement celui-ci
+#   --tag aphp:overview --tag aphp:access          -> les deux (OU, défaut any)
+#   --tag aphp:overview --tag aphp:access --tag-mode all -> aucun (aucun des deux n'a les deux tags)
+#   --exclude-tag aphp:access                      -> seulement le 1er DataProduct
+# ==============================================================================
+---
+kind: DATASET
+name: "test_healthdcat_Patient2.ndjson"
+platform: s3
+env: PROD
+displayName: "Patient (test HealthDCAT-AP #2)"
+description: "Distribution de test #2 — ressources FHIR Patient, format NDJSON."
+externalUrl: "https://s3.aphp.fr/test-healthdcat/Patient2.ndjson"
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: "Identifiant logique de la ressource (FHIR logical id)."
+      nativeDataType: "http://hl7.org/fhirpath/System.String"
+      partOfKey: true
+    - fieldPath: gender
+      type: string
+      nullable: true
+      description: "Sexe administratif du patient."
+      nativeDataType: "http://hl7.org/fhirpath/System.String"
+    - fieldPath: birthDate
+      type: date
+      nullable: true
+      description: "Date de naissance (YYYY-MM-DD)."
+      nativeDataType: "http://hl7.org/fhirpath/System.Date"
+---
+aspectName: DATASET_PROFILE
+dataset:
+  platform: s3
+  name: "test_healthdcat_Patient2.ndjson"
+  env: PROD
+timestampMillis: 1786665600000   # 2026-08-14T00:00:00Z
+messageId: "profile-test_healthdcat_Patient2-20260814"
+rowCount: 500
+columnCount: 3
+sizeInBytes: 122880   # ~120 Ko, cohérent avec numberOfRecords: 500
+---
+kind: DATASET
+name: "test_healthdcat_Patient2_sample.ndjson"
+platform: s3
+env: PROD
+displayName: "Échantillon Patient (test HealthDCAT-AP #2)"
+description: "Échantillon public de démonstration #2 — quelques ressources FHIR Patient synthétiques."
+externalUrl: "https://s3.aphp.fr/test-healthdcat/Patient2_sample.ndjson"
+tags:
+  - "dcat:sample"
+schema:
+  fields:
+    - fieldPath: id
+      type: string
+      nullable: false
+      description: "Identifiant logique de la ressource (FHIR logical id)."
+      nativeDataType: "http://hl7.org/fhirpath/System.String"
+      partOfKey: true
+    - fieldPath: gender
+      type: string
+      nullable: true
+      description: "Sexe administratif du patient."
+      nativeDataType: "http://hl7.org/fhirpath/System.String"
+---
+kind: DATA_PRODUCT
+id: "test-healthdcat-ap-patient"
+name: "[TEST] Patient HealthDCAT-AP"
+description: |
+  Deuxième DataProduct de test — mêmes données synthétiques que
+  [TEST] Échantillon HealthDCAT-AP, tag différent (aphp:access plutôt
+  qu'aphp:overview) pour valider le filtrage --tag/--tag-mode/--exclude-tag
+  de dh-healthdcat contre une instance DataHub réelle. Ne représente aucune
+  donnée réelle de l'EDS — à ne pas publier vers le HDH.
+domains: "9306fe49bb1f70f491a712ff19b8d972"
+tags:
+  - "aphp:access"
+owners:
+  - owner: "eds-data-engineering@aphp.fr"
+    type: TECHNICAL_OWNER
+structuredProperties:
+  # --- Identité / description ---
+  fr.aphp.healthdcat.acronym: "TEST-HDCAT-2"
+  fr.aphp.healthdcat.datasetType: "PERSONAL_DATA"
+  fr.aphp.healthdcat.accessRights: "NON_PUBLIC"
+  fr.aphp.healthdcat.applicableLegislation: "COMMISSION IMPLEMENTING REGULATION (EU) 2023/138"
+  fr.aphp.healthdcat.language: "FRA"
+  fr.aphp.healthdcat.issued: "2026-01-01"
+
+  # --- Contact ---
+  fr.aphp.healthdcat.contactPointName: "Coordination EDS (test)"
+  fr.aphp.healthdcat.contactPointEmail: "eds-coord@aphp.fr"
+  fr.aphp.healthdcat.contactPointUrl: "https://eds.aphp.fr"
+
+  # --- Contexte réglementaire / santé ---
+  fr.aphp.healthdcat.provenance: "Jeu de démonstration synthétique, sans donnée patient réelle."
+  fr.aphp.healthdcat.purpose: "Validation technique du filtrage par tag de l'exporteur HealthDCAT-AP."
+  fr.aphp.healthdcat.legalBasis: "eu-gdpr:A9-2-j"
+  fr.aphp.healthdcat.personalData: "HealthRecord"
+  fr.aphp.healthdcat.healthCategory: "HRAD"
+  fr.aphp.healthdcat.healthTheme: "health_systems"
+  fr.aphp.healthdcat.spatialCoverage: "FRA"
+
+  # --- Éditeur (dct:publisher) ---
+  fr.aphp.healthdcat.publisherName: "Assistance Publique - Hôpitaux de Paris"
+  fr.aphp.healthdcat.publisherHomepage: "https://www.aphp.fr"
+  fr.aphp.healthdcat.publisherEmail: "eds-contact@aphp.fr"
+  fr.aphp.healthdcat.publisherType: "Hospital or Healthcare System"
+  fr.aphp.healthdcat.publisherNote: "Entrepôt de Données de Santé de l'AP-HP."
+  fr.aphp.healthdcat.trustedDataHolder: "true"
+
+  # --- HDAB (healthdcatap:hdab) ---
+  fr.aphp.healthdcat.hdabName: "Health Data Hub"
+  fr.aphp.healthdcat.hdabHomepage: "https://www.health-data-hub.fr"
+  fr.aphp.healthdcat.hdabEmail: "contact@health-data-hub.fr"
+
+  # --- Recommandés (pas obligatoires SHACL, pour un export réaliste) ---
+  fr.aphp.healthdcat.license: "https://eds.aphp.fr/licence"
+  fr.aphp.healthdcat.publishingFrequency: "DAILY"
+  fr.aphp.healthdcat.numberOfRecords: 500
+  fr.aphp.healthdcat.numberOfUniqueIndividuals: 500
+  fr.aphp.healthdcat.minTypicalAge: 0
+  fr.aphp.healthdcat.maxTypicalAge: 110
+  fr.aphp.healthdcat.populationCoverage: "Échantillon synthétique, non représentatif."
+  fr.aphp.healthdcat.referenceSpecification: "HL7-FHIR-R4"
+  fr.aphp.healthdcat.coding: "SNOMED-CT"
+  fr.aphp.healthdcat.temporalCoverageStart: "2026-01-01"
+  fr.aphp.healthdcat.retentionPeriodStart: "2026-01-01"
+  fr.aphp.healthdcat.retentionPeriodEnd: "2036-01-01"
+assets:
+  - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient2.ndjson,PROD)"
+  - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient2_sample.ndjson,PROD)"
