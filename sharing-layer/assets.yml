@@ -1008,7 +1008,6 @@ externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Patient
 subTypes: NDJSON_File
 tags:
 - fhir
-- fhir:Patient
 - ndjson
 glossaryTerms: fhir:Patient
 domains: "3667192a0a19c51419efe99aa865c1ba"
@@ -1272,7 +1271,6 @@ properties:
   partitioning: "none"
 tags:
   - fhir
-  - fhir:Encounter
   - ndjson
 glossaryTerms: fhir:Encounter
 domains: "9306fe49bb1f70f491a712ff19b8d972"
@@ -1595,7 +1593,6 @@ externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Condition
 subTypes: NDJSON_File
 tags:
   - fhir
-  - fhir:Condition
   - ndjson
 glossaryTerms: fhir:Condition
 domains: "d3376216b28d970eea0eb4b1c53cf351"
@@ -1880,7 +1877,6 @@ externalUrl: http://hl7.org/fhir/R4/StructureDefinition/MedicationAdministration
 subTypes: NDJSON_File
 tags:
   - fhir
-  - fhir:MedicationAdministration
   - ndjson
 glossaryTerms: fhir:MedicationAdministration
 domains: "729e20fbb85377b8640209b041418e51"
@@ -2148,7 +2144,6 @@ externalUrl: http://hl7.org/fhir/R4/StructureDefinition/MedicationRequest
 subTypes: NDJSON_File
 tags:
   - fhir
-  - fhir:MedicationRequest
   - ndjson
 glossaryTerms: fhir:MedicationRequest
 domains: "729e20fbb85377b8640209b041418e51"
@@ -2542,7 +2537,6 @@ externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Observation
 subTypes: NDJSON_File
 tags:
   - fhir
-  - fhir:Observation
   - ndjson
 glossaryTerms: fhir:Observation
 domains: "63073b282083f5bd1a437525b906d72c"
@@ -2728,7 +2722,6 @@ externalUrl: http://hl7.org/fhir/R4/StructureDefinition/Procedure
 subTypes: NDJSON_File
 tags:
   - fhir
-  - fhir:Procedure
   - ndjson
 glossaryTerms: fhir:Procedure
 domains: "25fdababcd8169cae1dc99e7b638670c"
@@ -2847,7 +2840,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#PERSON
 subTypes: Table
 tags:
   - omop
-  - omop:Person
 glossaryTerms: omop:Person
 domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
@@ -2999,7 +2991,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#VISIT_OCCURRENCE
 subTypes: Table
 tags:
   - omop
-  - omop:VisitOccurrence
 glossaryTerms: omop:VisitOccurrence
 domains: "9306fe49bb1f70f491a712ff19b8d972"
 ---
@@ -3074,7 +3065,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#LOCATION
 subTypes: Table
 tags:
   - omop
-  - omop:Location
 glossaryTerms: omop:Location
 domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
@@ -3136,7 +3126,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#DEATH
 subTypes: Table
 tags:
   - omop
-  - omop:Death
 glossaryTerms: omop:Death
 domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
@@ -3307,7 +3296,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#VISIT_DETAIL
 subTypes: Table
 tags:
   - omop
-  - omop:VisitDetail
 glossaryTerms: omop:VisitDetail
 domains: "9306fe49bb1f70f491a712ff19b8d972"
 ---
@@ -3437,7 +3425,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#CONDITION_OCCURR
 subTypes: Table
 tags:
   - omop
-  - omop:ConditionOccurrence
 glossaryTerms: omop:ConditionOccurrence
 domains: "d3376216b28d970eea0eb4b1c53cf351"
 ---
@@ -3602,7 +3589,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#DRUG_EXPOSURE
 subTypes: Table
 tags:
   - omop
-  - omop:DrugExposure
 glossaryTerms: omop:DrugExposure
 domains: "729e20fbb85377b8640209b041418e51"
 ---
@@ -3723,7 +3709,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#PROCEDURE_OCCURR
 subTypes: Table
 tags:
   - omop
-  - omop:ProcedureOccurrence
 glossaryTerms: omop:ProcedureOccurrence
 domains: "25fdababcd8169cae1dc99e7b638670c"
 ---
@@ -3896,7 +3881,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#MEASUREMENT
 subTypes: Table
 tags:
   - omop
-  - omop:Measurement
 glossaryTerms: omop:Measurement
 domains: "63073b282083f5bd1a437525b906d72c"
 ---
@@ -3975,8 +3959,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#DEATH
 subTypes: Table
 tags:
   - omop
-  - omop:Death
-  - omop:local-extension
 glossaryTerms: omop:Death
 domains: "3667192a0a19c51419efe99aa865c1ba"
 ---
@@ -4100,7 +4082,6 @@ externalUrl: https://ohdsi.github.io/CommonDataModel/cdm54.html#OBSERVATION
 subTypes: Table
 tags:
   - omop
-  - omop:Observation
 glossaryTerms: omop:Observation
 domains: "63073b282083f5bd1a437525b906d72c"
 ---
@@ -4119,7 +4100,6 @@ domains: "c8eda4574cd1f980d8a5d1a2e72148b4"
 tags:
   - fhir
   - omop
-  - sharing-layer
 owners:
   - owner: "eds-data-engineering"
     type: "TECHNICAL_OWNER"

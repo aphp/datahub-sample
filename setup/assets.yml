@@ -223,6 +223,153 @@ name: Maternité
 definition: "TODO"
 parentNode: aphp:healthcare
 ---
+# Termes ajoutés pour couvrir les references glossaryTerms: qui n'avaient jamais eu leur
+# document -- voir le plan de correction du 2026-08-15. Definitions deduites du contexte
+# (noms de colonnes, descriptions de dataset), a faire relire par le metier.
+kind: GLOSSARY_TERM
+id: donnees-patient.patient
+name: Patient
+definition: "Données d'identité et démographiques du patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: donnees-patient.identifiant-national-sante
+name: Identifiant National de Santé
+definition: "INS (Identifiant National de Santé) du patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: donnees-patient.adresse
+name: Adresse patient
+definition: "Adresse de domicile du patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: donnees-patient.geocodage
+name: Géocodage patient
+definition: "Coordonnées géographiques dérivées de l'adresse du patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: donnees-patient.acte
+name: Acte (dossier patient)
+definition: "Acte médical réalisé pour le patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: donnees-patient.diagnostic
+name: Diagnostic (dossier patient)
+definition: "Diagnostic médical posé pour le patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: donnees-patient.sejour
+name: Séjour patient
+definition: "Séjour hospitalier du patient (admission à sortie)"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: donnees-patient.patient_adresse
+name: Historique d'adresses patient
+definition: "Association entre un patient et son historique d'adresses"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: codification.ccam
+name: CCAM
+definition: "Classification Commune des Actes Médicaux -- nomenclature française des actes techniques"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: codification.cim10
+name: CIM-10
+definition: "Classification Internationale des Maladies, 10e révision -- codage des diagnostics"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: codification.atc
+name: ATC
+definition: "Classification Anatomique, Thérapeutique et Chimique des médicaments"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: codification.loinc
+name: LOINC
+definition: "Logical Observation Identifiers Names and Codes -- nomenclature des résultats de biologie"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: medicament.administration
+name: Administration de médicament
+definition: "Administration effective d'un médicament au patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: medicament.posologie
+name: Posologie
+definition: "Dose, fréquence et voie prescrites pour un médicament"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: medicament.prescription
+name: Prescription médicamenteuse
+definition: "Prescription d'un médicament pour le patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: pmsi.acte
+name: Acte PMSI
+definition: "Acte codé dans le cadre du PMSI"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: pmsi.diagnostic
+name: Diagnostic PMSI
+definition: "Diagnostic codé dans le cadre du PMSI"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: pmsi.sejour
+name: Séjour PMSI
+definition: "Séjour hospitalier tel que valorisé par le PMSI"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: pmsi.donnees-pmsi
+name: Données PMSI
+definition: "Données PMSI agrégées associées à un séjour"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: facteur-risque.style-vie
+name: Facteur de risque -- style de vie
+definition: "Facteur de risque lié au mode de vie du patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: facteur-risque.tabac
+name: Facteur de risque -- tabac
+definition: "Consommation tabagique du patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: facteur-risque.alcool
+name: Facteur de risque -- alcool
+definition: "Consommation d'alcool du patient"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: soins.mesure-clinique
+name: Mesure clinique
+definition: "Constante ou observation clinique relevée lors des soins"
+parentNode: aphp:healthcare
+---
+kind: GLOSSARY_TERM
+id: biologie.resultat-biologique
+name: Résultat biologique
+definition: "Résultat d'un examen de laboratoire"
+parentNode: aphp:healthcare
+---
 kind: STRUCTURED_PROPERTY
 qualifiedName: "fr.aphp.healthdcat.legalBasis"
 displayName: "Base légale (RGPD)"
@@ -1137,6 +1284,29 @@ description: >
   pour être valide côté SHACL ; une dcat:distribution normale doit en plus
   porter dcat:byteSize, dct:format, dct:rights et
   dcatap:applicableLegislation.
+---
+# Marqueurs de format/standard technique, utilisés comme classification
+# transverse sur de nombreux datasets (raw/semantic/sharing/transform-layer)
+# sans jamais avoir été déclarés -- voir CORRECTION_PLAN.md, Etape B.
+kind: TAG
+name: fhir
+description: Ressource conforme au standard HL7 FHIR R4
+---
+kind: TAG
+name: "fhir-r4"
+description: Modélisé selon le standard HL7 FHIR R4
+---
+kind: TAG
+name: omop
+description: Table conforme au modèle commun OMOP CDM
+---
+kind: TAG
+name: ndjson
+description: Export au format NDJSON (sharing layer)
+---
+kind: TAG
+name: pii
+description: Contient des données personnelles identifiantes
 
 # ----------------------------------------------------------------------------
 # Historique : une première version de cette extension représentait

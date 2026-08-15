@@ -246,7 +246,6 @@ properties:
 subTypes: Table
 tags:
   - fhir
-  - fhir:Patient
 glossaryTerms:
   - fhir:Patient
 owners:
@@ -480,7 +479,6 @@ properties:
 subTypes: Table
 tags:
   - fhir
-  - fhir:Encounter
 glossaryTerms:
   - fhir:Encounter
 owners:
@@ -679,7 +677,6 @@ properties:
 subTypes: Table
 tags:
   - fhir
-  - fhir:Condition
 glossaryTerms:
   - fhir:Condition
 owners:
@@ -928,7 +925,6 @@ properties:
 subTypes: Table
 tags:
   - fhir
-  - fhir:Procedure
 glossaryTerms:
   - fhir:Procedure
 owners:
@@ -1177,7 +1173,6 @@ properties:
 subTypes: Table
 tags:
   - fhir
-  - fhir:Observation
 glossaryTerms:
   - fhir:Observation
 owners:
@@ -1548,7 +1543,6 @@ properties:
 subTypes: Table
 tags:
   - fhir
-  - fhir:MedicationRequest
 glossaryTerms:
   - fhir:MedicationRequest
 owners:
@@ -1762,7 +1756,6 @@ properties:
 subTypes: Table
 tags:
   - fhir
-  - fhir:MedicationAdministration
 glossaryTerms:
   - fhir:MedicationAdministration
 owners:
