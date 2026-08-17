@@ -29,11 +29,7 @@ Les propriétés structurées `fr.aphp.healthdcat.*` déclarées dans `setup/ass
 
 ## Contribution
 
-Les contributions sont les bienvenues via issues et pull requests sur [github.com/aphp/datahub-sample](https://github.com/aphp/datahub-sample). Avant de proposer un changement :
-
-- vérifiez dans [`CONTEXT.md`](./CONTEXT.md) qu'un terme de glossaire équivalent n'existe pas déjà, pour éviter les doublons ;
-- gardez les définitions de glossaire en français, cohérentes avec le reste du dépôt ;
-- décrivez dans la pull request la couche concernée et l'impact sur les entités DataHub existantes (renommage de terme, changement de domaine, etc.).
+Les contributions sont les bienvenues via issues et pull requests sur [github.com/aphp/datahub-sample](https://github.com/aphp/datahub-sample). Voir [`CONTRIBUTING.md`](./CONTRIBUTING.md) pour le guide complet.
 
 ## Licence
 
