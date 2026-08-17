@@ -251,24 +251,6 @@ definition: "Coordonnées géographiques dérivées de l'adresse du patient"
 parentNode: aphp:healthcare
 ---
 kind: GLOSSARY_TERM
-id: donnees-patient.acte
-name: Acte (dossier patient)
-definition: "Acte médical réalisé pour le patient"
-parentNode: aphp:healthcare
----
-kind: GLOSSARY_TERM
-id: donnees-patient.diagnostic
-name: Diagnostic (dossier patient)
-definition: "Diagnostic médical posé pour le patient"
-parentNode: aphp:healthcare
----
-kind: GLOSSARY_TERM
-id: donnees-patient.sejour
-name: Séjour patient
-definition: "Séjour hospitalier du patient (admission à sortie)"
-parentNode: aphp:healthcare
----
-kind: GLOSSARY_TERM
 id: donnees-patient.patient_adresse
 name: Historique d'adresses patient
 definition: "Association entre un patient et son historique d'adresses"
@@ -866,23 +848,6 @@ kind: DOMAIN
 id: "2f1be2995c249c1e6db9a15c7692e8b7"
 name: eds
 description: Domaine régit par le référentiel EDS
-
-# ============================================================================
-# Extension HealthDCAT-AP — Phase 0 (dh-healthdcat-exporter)
-#
-# Complète les 16 propriétés fr.aphp.healthdcat.* déjà déclarées ci-dessus
-# pour couvrir les 18 propriétés obligatoires du profil SHACL "ehds" du HDH
-# (shapes/ehds/hdap-validator-sensitivity-shape.ttl côté
-# hdh/catalogue-de-metadonnees/api). Voir dh-healthdcat-exporter/docs/mapping.md
-# pour le tableau de correspondance complet et le détail des choix.
-#
-# fr.aphp.healthdcat.retentionPeriod (déclarée plus haut) est dépréciée au
-# profit de retentionPeriodStart/End ci-dessous : elle stocke une durée ISO
-# 8601 (P10Y) alors que healthdcatap:retentionPeriod exige un dct:PeriodOfTime
-# avec dates de début/fin. Elle n'est plus exportée mais reste déclarée (pas
-# de suppression de données existantes).
-# ============================================================================
-
 ---
 kind: STRUCTURED_PROPERTY
 qualifiedName: "fr.aphp.healthdcat.acronym"
@@ -1285,9 +1250,6 @@ description: >
   porter dcat:byteSize, dct:format, dct:rights et
   dcatap:applicableLegislation.
 ---
-# Marqueurs de format/standard technique, utilisés comme classification
-# transverse sur de nombreux datasets (raw/semantic/sharing/transform-layer)
-# sans jamais avoir été déclarés -- voir CORRECTION_PLAN.md, Etape B.
 kind: TAG
 name: fhir
 description: Ressource conforme au standard HL7 FHIR R4
@@ -1307,25 +1269,3 @@ description: Export au format NDJSON (sharing layer)
 kind: TAG
 name: pii
 description: Contient des données personnelles identifiantes
-
-# ----------------------------------------------------------------------------
-# Historique : une première version de cette extension représentait
-# publisher/creator/hdab via des CorpGroup + un OwnershipType custom
-# (`type: urn:li:ownershipType:healthdcat.publisher` dans owners:). Abandonné
-# après lecture du connecteur d'ingestion réel de ce dépôt
-# (aphp/datahub-yaml-source, src/datahub_yaml_source/builders/common.py
-# ::build_ownership_aspect) : il écrit `o.type` tel quel dans le champ enum
-# `OwnerClass.type` sans jamais renseigner `typeUrn` — la syntaxe
-# `type: urn:li:ownershipType:...` n'y est PAS interprétée comme un type
-# personnalisé (contrairement au SDK Python OSS `datahub dataproduct upsert`,
-# qui lui la supporte). `kind: CORP_GROUP`/`kind: OWNERSHIP_TYPE` n'existent
-# d'ailleurs pas du tout dans ce connecteur (voir
-# ENTITY_DOC_TYPES_BY_KIND dans src/datahub_yaml_source/models.py).
-#
-# D'où le choix ci-dessus : des propriétés structurées plates directement sur
-# le DATA_PRODUCT (confirmé supporté :
-# src/datahub_yaml_source/builders/data_product.py::build_data_product lit
-# `structuredProperties:` du document DATA_PRODUCT et émet
-# StructuredPropertiesClass). Plus simple, et le seul mécanisme qui
-# fonctionne réellement avec ce connecteur.
-# ----------------------------------------------------------------------------

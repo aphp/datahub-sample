@@ -2192,7 +2192,7 @@ subTypes:
 tags:
   - fhir-r4
 glossaryTerms:
-  - donnees-patient.sejour
+  - pmsi.sejour
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -2265,7 +2265,7 @@ subTypes:
 tags:
   - fhir-r4
 glossaryTerms:
-  - donnees-patient.diagnostic
+  - pmsi.diagnostic
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
@@ -2343,7 +2343,7 @@ subTypes:
 tags:
   - fhir-r4
 glossaryTerms:
-  - donnees-patient.acte
+  - pmsi.acte
 owners:
   owner: datahub
   type: TECHNICAL_OWNER
