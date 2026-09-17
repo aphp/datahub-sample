@@ -274,7 +274,6 @@ structuredProperties:
     - "eu-gdpr:A6-1-f"
     - "eu-gdpr:A6-1-e"
     - "eu-gdpr:A6-1-c"
-  fr.aphp.healthdcat.dataController: "AP-HP"
   fr.aphp.panorama.description: "Ensemble des données décrivant les codes diagnostics (CIM-10) d'hospitalisation des patients."
   fr.aphp.panorama.note-cohort360: |
     ## Pour accéder aux données de votre patientèle
@@ -1066,7 +1065,6 @@ structuredProperties:
     - "eu-gdpr:A6-1-f"
     - "eu-gdpr:A6-1-e"
     - "eu-gdpr:A6-1-c"
-  fr.aphp.healthdcat.dataController: "AP-HP"
 assets:
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,ehr_public_patient_adresse,PROD)"
@@ -1121,7 +1119,6 @@ structuredProperties:
   fr.aphp.healthdcat.numberOfRecords: "9000000000"
   fr.aphp.healthdcat.referenceSpecification: "OMOP-CDM-5.4"
   fr.aphp.healthdcat.temporalCoverageStart: "2017-01-01"
-  fr.aphp.healthdcat.dataController: "AP-HP"
 assets:
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer_public_fhir_patient,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:s3,sharing_layer_Patient.ndjson,PROD)"
