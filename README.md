@@ -21,7 +21,7 @@ Chaque répertoire correspond à une couche du pipeline de données et contient 
 
 ## Glossaire et modèle de domaine
 
-Le vocabulaire métier (concepts patient, séjour, PMSI, codifications...) et les décisions de modélisation sont documentés dans [`CONTEXT.md`](./CONTEXT.md). À consulter avant d'ajouter ou de renommer un terme de glossaire, pour éviter de recréer un doublon.
+Le vocabulaire métier (concepts patient, séjour, PMSI, codifications...) et les décisions de modélisation sont documentés dans [`GLOSSARY.md`](./GLOSSARY.md). À consulter avant d'ajouter ou de renommer un terme de glossaire, pour éviter de recréer un doublon.
 
 ## Conformité HealthDCAT-AP
 
