@@ -126,7 +126,7 @@ structuredProperties:
     - "datalab"
   fr.aphp.panorama.data-format: "Données structurées"
   fr.aphp.panorama.data-source: "ORBIS®"
-  fr.aphp.healthdcat.publishingFrequency: "DAILY"
+  healthdcatap.publishingFrequency: "DAILY"
   fr.aphp.panorama.description: "Ensemble des enregistrements décrivant les passages des patients à l'AP-HP : hospitalisations (complète ou partielle), consultations ou passages aux urgences."
   fr.aphp.panorama.note-cohort360: |
     ## Pour accéder aux données de votre patientèle
@@ -264,11 +264,11 @@ structuredProperties:
   fr.aphp.panorama.data-source:
     - "ORBIS®"
     - "AREM"
-  fr.aphp.healthdcat.publishingFrequency: "DAILY"
-  fr.aphp.healthdcat.numberOfRecords: "1000000000"
-  fr.aphp.healthdcat.referenceSpecification: "HL7-FHIR-R4"
-  fr.aphp.healthdcat.temporalCoverageStart: "2019-01-01"
-  fr.aphp.healthdcat.legalBasis:
+  healthdcatap.publishingFrequency: "DAILY"
+  healthdcatap.numberOfRecords: "1000000000"
+  healthdcatap.referenceSpecification: "HL7-FHIR-R4"
+  healthdcatap.temporalCoverageStart: "2019-01-01"
+  healthdcatap.legalBasis:
     - "eu-gdpr:A9-2-i"
     - "eu-gdpr:A9-2-c"
     - "eu-gdpr:A6-1-f"
@@ -1055,11 +1055,11 @@ structuredProperties:
   fr.aphp.panorama.data-format: "Données structurées"
   fr.aphp.panorama.data-source: "ORBIS®"
   fr.aphp.panorama.habilitation: "Restreint aux équipes de soin"
-  fr.aphp.healthdcat.publishingFrequency: "DAILY"
-  fr.aphp.healthdcat.numberOfRecords: "20000000000"
-  fr.aphp.healthdcat.referenceSpecification: "HL7-FHIR-R4"
-  fr.aphp.healthdcat.temporalCoverageStart: "2017-01-01"
-  fr.aphp.healthdcat.legalBasis:
+  healthdcatap.publishingFrequency: "DAILY"
+  healthdcatap.numberOfRecords: "20000000000"
+  healthdcatap.referenceSpecification: "HL7-FHIR-R4"
+  healthdcatap.temporalCoverageStart: "2017-01-01"
+  healthdcatap.legalBasis:
     - "eu-gdpr:A9-2-i"
     - "eu-gdpr:A9-2-c"
     - "eu-gdpr:A6-1-f"
@@ -1115,10 +1115,10 @@ owners:
 structuredProperties:
   fr.aphp.panorama.data-format: "Données structurées"
   fr.aphp.panorama.data-source: "Hub d'intégration"
-  fr.aphp.healthdcat.publishingFrequency: "MONTHLY"
-  fr.aphp.healthdcat.numberOfRecords: "9000000000"
-  fr.aphp.healthdcat.referenceSpecification: "OMOP-CDM-5.4"
-  fr.aphp.healthdcat.temporalCoverageStart: "2017-01-01"
+  healthdcatap.publishingFrequency: "MONTHLY"
+  healthdcatap.numberOfRecords: "9000000000"
+  healthdcatap.referenceSpecification: "OMOP-CDM-5.4"
+  healthdcatap.temporalCoverageStart: "2017-01-01"
 assets:
   - "urn:li:dataset:(urn:li:dataPlatform:postgres,semantic_layer_public_fhir_patient,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:s3,sharing_layer_Patient.ndjson,PROD)"
@@ -1226,53 +1226,53 @@ owners:
     type: TECHNICAL_OWNER
 structuredProperties:
   # --- Identité / description ---
-  fr.aphp.healthdcat.acronym: "TEST-HDCAT"
-  fr.aphp.healthdcat.datasetType: "PERSONAL_DATA"
-  fr.aphp.healthdcat.accessRights: "NON_PUBLIC"
-  fr.aphp.healthdcat.applicableLegislation: "COMMISSION IMPLEMENTING REGULATION (EU) 2023/138"
-  fr.aphp.healthdcat.language: "FRA"
-  fr.aphp.healthdcat.issued: "2026-01-01"
+  healthdcatap.acronym: "TEST-HDCAT"
+  healthdcatap.datasetType: "PERSONAL_DATA"
+  healthdcatap.accessRights: "NON_PUBLIC"
+  healthdcatap.applicableLegislation: "COMMISSION IMPLEMENTING REGULATION (EU) 2023/138"
+  healthdcatap.language: "FRA"
+  healthdcatap.issued: "2026-01-01"
 
   # --- Contact ---
-  fr.aphp.healthdcat.contactPointName: "Coordination EDS (test)"
-  fr.aphp.healthdcat.contactPointEmail: "eds-coord@aphp.fr"
-  fr.aphp.healthdcat.contactPointUrl: "https://eds.aphp.fr"
+  healthdcatap.contactPointName: "Coordination EDS (test)"
+  healthdcatap.contactPointEmail: "eds-coord@aphp.fr"
+  healthdcatap.contactPointUrl: "https://eds.aphp.fr"
 
   # --- Contexte réglementaire / santé ---
-  fr.aphp.healthdcat.provenance: "Jeu de démonstration synthétique, sans donnée patient réelle."
-  fr.aphp.healthdcat.purpose: "Validation technique de l'export HealthDCAT-AP."
-  fr.aphp.healthdcat.legalBasis: "eu-gdpr:A9-2-j"
-  fr.aphp.healthdcat.personalData: "HealthRecord"
-  fr.aphp.healthdcat.healthCategory: "HRAD"
-  fr.aphp.healthdcat.healthTheme: "health_systems"
-  fr.aphp.healthdcat.spatialCoverage: "FRA"
+  healthdcatap.provenance: "Jeu de démonstration synthétique, sans donnée patient réelle."
+  healthdcatap.purpose: "Validation technique de l'export HealthDCAT-AP."
+  healthdcatap.legalBasis: "eu-gdpr:A9-2-j"
+  healthdcatap.personalData: "HealthRecord"
+  healthdcatap.healthCategory: "HRAD"
+  healthdcatap.healthTheme: "health_systems"
+  healthdcatap.spatialCoverage: "FRA"
 
   # --- Éditeur (dct:publisher) ---
-  fr.aphp.healthdcat.publisherName: "Assistance Publique - Hôpitaux de Paris"
-  fr.aphp.healthdcat.publisherHomepage: "https://www.aphp.fr"
-  fr.aphp.healthdcat.publisherEmail: "eds-contact@aphp.fr"
-  fr.aphp.healthdcat.publisherType: "Hospital or Healthcare System"
-  fr.aphp.healthdcat.publisherNote: "Entrepôt de Données de Santé de l'AP-HP."
-  fr.aphp.healthdcat.trustedDataHolder: "true"
+  healthdcatap.publisherName: "Assistance Publique - Hôpitaux de Paris"
+  healthdcatap.publisherHomepage: "https://www.aphp.fr"
+  healthdcatap.publisherEmail: "eds-contact@aphp.fr"
+  healthdcatap.publisherType: "Hospital or Healthcare System"
+  healthdcatap.publisherNote: "Entrepôt de Données de Santé de l'AP-HP."
+  healthdcatap.trustedDataHolder: "true"
 
   # --- HDAB (healthdcatap:hdab) ---
-  fr.aphp.healthdcat.hdabName: "Health Data Hub"
-  fr.aphp.healthdcat.hdabHomepage: "https://www.health-data-hub.fr"
-  fr.aphp.healthdcat.hdabEmail: "contact@health-data-hub.fr"
+  healthdcatap.hdabName: "Health Data Hub"
+  healthdcatap.hdabHomepage: "https://www.health-data-hub.fr"
+  healthdcatap.hdabEmail: "contact@health-data-hub.fr"
 
   # --- Recommandés (pas obligatoires SHACL, pour un export réaliste) ---
-  fr.aphp.healthdcat.license: "https://eds.aphp.fr/licence"
-  fr.aphp.healthdcat.publishingFrequency: "DAILY"
-  fr.aphp.healthdcat.numberOfRecords: 1000
-  fr.aphp.healthdcat.numberOfUniqueIndividuals: 1000
-  fr.aphp.healthdcat.minTypicalAge: 0
-  fr.aphp.healthdcat.maxTypicalAge: 110
-  fr.aphp.healthdcat.populationCoverage: "Échantillon synthétique, non représentatif."
-  fr.aphp.healthdcat.referenceSpecification: "HL7-FHIR-R4"
-  fr.aphp.healthdcat.coding: "SNOMED-CT"
-  fr.aphp.healthdcat.temporalCoverageStart: "2026-01-01"
-  fr.aphp.healthdcat.retentionPeriodStart: "2026-01-01"
-  fr.aphp.healthdcat.retentionPeriodEnd: "2036-01-01"
+  healthdcatap.license: "https://eds.aphp.fr/licence"
+  healthdcatap.publishingFrequency: "DAILY"
+  healthdcatap.numberOfRecords: 1000
+  healthdcatap.numberOfUniqueIndividuals: 1000
+  healthdcatap.minTypicalAge: 0
+  healthdcatap.maxTypicalAge: 110
+  healthdcatap.populationCoverage: "Échantillon synthétique, non représentatif."
+  healthdcatap.referenceSpecification: "HL7-FHIR-R4"
+  healthdcatap.coding: "SNOMED-CT"
+  healthdcatap.temporalCoverageStart: "2026-01-01"
+  healthdcatap.retentionPeriodStart: "2026-01-01"
+  healthdcatap.retentionPeriodEnd: "2036-01-01"
 assets:
   - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient.ndjson,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient_sample.ndjson,PROD)"
@@ -1369,53 +1369,53 @@ owners:
     type: TECHNICAL_OWNER
 structuredProperties:
   # --- Identité / description ---
-  fr.aphp.healthdcat.acronym: "TEST-HDCAT-2"
-  fr.aphp.healthdcat.datasetType: "PERSONAL_DATA"
-  fr.aphp.healthdcat.accessRights: "NON_PUBLIC"
-  fr.aphp.healthdcat.applicableLegislation: "COMMISSION IMPLEMENTING REGULATION (EU) 2023/138"
-  fr.aphp.healthdcat.language: "FRA"
-  fr.aphp.healthdcat.issued: "2026-01-01"
+  healthdcatap.acronym: "TEST-HDCAT-2"
+  healthdcatap.datasetType: "PERSONAL_DATA"
+  healthdcatap.accessRights: "NON_PUBLIC"
+  healthdcatap.applicableLegislation: "COMMISSION IMPLEMENTING REGULATION (EU) 2023/138"
+  healthdcatap.language: "FRA"
+  healthdcatap.issued: "2026-01-01"
 
   # --- Contact ---
-  fr.aphp.healthdcat.contactPointName: "Coordination EDS (test)"
-  fr.aphp.healthdcat.contactPointEmail: "eds-coord@aphp.fr"
-  fr.aphp.healthdcat.contactPointUrl: "https://eds.aphp.fr"
+  healthdcatap.contactPointName: "Coordination EDS (test)"
+  healthdcatap.contactPointEmail: "eds-coord@aphp.fr"
+  healthdcatap.contactPointUrl: "https://eds.aphp.fr"
 
   # --- Contexte réglementaire / santé ---
-  fr.aphp.healthdcat.provenance: "Jeu de démonstration synthétique, sans donnée patient réelle."
-  fr.aphp.healthdcat.purpose: "Validation technique du filtrage par tag de l'exporteur HealthDCAT-AP."
-  fr.aphp.healthdcat.legalBasis: "eu-gdpr:A9-2-j"
-  fr.aphp.healthdcat.personalData: "HealthRecord"
-  fr.aphp.healthdcat.healthCategory: "HRAD"
-  fr.aphp.healthdcat.healthTheme: "health_systems"
-  fr.aphp.healthdcat.spatialCoverage: "FRA"
+  healthdcatap.provenance: "Jeu de démonstration synthétique, sans donnée patient réelle."
+  healthdcatap.purpose: "Validation technique du filtrage par tag de l'exporteur HealthDCAT-AP."
+  healthdcatap.legalBasis: "eu-gdpr:A9-2-j"
+  healthdcatap.personalData: "HealthRecord"
+  healthdcatap.healthCategory: "HRAD"
+  healthdcatap.healthTheme: "health_systems"
+  healthdcatap.spatialCoverage: "FRA"
 
   # --- Éditeur (dct:publisher) ---
-  fr.aphp.healthdcat.publisherName: "Assistance Publique - Hôpitaux de Paris"
-  fr.aphp.healthdcat.publisherHomepage: "https://www.aphp.fr"
-  fr.aphp.healthdcat.publisherEmail: "eds-contact@aphp.fr"
-  fr.aphp.healthdcat.publisherType: "Hospital or Healthcare System"
-  fr.aphp.healthdcat.publisherNote: "Entrepôt de Données de Santé de l'AP-HP."
-  fr.aphp.healthdcat.trustedDataHolder: "true"
+  healthdcatap.publisherName: "Assistance Publique - Hôpitaux de Paris"
+  healthdcatap.publisherHomepage: "https://www.aphp.fr"
+  healthdcatap.publisherEmail: "eds-contact@aphp.fr"
+  healthdcatap.publisherType: "Hospital or Healthcare System"
+  healthdcatap.publisherNote: "Entrepôt de Données de Santé de l'AP-HP."
+  healthdcatap.trustedDataHolder: "true"
 
   # --- HDAB (healthdcatap:hdab) ---
-  fr.aphp.healthdcat.hdabName: "Health Data Hub"
-  fr.aphp.healthdcat.hdabHomepage: "https://www.health-data-hub.fr"
-  fr.aphp.healthdcat.hdabEmail: "contact@health-data-hub.fr"
+  healthdcatap.hdabName: "Health Data Hub"
+  healthdcatap.hdabHomepage: "https://www.health-data-hub.fr"
+  healthdcatap.hdabEmail: "contact@health-data-hub.fr"
 
   # --- Recommandés (pas obligatoires SHACL, pour un export réaliste) ---
-  fr.aphp.healthdcat.license: "https://eds.aphp.fr/licence"
-  fr.aphp.healthdcat.publishingFrequency: "DAILY"
-  fr.aphp.healthdcat.numberOfRecords: 500
-  fr.aphp.healthdcat.numberOfUniqueIndividuals: 500
-  fr.aphp.healthdcat.minTypicalAge: 0
-  fr.aphp.healthdcat.maxTypicalAge: 110
-  fr.aphp.healthdcat.populationCoverage: "Échantillon synthétique, non représentatif."
-  fr.aphp.healthdcat.referenceSpecification: "HL7-FHIR-R4"
-  fr.aphp.healthdcat.coding: "SNOMED-CT"
-  fr.aphp.healthdcat.temporalCoverageStart: "2026-01-01"
-  fr.aphp.healthdcat.retentionPeriodStart: "2026-01-01"
-  fr.aphp.healthdcat.retentionPeriodEnd: "2036-01-01"
+  healthdcatap.license: "https://eds.aphp.fr/licence"
+  healthdcatap.publishingFrequency: "DAILY"
+  healthdcatap.numberOfRecords: 500
+  healthdcatap.numberOfUniqueIndividuals: 500
+  healthdcatap.minTypicalAge: 0
+  healthdcatap.maxTypicalAge: 110
+  healthdcatap.populationCoverage: "Échantillon synthétique, non représentatif."
+  healthdcatap.referenceSpecification: "HL7-FHIR-R4"
+  healthdcatap.coding: "SNOMED-CT"
+  healthdcatap.temporalCoverageStart: "2026-01-01"
+  healthdcatap.retentionPeriodStart: "2026-01-01"
+  healthdcatap.retentionPeriodEnd: "2036-01-01"
 assets:
   - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient2.ndjson,PROD)"
   - "urn:li:dataset:(urn:li:dataPlatform:s3,test_healthdcat_Patient2_sample.ndjson,PROD)"
