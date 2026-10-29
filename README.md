@@ -25,7 +25,9 @@ Le vocabulaire métier (concepts patient, séjour, PMSI, codifications...) et le
 
 ## Conformité HealthDCAT-AP
 
-Les propriétés structurées `fr.aphp.healthdcat.*` déclarées dans `setup/assets.yml` couvrent les propriétés du profil SHACL `ehds` (Health Data Hub) : base légale RGPD, catégorie de données de santé, éditeur, droits d'accès, couverture temporelle/géographique, etc. Elles s'appliquent aux `DATA_PRODUCT` et, pour certaines (URL d'accès, format de distribution), aux `DATASET`.
+Les propriétés structurées `healthdcatap.*` déclarées dans `setup/assets.yml` couvrent les propriétés du profil SHACL `ehds` (Health Data Hub) : base légale RGPD, catégorie de données de santé, éditeur, droits d'accès, couverture temporelle/géographique, etc. Elles s'appliquent aux `DATA_PRODUCT` et, pour certaines (URL d'accès, format de distribution), aux `DATASET`.
+
+L'export HealthDCAT-AP de ces métadonnées demande [`dh-healthdcat`](https://github.com/davidouagne/datahub-healthdcat-ap-exporter) 0.3.0 ou plus, avec une URI de base déclarée dans le profil (`base_uri`) ou par `--base-uri` : voir le [guide de migration 0.3.0](https://github.com/davidouagne/datahub-healthdcat-ap-exporter/blob/main/docs/migration-0.3.0.md).
 
 ## Contribution
 

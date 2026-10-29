@@ -353,7 +353,7 @@ definition: "Résultat d'un examen de laboratoire"
 parentNode: aphp:healthcare
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.legalBasis"
+qualifiedName: "healthdcatap.legalBasis"
 displayName: "Base légale (RGPD)"
 description: >
   dpv:hasLegalBasis — base légale justifiant le traitement.
@@ -391,7 +391,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.numberOfRecords"
+qualifiedName: "healthdcatap.numberOfRecords"
 displayName: "Nombre d'enregistrements"
 description: "healthdcatap:numberOfRecords — entier positif"
 cardinality: SINGLE
@@ -399,7 +399,7 @@ valueType: "number"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.numberOfUniqueIndividuals"
+qualifiedName: "healthdcatap.numberOfUniqueIndividuals"
 displayName: "Nombre d'individus uniques"
 description: "healthdcatap:numberOfUniqueIndividuals — entier positif"
 cardinality: SINGLE
@@ -407,7 +407,7 @@ valueType: "number"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.minTypicalAge"
+qualifiedName: "healthdcatap.minTypicalAge"
 displayName: "Âge minimal typique (années)"
 description: "healthdcatap:minTypicalAge — entier positif"
 cardinality: SINGLE
@@ -415,7 +415,7 @@ valueType: "number"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.maxTypicalAge"
+qualifiedName: "healthdcatap.maxTypicalAge"
 displayName: "Âge maximal typique (années)"
 description: "healthdcatap:maxTypicalAge — entier positif"
 cardinality: SINGLE
@@ -423,7 +423,7 @@ valueType: "number"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.temporalCoverageStart"
+qualifiedName: "healthdcatap.temporalCoverageStart"
 displayName: "Début de couverture temporelle"
 description: "dct:temporal / dcat:startDate"
 cardinality: SINGLE
@@ -431,7 +431,7 @@ valueType: "date"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.temporalCoverageEnd"
+qualifiedName: "healthdcatap.temporalCoverageEnd"
 displayName: "Fin de couverture temporelle"
 description: "dct:temporal / dcat:endDate"
 cardinality: SINGLE
@@ -439,7 +439,7 @@ valueType: "date"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.spatialCoverage"
+qualifiedName: "healthdcatap.spatialCoverage"
 displayName: "Couverture géographique"
 description: "dct:spatial — URI absolue (GeoNames https://sws.geonames.org/… ou NAL EU country / place), pas un label régional nu"
 cardinality: MULTIPLE
@@ -447,7 +447,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.populationCoverage"
+qualifiedName: "healthdcatap.populationCoverage"
 displayName: "Couverture de population"
 description: >
   healthdcatap:populationCoverage. Absente à tort de la première extension —
@@ -460,7 +460,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.referenceSpecification"
+qualifiedName: "healthdcatap.referenceSpecification"
 displayName: "Standard de référence"
 description: >
   dct:conformsTo — standard du modèle de données (le terme AP-HP « referenceSpecification »
@@ -475,7 +475,7 @@ allowedValues:
 entityTypes: [dataset, dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.coding"
+qualifiedName: "healthdcatap.coding"
 displayName: "Systèmes de codage utilisés"
 description: >
   healthdcatap:hasCodingSystem — terminologies utilisées dans le dataset (le nom AP-HP
@@ -491,11 +491,11 @@ allowedValues:
   - value: "CIP13"
   - value: "UCD"
   - value: "CCAM"
-  - value: "NFS"
+  - value: "NABM"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.license"
+qualifiedName: "healthdcatap.license"
 displayName: "Licence"
 description: "dct:license — URI de la licence (ex: https://creativecommons.org/licenses/by/4.0/)"
 cardinality: SINGLE
@@ -503,7 +503,7 @@ valueType: "string"
 entityTypes: [dataset, dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.publishingFrequency"
+qualifiedName: "healthdcatap.publishingFrequency"
 displayName: "Fréquence de mise à jour"
 description: "dcat:accrualPeriodicity — valeurs EU Publications Office"
 cardinality: SINGLE
@@ -819,7 +819,7 @@ name: eds
 description: Domaine régit par le référentiel EDS
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.acronym"
+qualifiedName: "healthdcatap.acronym"
 displayName: "Acronyme"
 description: "dct:alternative"
 cardinality: SINGLE
@@ -827,7 +827,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.datasetType"
+qualifiedName: "healthdcatap.datasetType"
 displayName: "Type de jeu de données"
 description: "dct:type — vocabulaire EU Publications Office dataset-type"
 cardinality: SINGLE
@@ -841,7 +841,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.accessRights"
+qualifiedName: "healthdcatap.accessRights"
 displayName: "Droits d'accès"
 description: >
   dct:accessRights — remplace les tags accessRights:* (dépréciés : aucune
@@ -855,7 +855,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.applicableLegislation"
+qualifiedName: "healthdcatap.applicableLegislation"
 displayName: "Législation applicable"
 description: "dcatap:applicableLegislation"
 cardinality: MULTIPLE
@@ -865,7 +865,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.healthCategory"
+qualifiedName: "healthdcatap.healthCategory"
 displayName: "Catégorie de données de santé"
 description: >
   healthdcatap:healthCategory — remplace les tags healthCategory:* (dépréciés).
@@ -910,7 +910,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.healthTheme"
+qualifiedName: "healthdcatap.healthTheme"
 displayName: "Thème de santé"
 description: "healthdcatap:healthTheme — vocabulaire EHDS"
 cardinality: MULTIPLE
@@ -939,7 +939,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.purpose"
+qualifiedName: "healthdcatap.purpose"
 displayName: "Finalité"
 description: "dpv:hasPurpose — description courte de la finalité du traitement"
 cardinality: SINGLE
@@ -947,7 +947,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.provenance"
+qualifiedName: "healthdcatap.provenance"
 displayName: "Provenance"
 description: "dct:provenance"
 cardinality: SINGLE
@@ -955,7 +955,7 @@ valueType: "rich_text"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.personalData"
+qualifiedName: "healthdcatap.personalData"
 displayName: "Catégories de données personnelles"
 description: >
   dpv:hasPersonalData — remplace les tags personalData:* (dépréciés).
@@ -978,7 +978,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.language"
+qualifiedName: "healthdcatap.language"
 displayName: "Langue"
 description: "dct:language — vocabulaire EU Publications Office"
 cardinality: MULTIPLE
@@ -989,7 +989,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.issued"
+qualifiedName: "healthdcatap.issued"
 displayName: "Date de publication"
 description: "dct:issued"
 cardinality: SINGLE
@@ -997,7 +997,7 @@ valueType: "date"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.contactPointName"
+qualifiedName: "healthdcatap.contactPointName"
 displayName: "Point de contact — nom"
 description: "dcat:contactPoint (vcard:fn)"
 cardinality: SINGLE
@@ -1005,7 +1005,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.contactPointEmail"
+qualifiedName: "healthdcatap.contactPointEmail"
 displayName: "Point de contact — email"
 description: "dcat:contactPoint (vcard:hasEmail) — adresse email nue (pas de préfixe mailto:)"
 cardinality: SINGLE
@@ -1013,7 +1013,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.contactPointUrl"
+qualifiedName: "healthdcatap.contactPointUrl"
 displayName: "Point de contact — URL"
 description: >
   dcat:contactPoint (vcard:hasURL). Obligatoire pour la conformité SHACL du
@@ -1023,7 +1023,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.retentionPeriodStart"
+qualifiedName: "healthdcatap.retentionPeriodStart"
 displayName: "Conservation — début"
 description: >
   healthdcatap:retentionPeriod (dcat:startDate). Remplace
@@ -1034,7 +1034,7 @@ valueType: "date"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.retentionPeriodEnd"
+qualifiedName: "healthdcatap.retentionPeriodEnd"
 displayName: "Conservation — fin"
 description: "healthdcatap:retentionPeriod (dcat:endDate)"
 cardinality: SINGLE
@@ -1042,7 +1042,7 @@ valueType: "date"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.isReferencedBy"
+qualifiedName: "healthdcatap.isReferencedBy"
 displayName: "Référencé par"
 description: "dct:isReferencedBy — URI absolue de publication associée (un DOI nu doit être préfixé https://doi.org/)"
 cardinality: MULTIPLE
@@ -1050,7 +1050,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.accessUrl"
+qualifiedName: "healthdcatap.accessUrl"
 displayName: "URL d'accès"
 description: "dcat:accessURL — au niveau de l'asset (Dataset DataHub), pas du DataProduct. URI absolue exigée"
 cardinality: SINGLE
@@ -1058,7 +1058,7 @@ valueType: "string"
 entityTypes: [dataset]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.downloadUrl"
+qualifiedName: "healthdcatap.downloadUrl"
 displayName: "URL de téléchargement"
 description: "dcat:downloadURL — URI absolue exigée"
 cardinality: SINGLE
@@ -1066,7 +1066,7 @@ valueType: "string"
 entityTypes: [dataset]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.distributionFormat"
+qualifiedName: "healthdcatap.distributionFormat"
 displayName: "Format de la distribution"
 description: >
   dct:format — vocabulaire EU Publications Office file-type. NDJSON n'existe
@@ -1083,7 +1083,7 @@ allowedValues:
 entityTypes: [dataset]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.distributionStatus"
+qualifiedName: "healthdcatap.distributionStatus"
 displayName: "Statut de la distribution"
 description: "adms:status — vocabulaire EU Publications Office distribution-status"
 cardinality: SINGLE
@@ -1094,7 +1094,7 @@ allowedValues:
 entityTypes: [dataset]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.publisherName"
+qualifiedName: "healthdcatap.publisherName"
 displayName: "Éditeur — nom"
 description: "dct:publisher / foaf:name — obligatoire (foaf:name, minCount 1 dans le nœud)"
 cardinality: SINGLE
@@ -1102,7 +1102,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.publisherHomepage"
+qualifiedName: "healthdcatap.publisherHomepage"
 displayName: "Éditeur — site web"
 description: "dct:publisher / foaf:homepage — obligatoire (:HealthPublisherAgent_Shape) — URI absolue exigée"
 cardinality: SINGLE
@@ -1110,7 +1110,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.publisherEmail"
+qualifiedName: "healthdcatap.publisherEmail"
 displayName: "Éditeur — email"
 description: "dct:publisher / foaf:mbox — obligatoire (:HealthPublisherAgent_Shape) — adresse email nue (pas de préfixe mailto:)"
 cardinality: SINGLE
@@ -1118,7 +1118,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.publisherType"
+qualifiedName: "healthdcatap.publisherType"
 displayName: "Type d'éditeur"
 description: >
   healthdcatap:publisherType — obligatoire pour le publisher (:HealthPublisherAgent_Shape).
@@ -1141,7 +1141,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.publisherNote"
+qualifiedName: "healthdcatap.publisherNote"
 displayName: "Note sur l'éditeur"
 description: >
   healthdcatap:publisherNote — obligatoire pour le publisher. R7 utilise dct:description
@@ -1152,7 +1152,7 @@ valueType: "rich_text"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.trustedDataHolder"
+qualifiedName: "healthdcatap.trustedDataHolder"
 displayName: "Détenteur de confiance"
 description: >
   healthdcatap:trustedDataHolder (xsd:boolean) — obligatoire pour le publisher.
@@ -1170,7 +1170,7 @@ allowedValues:
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.creatorName"
+qualifiedName: "healthdcatap.creatorName"
 displayName: "Créateur — nom"
 description: "dct:creator / foaf:name — obligatoire (foaf:name, minCount 1 dans le nœud)"
 cardinality: SINGLE
@@ -1178,7 +1178,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.creatorHomepage"
+qualifiedName: "healthdcatap.creatorHomepage"
 displayName: "Créateur — site web"
 description: "dct:creator / foaf:homepage — URI absolue exigée"
 cardinality: SINGLE
@@ -1186,7 +1186,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.creatorEmail"
+qualifiedName: "healthdcatap.creatorEmail"
 displayName: "Créateur — email"
 description: "dct:creator / foaf:mbox — adresse email nue (pas de préfixe mailto:)"
 cardinality: SINGLE
@@ -1194,7 +1194,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.hdabName"
+qualifiedName: "healthdcatap.hdabName"
 displayName: "HDAB — nom"
 description: "healthdcatap:hdab / foaf:name — obligatoire (foaf:name, minCount 1 dans le nœud)"
 cardinality: SINGLE
@@ -1202,7 +1202,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.hdabHomepage"
+qualifiedName: "healthdcatap.hdabHomepage"
 displayName: "HDAB — site web"
 description: "healthdcatap:hdab / foaf:homepage — obligatoire (:HealthAgent_Shape) — URI absolue exigée"
 cardinality: SINGLE
@@ -1210,7 +1210,7 @@ valueType: "string"
 entityTypes: [dataProduct]
 ---
 kind: STRUCTURED_PROPERTY
-qualifiedName: "fr.aphp.healthdcat.hdabEmail"
+qualifiedName: "healthdcatap.hdabEmail"
 displayName: "HDAB — email"
 description: "healthdcatap:hdab / foaf:mbox — obligatoire (:HealthAgent_Shape) — adresse email nue (pas de préfixe mailto:)"
 cardinality: SINGLE
